@@ -32,7 +32,7 @@ def file_hashes(folder, expected_names):
 def check_public(public, public_names=PUBLIC_NAMES):
     names = {entry.name for entry in public.iterdir()}
     if public.is_symlink() or names != set(public_names) or any(entry.is_symlink() or not entry.is_file() for entry in public.iterdir()):
-        raise ValueError(f'{public} must contain exactly the three native inputs and instruction.md')
+        raise ValueError(f'{public} must contain only the expected input files: {tuple(public_names)}')
 
 
 def freeze_layouts(source, selected):
@@ -124,17 +124,18 @@ def isolated_check(mounts, env, source, run_directory, public_names=PUBLIC_NAMES
     code = ('import pathlib,sys,openpyxl,docx,pptx; '
             'root=pathlib.Path.cwd(); '
             'entries={p.name:p for p in root.iterdir()}; '
-            'assert set(sys.argv[1:5]) <= set(entries); '
-            'extras=set(entries)-set(sys.argv[1:5]); '
+            'boundary=int(sys.argv[1])+2; names=set(sys.argv[2:boundary]); '
+            'assert names <= set(entries); '
+            'extras=set(entries)-names; '
             'assert extras <= {".git",".agents",".aws",".codex"}; '
             'assert all(entries[e].is_dir() and not list(entries[e].iterdir()) for e in extras); '
-            'assert all(not pathlib.Path(p).exists() for p in sys.argv[5:]); '
+            'assert all(not pathlib.Path(p).exists() for p in sys.argv[boundary:]); '
             'assert not pathlib.Path("/mnt/workspace/private").exists(); '
             'probe=(root/".write_probe"); probe.write_text("ok"); probe.unlink(); '
             'print("isolated native input, Python libraries, and writable tool workspace verified")')
     sandbox_probe = ['/mnt/codex-bin/codex', 'sandbox', '-c', 'sandbox_mode="workspace-write"',
                      '-c', 'sandbox_workspace_write.network_access=false', '--', 'python', '-c', code,
-                     *public_names, str(source), str(run_directory), str(DEFAULT_SOURCE.parents[4])]
+                     str(len(public_names)), *public_names, str(source), str(run_directory), str(DEFAULT_SOURCE.parents[4])]
     probe = subprocess.run(mounts + sandbox_probe, env=env, capture_output=True, text=True, timeout=30)
     if probe.returncode:
         raise RuntimeError(f'Public-only filesystem check failed ({probe.returncode}): {probe.stderr.strip()}')
@@ -189,7 +190,8 @@ def edit_scope(office_files, editable_files):
             f'The following files are read-only evidence: {evidence}. Leave their contents and files unchanged. ')
 
 
-def run_layout(name, frozen, output, route, effort, timeout, preflight_only, *, response_only=False):
+def run_layout(name, frozen, output, route, effort, timeout, preflight_only, *, response_only=False,
+               grader=grade, task_suffix=None):
     package = Path(frozen['package'])
     office_files = tuple(frozen.get('office_files', OFFICE_FILES))
     names = office_files + ('instruction.md',)
@@ -211,10 +213,11 @@ def run_layout(name, frozen, output, route, effort, timeout, preflight_only, *, 
     auth_home = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex')))
     prompt = (workspace / 'instruction.md').read_text(encoding='utf-8')
     if not response_only:
-        prompt += ('\n\n' + edit_scope(office_files, frozen.get('editable_files'))
-                   + 'Use the Office libraries available in Python when useful. Preserve unrelated content and native chart data. '
-                   'The workspace files and the task instruction are your evidence. Save the edited files in place. '
-                   'A final chat message does not replace the modified files.')
+        prompt += '\n\n' + edit_scope(office_files, frozen.get('editable_files'))
+        prompt += task_suffix if task_suffix is not None else (
+            'Use the Office libraries available in Python when useful. Preserve unrelated content and native chart data. '
+            'The workspace files and the task instruction are your evidence. Save the edited files in place. '
+            'A final chat message does not replace the modified files.')
     (output / 'prompt.txt').write_text(prompt, encoding='utf-8')
 
     start = time.monotonic()
@@ -263,9 +266,9 @@ def run_layout(name, frozen, output, route, effort, timeout, preflight_only, *, 
     elif report['missing_office_files']:
         report.update(status='COMPLETED', native_pass=False, reason='missing or non-regular native submission')
     else:
-        score = grade(workspace, json.loads(oracle_path.read_text(encoding='utf-8')))
+        score = grader(workspace, json.loads(oracle_path.read_text(encoding='utf-8')))
         save(output / 'native_evaluation.json', score)
-        report.update(status='COMPLETED', native_pass=score['pass'], score_groups=score['groups'])
+        report.update(status='COMPLETED', native_pass=score['pass'], score_groups=score.get('groups', {}))
     save(output / 'run.json', report)
     return report
 

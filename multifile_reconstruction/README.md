@@ -1,5 +1,18 @@
 # 多文件证据重建与增量维护：最小实验
 
+## 有状态酒店审批实验
+
+有状态版本用 Excel 保存申请、签发快照和名额释放记录。评测逐步调用 Agent 提交的 Python 命令，每一步重新打开同一份工作簿，核对返回值、状态和保留内容。
+
+```bash
+python -m multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_stateful_bench
+python -m multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_stateful_agent
+```
+
+在 `ICM2027` 根目录运行。构建器需要 `openpyxl` 和 `bubblewrap`。模型实测还需要 Codex CLI 与已授权的 OpenAI 登录。生成资产在 `multifile_reconstruction/reasoning_graph_mvp/logic_first/business_artifacts/hotel_stateful_actions/`。新建一组实验时，为生成器传入 `--output`，为运行器传入同一路径的 `--source`。
+
+连续模式继承每轮实际提交的可读工作簿和程序，包括业务检查失败的提交。独立模式每轮使用标准前序版本。两种模式共享第一轮起点和测试。下文记录的是原有的证据重建与公式评测实验。
+
 **输入协议已修正**：不再向模型提供 JSON schema、字段清单、活动数量或按位置定义的子结构。只挂载三份原始 Office 文件和业务目标，要求模型自行组织状态。标准结构仅存在评分端。旧 `ferry/`、`ferry_revision/` 的 100/100、89/89 均属于“提供 schema 的旧实验”，不能作为无框架重建结果。后续默认输出使用 `ferry_no_schema/`、`ferry_revision_no_schema/`。旧结果完整保留。最新无框架单轮／两轮对照见下节。
 
 自由组织的JSON尚无可靠语义对齐评分器，因此其状态标为 `NOT_SCORED`，不能用标准字段路径不匹配判错，也不能报100/100。原生Office修改继续单独由隐藏Oracle评分。模型输出目录在重新运行前会归档到私有目录，避免上次包含标准答案的评分文件通过输出挂载被模型看到。
