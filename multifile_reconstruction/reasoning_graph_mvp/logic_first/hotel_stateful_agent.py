@@ -49,7 +49,7 @@ def freeze(package):
             'oracle_sha256': hotel_agent.digest(private / 'oracle.json')}
 
 
-def score_for(record, directory, package, stage):
+def score_for(record, directory, package, stage, grader=grade):
     result = directory / 'native_evaluation.json'
     if not result.is_file():
         events = record.get('trace', {}).get('runtime_events', [])
@@ -60,7 +60,7 @@ def score_for(record, directory, package, stage):
         if (record.get('returncode') == 0 and record.get('status') == 'RUN_ERROR' and metadata_only
                 and record.get('trace', {}).get('usage') and record.get('originals_and_oracle_unchanged')
                 and record.get('reference_unchanged')):
-            score = grade(directory / 'submission', stage, read_json(package / 'private/oracle.json'))
+            score = grader(directory / 'submission', stage, read_json(package / 'private/oracle.json'))
             save_json(result, score)
             record.update(raw_status='RUN_ERROR', status='COMPLETED', native_pass=score['pass'])
     return read_json(result) if result.is_file() else None

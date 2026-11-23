@@ -13,6 +13,17 @@ python -m multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_statefu
 
 连续模式继承每轮实际提交的可读工作簿和程序，包括业务检查失败的提交。独立模式每轮使用标准前序版本。两种模式共享第一轮起点和测试。下文记录的是原有的证据重建与公式评测实验。
 
+## 第三轮业务升级范围对照
+
+两臂共用第一、二轮的实际成果、Excel 账本和 Word/PPT 报告模板。第二轮开始，每次生效的业务操作同步当前报告，签发保存独立 Word/PPT 快照。第三轮窄版新增退款。扩大版另外接入退款冲销、跨月更正、审批撤回和报告修订。评分比较共同测试和扩大版独有的交互测试。
+
+```bash
+python -m multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_upgrade_bench
+python -m multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_upgrade_agent
+```
+
+构建过程使用三种酒店数与名额规模，生成连续操作序列。通过标准、未编辑及故障对照后冻结资产、评分源码和 Oracle 哈希。运行器先验证哈希，分别报告共享和新增测试，并归档实际输入输出。两臂同时改变了新增功能数量和交互范围，结果用于衡量升级范围的影响。
+
 **输入协议已修正**：不再向模型提供 JSON schema、字段清单、活动数量或按位置定义的子结构。只挂载三份原始 Office 文件和业务目标，要求模型自行组织状态。标准结构仅存在评分端。旧 `ferry/`、`ferry_revision/` 的 100/100、89/89 均属于“提供 schema 的旧实验”，不能作为无框架重建结果。后续默认输出使用 `ferry_no_schema/`、`ferry_revision_no_schema/`。旧结果完整保留。最新无框架单轮／两轮对照见下节。
 
 自由组织的JSON尚无可靠语义对齐评分器，因此其状态标为 `NOT_SCORED`，不能用标准字段路径不匹配判错，也不能报100/100。原生Office修改继续单独由隐藏Oracle评分。模型输出目录在重新运行前会归档到私有目录，避免上次包含标准答案的评分文件通过输出挂载被模型看到。

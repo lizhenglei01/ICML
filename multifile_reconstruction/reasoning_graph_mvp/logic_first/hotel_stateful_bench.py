@@ -90,10 +90,10 @@ All existing request, issue, release and promote actions must function with the 
     return shared + ''.join(stages[n] for n in range(1, stage + 1))
 
 
-def start_workbook(path):
+def start_workbook(path, template=TEMPLATE):
     book = Workbook()
     book.remove(book.active)
-    for title, rows in TEMPLATE.items():
+    for title, rows in template.items():
         sheet = book.create_sheet(title)
         for row in rows:
             sheet.append(row)

@@ -19,7 +19,8 @@ PRIVATE = ROOT / 'artifacts_research_archive'
 LOGIC = Path('multifile_reconstruction/reasoning_graph_mvp/logic_first')
 ASSETS = ROOT / LOGIC / 'business_artifacts'
 LABEL = re.compile(r'[a-zA-Z0-9][a-zA-Z0-9_.\-]*')
-BUILDERS = {'stateful': 'hotel_stateful', 'workflow': 'hotel_workflow', 'routing': 'hotel_dependency_scope'}
+BUILDERS = {'stateful': 'hotel_stateful', 'workflow': 'hotel_workflow', 'routing': 'hotel_dependency_scope',
+            'upgrade': 'hotel_upgrade'}
 
 
 def read(path):
@@ -62,6 +63,9 @@ def capture_run_environment(kind):
     support = ('hotel_stateful_reference.py',) if kind == 'stateful' else ('hotel_office.py', 'hotel_milestone_formulas.py')
     if kind == 'workflow':
         support += ('hotel_workflow_cases.py',)
+    if kind == 'upgrade':
+        support = ('hotel_upgrade_cases.py', 'hotel_upgrade_reference.py', 'hotel_stateful_reference.py',
+                   'hotel_stateful_bench.py', 'hotel_stateful_agent.py')
     return {'git_commit': git('rev-parse', 'HEAD'), 'dirty_tree': bool(git('status', '--porcelain')),
             'python': sys.version.split()[0], 'openpyxl': version('openpyxl'),
             'codex_cli': tool_version('codex'), 'bubblewrap': tool_version('bwrap'),
@@ -163,7 +167,7 @@ def compare_results(before, after, stage):
 
 
 def flags(payload, kind, origins):
-    if kind == 'stateful':
+    if kind in ('stateful', 'upgrade'):
         return {row['name']: (row['pass'], row['introduced']) for row in payload.get('cases', [])}
     return {row['object']: (row['pass'], origins[row['object']]) for row in payload.get('checks', [])
             if row['object'] in origins}
@@ -175,7 +179,7 @@ def score_source(run, label):
 
 
 def file_differences(before, after, files, kind):
-    if kind == 'stateful':
+    if kind in ('stateful', 'upgrade'):
         import ast
         from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_stateful_bench import read_state
 
@@ -185,6 +189,8 @@ def file_differences(before, after, files, kind):
 
         old, new = functions(before), functions(after)
         return {'workbook_seed_changed': read_state(before / 'approval.xlsx') != read_state(after / 'approval.xlsx'),
+                'report_templates_changed': [name for name in files if Path(name).suffix in {'.docx', '.pptx'}
+                                             and digest(before / name) != digest(after / name)],
                 'functions_added': sorted(new.keys() - old.keys()),
                 'functions_modified': sorted(name for name in old.keys() & new.keys() if old[name] != new[name]),
                 'functions_removed': sorted(old.keys() - new.keys())}
@@ -209,6 +215,9 @@ def actual_input(package, run, label):
 
 
 def grade_before(folder, oracle, stage, kind):
+    if kind == 'upgrade':
+        from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_upgrade_bench import grade
+        return grade(folder, oracle)
     if kind == 'stateful':
         from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_stateful_bench import grade
         return grade(folder, stage, oracle)
@@ -260,7 +269,7 @@ def hotel(kind, title, label, source, run, source_review=None):
                      allowed={'.json', '.py', '.xlsx', '.docx', '.pptx'})
         after_score = read(score_source(run, name))
         archive.add(score_source(run, name), f'{name}/evaluation/scoring.json', 'original_evaluation')
-        origins = read(private / 'milestone.json').get('formula_check_stage', {}) if kind != 'stateful' else {}
+        origins = read(private / 'milestone.json').get('formula_check_stage', {}) if kind not in ('stateful', 'upgrade') else {}
         replay_path = f'{name}/evaluation/baseline_replay.json'
         if (archive.private / replay_path).is_file():
             archive.add(archive.private / replay_path, replay_path, 'retrospective_baseline')
@@ -270,11 +279,13 @@ def hotel(kind, title, label, source, run, source_review=None):
             archive.derived(replay_path, baseline, 'retrospective_baseline')
         before_flags, after_flags = flags(baseline, kind, origins), flags(after_score, kind, origins)
         tests[name] = {'original_pass': after_score['pass'], 'score_available': True,
-                       'units': 'action sequence' if kind == 'stateful' else 'formula assertion',
+                       'units': 'action sequence' if kind in ('stateful', 'upgrade') else 'formula assertion',
                        'baseline_status': baseline.get('status', 'native_grade'),
                        'checks_passed': sum(ok for ok, _ in after_flags.values()), 'checks_total': len(after_flags)}
-        if kind == 'stateful':
+        if kind in ('stateful', 'upgrade'):
             tests[name].update({key: record.get(key) for key in ('step_count', 'step_pass_count')})
+        if kind == 'upgrade':
+            tests[name].update({key: record.get(key) for key in ('matched_cases', 'expanded_only')})
         if (run / name / 'business_evaluation.json').is_file():
             tests[name]['business_rescore_pass'] = bool(read(run / name / 'business_evaluation.json')['pass'])
         regressions[name] = compare_results(before_flags, after_flags, stage) if before_flags else {'baseline_available': False}
@@ -301,6 +312,17 @@ def hotel(kind, title, label, source, run, source_review=None):
 
 
 def dependency_report(kind, archive, run):
+    if kind == 'upgrade':
+        checks = {}
+        for name in ('m3_narrow', 'm3_expanded'):
+            path = score_source(run, name)
+            if path.is_file():
+                groups = ('refund_release_gate', 'signing_before_refund', 'reversal_after_slot_taken',
+                          'withdraw_and_reassign', 'cross_month_publish_versions')
+                checks[name] = {group: {'passed': sum(row['pass'] for row in rows), 'total': len(rows)}
+                                for group in groups if (rows := [row for row in read(path)['cases'] if row['scenario'] == group])}
+        return {'runs': checks, 'scope': 'Matched inputs and existing operations; expanded branch adds operations and interactions.',
+                'comparison_limitation': 'The two treatments differ in both functional scope and dependencies.'}
     if kind == 'stateful':
         summary = {}
         for name in ('m3_continuous', 'm3_independent'):
@@ -347,6 +369,8 @@ def task_specs(folder, kind):
         'stateful': [('建立申请和正式签发', 2), ('释放名额、排候补并递补', 3), ('接入退款并复测旧操作', 1)],
         'workflow': [('经营底稿', None), ('审批与发布', None), ('退款与续约', None)],
         'routing': [('经营计算', None), ('新签审批', None), ('续约政策路由', None)],
+        'upgrade': [('建立申请和正式签发', 2), ('释放名额、排候补并跨文件发布', 3),
+                    ('同一前序下的窄版退款和扩大版多业务升级', None)],
     }
     text = '# 任务范围\n\n'
     for stage, (name, count) in enumerate(specs[kind], 1):
@@ -355,6 +379,8 @@ def task_specs(folder, kind):
         text += '。\n'
     if kind == 'workflow':
         text += '\n每轮登记 10 个结果列。该口径包含中间计算。\n'
+    if kind == 'upgrade':
+        text += '\nM3 窄版新增一个操作；扩大版新增五个。两组共用基础测试，扩大版另测新流程衔接。\n'
     text += '\n构建者指定业务条件。实际输入、原提示词、测试场景和标准答案见私有清单。\n'
     target = folder / 'task_specs/README.md'
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -535,7 +561,8 @@ def refresh_docs():
 
 
 def archive_hotel_run(kind, source, run, *, label=None, title=None, source_review=None):
-    titles = {'stateful': '有状态酒店审批', 'workflow': '酒店公式工作流', 'routing': '酒店政策路由对照'}
+    titles = {'stateful': '有状态酒店审批', 'workflow': '酒店公式工作流', 'routing': '酒店政策路由对照',
+              'upgrade': '酒店业务升级范围对照'}
     archive = hotel(kind, title or titles[kind], label or run.name, source, run, source_review)
     write_analysis(archive, kind)
     refresh_docs()
