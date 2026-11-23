@@ -1,0 +1,22 @@
+{
+  "title": "赛事场馆分布复核",
+  "scenario": "你为赛事资料整理组核对一份冻结的数据快照。请仅依据附件分析场馆使用与成绩记录分布；这不是对真实赛事安排的现实可行性评估。",
+  "business_assumptions": [
+    "每行成绩数据代表一条成绩记录，不等于一名不同运动员。",
+    "不同运动员按编号去重；只统计本次快照中已有的记录。",
+    "最多的场馆须列出所有并列者，用原始场馆编号回答。",
+    "没有相应记录的场馆仍包含在统计范围内，其条数为零。"
+  ],
+  "intervention": {"table": "event", "row_key": {"ID": 3}, "column": "Stadium_ID", "value": 1},
+  "stage2_instruction": "现在收到模拟安排变更：赛事编号3（World Master）的举办场馆调整为场馆编号1（Nou Mestalla）。其他源记录保持不变。请执行这项数据变更，重新回答完全相同的业务目标，逐项判断相对原始快照的真实答案是否变化，并说明证据。如果发现自己第一阶段算错，应纠正，但不要把纠错本身当成事实变化。",
+  "goals": [
+    {"id": "G1", "question": "场馆编号1关联多少条成绩记录？", "type": "count", "plan": {"source": "record", "target": "stadium", "aggregate": "count"}, "group": 1},
+    {"id": "G2", "question": "场馆编号2关联多少条成绩记录？", "type": "count", "plan": {"source": "record", "target": "stadium", "aggregate": "count"}, "group": 2},
+    {"id": "G3", "question": "哪些场馆关联的成绩记录最多？", "type": "id_set", "plan": {"source": "record", "target": "stadium", "aggregate": "count"}, "result": "leaders"},
+    {"id": "G4", "question": "本次快照共有多少条成绩记录？", "type": "count", "total": {"table": "record"}},
+    {"id": "G5", "question": "本次快照共登记多少场赛事？", "type": "count", "total": {"table": "event"}},
+    {"id": "G6", "question": "场馆编号1的成绩记录涉及多少名不同运动员？", "type": "count", "plan": {"source": "record", "target": "stadium", "aggregate": "count_distinct", "distinct_column": "Swimmer_ID"}, "group": 1},
+    {"id": "G7", "question": "场馆编号5关联多少条成绩记录？", "type": "count", "plan": {"source": "record", "target": "stadium", "aggregate": "count"}, "group": 5},
+    {"id": "G8", "question": "场馆编号1承办多少场已登记赛事？", "type": "count", "plan": {"source": "event", "target": "stadium", "aggregate": "count"}, "group": 1}
+  ]
+}

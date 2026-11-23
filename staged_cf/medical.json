@@ -1,0 +1,22 @@
+{
+  "title": "医疗主要任职分布复核",
+  "scenario": "你为资料复核组分析一份医疗关系数据快照，仅评估登记关系和统计结果，不推断临床诊疗或预约的现实可行性。",
+  "business_assumptions": [
+    "科室医生人数只统计主要任职；同一医生的次要任职不重复计入。",
+    "本次假设每名医生恰有一个主要科室，名单包含所有并列最多的科室。",
+    "没有主要任职医生的科室也保留，人数为零。",
+    "患者的主管医生和既有预约属于独立记录，不能根据医生主要任职变动擅自改写。"
+  ],
+  "intervention": {"table": "Affiliated_With", "row_key": {"Physician": 1, "Department": 1}, "column": "Department", "value": 2},
+  "stage2_instruction": "现在收到模拟任职调整：医生编号1（John Dorian）的主要科室改为科室编号2。只更新这条主要任职记录，其他任职、患者、护士和预约保持不变。重新回答同一组业务目标，逐项判断相对原始快照的真实答案是否变化；发现自己第一阶段的错误可以纠正，纠错本身不等于事实变化。",
+  "goals": [
+    {"id":"G1","question":"科室编号1有多少名主要任职医生？","type":"count","plan":{"source":"Affiliated_With","target":"Department","aggregate":"count","filter":{"column":"PrimaryAffiliation","equals":1}},"group":1},
+    {"id":"G2","question":"科室编号2有多少名主要任职医生？","type":"count","plan":{"source":"Affiliated_With","target":"Department","aggregate":"count","filter":{"column":"PrimaryAffiliation","equals":1}},"group":2},
+    {"id":"G3","question":"哪些科室的主要任职医生人数最多？","type":"id_set","plan":{"source":"Affiliated_With","target":"Department","aggregate":"count","filter":{"column":"PrimaryAffiliation","equals":1}},"result":"leaders"},
+    {"id":"G4","question":"资料共登记多少名医生？","type":"count","total":{"table":"Physician"}},
+    {"id":"G5","question":"资料共登记多少名患者？","type":"count","total":{"table":"Patient"}},
+    {"id":"G6","question":"科室编号3有多少名主要任职医生？","type":"count","plan":{"source":"Affiliated_With","target":"Department","aggregate":"count","filter":{"column":"PrimaryAffiliation","equals":1}},"group":3},
+    {"id":"G7","question":"资料共登记多少条任职关系（包括次要任职）？","type":"count","total":{"table":"Affiliated_With"}},
+    {"id":"G8","question":"医生编号1作为主管医生负责多少名已登记患者？","type":"count","plan":{"source":"Patient","target":"Physician","aggregate":"count"},"group":1}
+  ]
+}

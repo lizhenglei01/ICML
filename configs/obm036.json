@@ -1,0 +1,11 @@
+{
+  "schema": "cfbench-obm036-parameters-v1",
+  "interventions": [
+    {"id": "flip", "prior_millions": "2600"},
+    {"id": "same_status", "prior_millions": "2350"},
+    {"id": "new_decline", "prior_millions": "2800.5"},
+    {"id": "new_growth", "prior_millions": "2400.5"},
+    {"id": "new_flat", "prior_millions": "2466"},
+    {"id": "near_baseline", "prior_millions": "2300.1"}
+  ]
+}

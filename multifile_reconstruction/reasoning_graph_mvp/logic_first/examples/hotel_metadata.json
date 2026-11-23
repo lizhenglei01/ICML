@@ -1,0 +1,128 @@
+{
+  "topic": "酒店运营评审 / Hotel operations review",
+  "label": "优选运营组 / Preferred operations group",
+  "entities": [
+    "Hotel A",
+    "Hotel B",
+    "Hotel C",
+    "Hotel D",
+    "Hotel E",
+    "Hotel F",
+    "Hotel G",
+    "Hotel H",
+    "Hotel I",
+    "Hotel J",
+    "Hotel K",
+    "Hotel L"
+  ],
+  "metrics": [
+    {
+      "id": "guest_score",
+      "label": "宾客平均评分 / Guest score",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "service_index",
+      "label": "服务指数 / Service index",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "complaints",
+      "label": "客诉次数 / Complaints",
+      "unit": {
+        "cases": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "cleaning_index",
+      "label": "清洁指数 / Cleaning index",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "staff_index",
+      "label": "人员保障指数 / Staffing index",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "night_service",
+      "label": "夜间服务次数 / Night services",
+      "unit": {
+        "visits": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "turnaround",
+      "label": "周转时长 / Turnaround",
+      "unit": {
+        "minutes": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "energy_index",
+      "label": "能耗指数 / Energy index",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "linen",
+      "label": "布草更换量 / Linen replacements",
+      "unit": {
+        "items": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "maintenance",
+      "label": "维护次数 / Maintenance",
+      "unit": {
+        "visits": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "safety_score",
+      "label": "安全评分 / Safety score",
+      "unit": {
+        "points": 1
+      },
+      "min": 0,
+      "max": 100
+    },
+    {
+      "id": "arrival_service",
+      "label": "抵达服务次数 / Arrival services",
+      "unit": {
+        "visits": 1
+      },
+      "min": 0,
+      "max": 100
+    }
+  ]
+}

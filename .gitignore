@@ -1,0 +1,38 @@
+# Python and local tool state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+.env.*
+.codex/
+auth.json
+credentials.json
+*.pem
+*.key
+*.log
+*.pid
+.~lock.*#
+
+# Upstream checkouts and generated experiments
+/三方依赖代码/
+/upstream_checks/
+artifacts*/
+business_artifacts/
+topic_artifacts/
+results*/
+agent_runs/
+/alignment_probe/speed_comparison_*.json
+
+# Local notes, Office outputs, and figures exported for inspection
+/ICML_2027.odt
+/medical_case1_中文表格.txt
+/multifile_reconstruction/*.xlsx
+/multifile_reconstruction/*.docx
+/multifile_reconstruction/*.pptx
+/multifile_reconstruction/*.png
+/multifile_reconstruction/*.svg
+/multifile_reconstruction/*.json

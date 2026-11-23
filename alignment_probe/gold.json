@@ -1,0 +1,23 @@
+{
+  "annotation_status": "Developer source-audited for this fixture; no independent human study",
+  "scope": "Given the OBM-036 Review table and Word paragraph 19; sheet and sentence selection are manual",
+  "word_paragraph_zero_based": 19,
+  "source_evidence": [
+    "Word paragraph 18 explicitly ties the percentage to Review's current-in-millions value and synthetic prior comparator",
+    "Word paragraph 19 asserts approximately 7.2% mild growth",
+    "Word paragraph 20 specifies (current-prior)/prior",
+    "Review!B3 contains =B2/1000000; Review!B4 contains 2300; Review!B5 contains =B3/B4-1"
+  ],
+  "sufficient_numeric_sets": [["Review!B5"], ["Review!B3", "Review!B4"]],
+  "allowed_numeric_cells": ["Review!B2", "Review!B3", "Review!B4", "Review!B5"],
+  "expected_direct_formula_precedents": {
+    "Review!B3": ["Review!B2"],
+    "Review!B5": ["Review!B3", "Review!B4"]
+  },
+  "limits": [
+    "Evidence selection is not full dependency-rule discovery",
+    "A numeric-free claim variant is a constructed probe, not an original Word paragraph",
+    "This fixture is authored training material containing explicit hints, not an unprocessed enterprise document",
+    "Correct selections do not establish a reduction in human time without a timing study"
+  ]
+}

@@ -1,0 +1,4 @@
+# Tested with z3-solver 5.4.1. Existing matplotlib and pytest are reused.
+z3-solver==5.4.1
+matplotlib
+pytest

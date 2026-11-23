@@ -1,0 +1,50 @@
+{
+  "known": [
+    {
+      "id": "room_revenue",
+      "concept": "room_revenue",
+      "kind": "base",
+      "zh": "客房收入",
+      "en": "Room revenue",
+      "meaning": "同一季度、同一酒店的客房收入，人民币",
+      "unit": {
+        "CNY": 1
+      }
+    },
+    {
+      "id": "available_room_nights",
+      "concept": "available_room_nights",
+      "kind": "base",
+      "zh": "可售间夜数",
+      "en": "Available room nights",
+      "meaning": "同一季度、同一酒店可售的间夜数，正数",
+      "unit": {
+        "room_night": 1
+      }
+    },
+    {
+      "id": "sold_room_nights",
+      "concept": "sold_room_nights",
+      "kind": "base",
+      "zh": "已售间夜数",
+      "en": "Sold room nights",
+      "meaning": "同一季度、同一酒店已售的付费间夜数，正数",
+      "unit": {
+        "room_night": 1
+      }
+    }
+  ],
+  "target": {
+    "id": "revpar",
+    "concept": "revpar",
+    "kind": "derived",
+    "zh": "每间可售客房收入",
+    "en": "RevPAR",
+    "meaning": "同一季度每可售间夜的客房收入",
+    "unit": {
+      "CNY": 1,
+      "room_night": -1
+    }
+  },
+  "desired_paths": 2
+}

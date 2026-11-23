@@ -1,0 +1,36 @@
+{
+  "schema": "cfbench-obm036-rules-v1",
+  "scope": "Explicitly registered rules for one upstream fixture; no dependency discovery",
+  "numeric_rules": [
+    {"output": "millions", "operation": "divide_constant", "input": "usd", "constant": "1000000", "condition": "Source unit is USD; output unit is USD millions", "evidence": ["unit_review.xlsx/Review!B3: =B2/1000000", "unit_review.xlsx/Approval!B2:B3"]},
+    {"output": "yoy", "operation": "ratio_minus_one", "numerator": "millions", "denominator": "prior", "condition": "Synthetic prior comparator > 0, in the same presentation unit", "evidence": ["unit_review.xlsx/Review!B5: =B3/B4-1", "management_discussion.docx/paragraph[20]"]}
+  ],
+  "semantic_rule": {
+    "input": "yoy",
+    "positive_upper_exclusive": "0.1",
+    "labels": {"negative": "下降", "zero": "持平", "positive": "增长"},
+    "positive_qualifier": "温和增长",
+    "condition": "Negative means decline; zero means unchanged; only 0<yoy<0.1 is supported for mild growth",
+    "evidence": ["management_discussion.docx/paragraph[18]", "management_discussion.docx/paragraph[19]", "management_discussion.docx/paragraph[23]: single-digit positive percentages can be described as mild growth"],
+    "author_added": "Decline/flat sign interpretation and explicit 0.1 upper bound are registered benchmark conventions, not an extracted company policy"
+  },
+  "bindings": {
+    "source_usd": "Facts!I2 and Review!B2",
+    "intervention": "Review!B4",
+    "current_label": "Approval!B4",
+    "summary_paragraph": 3,
+    "percentage_paragraph": 18,
+    "interpretation_paragraph": 19,
+    "historical_paragraphs": [50, 51, 52, 53, 54]
+  },
+  "edges": [
+    {"from": "usd", "to": "millions", "rule": "divide by 1000000", "condition": "USD to USD millions", "evidence": "unit_review.xlsx/Review!B3"},
+    {"from": "millions", "to": "yoy", "rule": "millions/prior-1", "condition": "prior>0", "evidence": "unit_review.xlsx/Review!B5; Word paragraph[20]"},
+    {"from": "prior", "to": "yoy", "rule": "millions/prior-1", "condition": "same presentation unit", "evidence": "unit_review.xlsx/Review!B4:B5; Word paragraph[20]"},
+    {"from": "prior", "to": "comparator_label", "rule": "format current synthetic comparator", "condition": "current approval summary, not historical signed record", "evidence": "unit_review.xlsx/Approval!B4"},
+    {"from": "prior", "to": "summary", "rule": "format comparator with one decimal", "condition": "current executive summary", "evidence": "management_discussion.docx/paragraph[3]"},
+    {"from": "millions", "to": "summary", "rule": "format current value with one decimal", "condition": "current executive summary", "evidence": "management_discussion.docx/paragraph[3]"},
+    {"from": "yoy", "to": "numeric_claim", "rule": "one decimal percentage, half away from zero", "condition": "current percentage statement", "evidence": "management_discussion.docx/paragraph[18]; rounding convention registered by builder"},
+    {"from": "yoy", "to": "semantic_claim", "rule": "registered sign and mild-growth classification", "condition": "negative / zero / 0<yoy<0.1", "evidence": "management_discussion.docx/paragraph[18:24]; author-added negative/zero conventions"}
+  ]
+}

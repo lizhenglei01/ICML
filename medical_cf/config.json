@@ -1,0 +1,7 @@
+{
+  "interventions": [
+    {"id": "john_to_surgery", "physician": 1, "department": 2},
+    {"id": "john_to_psychiatry", "physician": 1, "department": 3},
+    {"id": "elliot_to_surgery", "physician": 2, "department": 2}
+  ]
+}
