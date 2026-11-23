@@ -1,0 +1,67 @@
+{
+  "family": "upgrade",
+  "label": "gpt62_upgrade_20261123T161601107239Z",
+  "private_archive": {
+    "anchor_files": {
+      "m1/evaluation/scoring.json": "ec2d2b20b63482f60d7d6994d27bc246c7f5f39781bcbd9f22efec5801d3acf8",
+      "m1/grader/oracle.json": "3ff0fcf6f21e25cd001041c8b341b75501b76aa85ef790e7ff2efc3b72aa6d72",
+      "m1/input/instruction.md": "1e8614ed9099ae06394642329d18310bcbb6042e4e590d8efc612cdfb60161c0",
+      "m2/evaluation/scoring.json": "da652d3e6544b3254ea4a92321d29f0ac55d07554745f8ad41733b6c653cabc0",
+      "m2/grader/oracle.json": "40fa04501969b66cd0a7b5dcedbde727cbeb293f96df6d210190979329889e7a",
+      "m2/input/instruction.md": "84b2582f7457a893c4b0d036c21d8f7dcb38fa538782bc581a185979375e997f",
+      "m3_expanded/evaluation/scoring.json": "2e9faa83e27fdfc7b3eb498bf8657e78d1603d13a1fb84f65930c2b1f7fe81ca",
+      "m3_expanded/grader/oracle.json": "2211165b38090664bb1683d756e2c86bc4b547594c16353de760c66edb48ddf5",
+      "m3_expanded/input/instruction.md": "44c1208fbc2a3ee33d8432d83238363833e898b1439d2cdf17ead98fdcc87308",
+      "m3_narrow/evaluation/scoring.json": "89f8c01ee9ccc2d025b92534c0aef43208bddbd0cf51df87343fc1e3579075f9",
+      "m3_narrow/grader/oracle.json": "fb43dcde6880d5f61127a74d083cca594153558af40d71873eefd7636ab56a39",
+      "m3_narrow/input/instruction.md": "28aa2fa20d704de3b710ced7b6363cc4c4fbeea4744b211d697ce1593abe613e",
+      "run/results.json": "d72817faabe51c58ec9ee19b826b8db3db7c30fda32cc57a4708243b72c7fa84"
+    },
+    "files": 118,
+    "inventory": "inventory.json",
+    "inventory_sha256": "06f76e4df0d4cf7b77374e9d01b7c6bf34eb164f941eb27de17e1b38f78b9e70",
+    "location": "artifacts_research_archive/gpt62_upgrade_20261123T161601107239Z/",
+    "roles": {
+      "construction": 1,
+      "environment": 1,
+      "execution": 1,
+      "fault_controls": 15,
+      "input": 20,
+      "object_or_code_changes": 4,
+      "oracle_reference_and_build": 28,
+      "original_evaluation": 4,
+      "original_or_review": 3,
+      "retrospective_baseline": 4,
+      "submission": 16,
+      "trace_or_review": 21
+    }
+  },
+  "provenance": {
+    "baseline_replay_commit": "e8f5859de26724e0099737580dbdc70b10a49011",
+    "note": null,
+    "recorded_at_run": {
+      "bubblewrap": "bubblewrap 0.6.1",
+      "codex_cli": "codex-cli 0.169.0",
+      "dirty_tree": false,
+      "git_commit": "e8f5859de26724e0099737580dbdc70b10a49011",
+      "libreoffice": "LibreOffice 7.3.7.2 30(Build:2)",
+      "openpyxl": "3.1.5",
+      "python": "3.13.5",
+      "seed": null,
+      "source_sha256": {
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_agent.py": "c91fc829df457e4ee2bad5b558f3594cdf8ef0506123a37fdc13bcbfaec7dc65",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_stateful_agent.py": "3d7fd92688c20d07f0c4d8eb2ea9ffabd82b49be4313af339dad3160dd8d85b9",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_stateful_bench.py": "d0c8d72214c79e11ed9d413e8b3ba9192f6c1ed485c6429006a1f48222afdf0d",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_stateful_reference.py": "c2d117ee1a4bffb1c9d624a7538058c1f7ace0e1005269d94ddc363f3c8f6f67",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_upgrade_agent.py": "1e2c7b5b468f9b0e54e5f99c815c924adf52286d4ab1a880e260195980ea1ae5",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_upgrade_bench.py": "be5af1e3f2ad651380424af4376b14f1fb317506dd462768ffb8ad4147d380cb",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_upgrade_cases.py": "2ffadc963db5764f91981d5f25fa9c3be5eaa80aa740326e95cd3686ab1a479c",
+        "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_upgrade_reference.py": "fa3f380de981e703ffce39f73bd613b512eb7edf2e4c83e809793db9b5e1ac5b"
+      }
+    },
+    "source_review_commit": null
+  },
+  "run_id": "gpt62_upgrade_20261123T161601107239Z",
+  "schema_version": 1,
+  "title": "酒店业务升级范围对照"
+}

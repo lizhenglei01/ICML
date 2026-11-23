@@ -1,0 +1,49 @@
+{
+  "comparison_limitation": "The two treatments differ in both functional scope and dependencies.",
+  "diagnostic_rescore": {
+    "arm": "m3_expanded",
+    "business_pass": true,
+    "case_count": 36,
+    "diagnostic_cases_passed": 36,
+    "diagnostic_steps_passed": 249,
+    "original_cases_passed": 30,
+    "reason": "The task requires refreshing Reviewed ADR for a reserved application. It does not specify the value at the released-to-waiting transition.",
+    "replayed_cases": 6,
+    "step_count": 249
+  },
+  "runs": {
+    "m3_expanded": {
+      "cross_month_publish_versions": {
+        "passed": 3,
+        "total": 3
+      },
+      "refund_release_gate": {
+        "passed": 3,
+        "total": 3
+      },
+      "reversal_after_slot_taken": {
+        "passed": 0,
+        "total": 3
+      },
+      "signing_before_refund": {
+        "passed": 3,
+        "total": 3
+      },
+      "withdraw_and_reassign": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "m3_narrow": {
+      "refund_release_gate": {
+        "passed": 3,
+        "total": 3
+      },
+      "signing_before_refund": {
+        "passed": 3,
+        "total": 3
+      }
+    }
+  },
+  "scope": "Matched inputs and existing operations; expanded branch adds operations and interactions."
+}

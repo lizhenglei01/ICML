@@ -1,0 +1,75 @@
+{
+  "m1": {
+    "baseline_status": "checked",
+    "checks_passed": 6,
+    "checks_total": 6,
+    "expanded_only": {
+      "passed": 0,
+      "total": 0
+    },
+    "matched_cases": {
+      "passed": 6,
+      "total": 6
+    },
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 24,
+    "step_pass_count": 24,
+    "units": "action sequence"
+  },
+  "m2": {
+    "baseline_status": "checked",
+    "checks_passed": 12,
+    "checks_total": 12,
+    "expanded_only": {
+      "passed": 0,
+      "total": 0
+    },
+    "matched_cases": {
+      "passed": 12,
+      "total": 12
+    },
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 69,
+    "step_pass_count": 69,
+    "units": "action sequence"
+  },
+  "m3_expanded": {
+    "baseline_status": "checked",
+    "business_rescore_pass": true,
+    "checks_passed": 30,
+    "checks_total": 36,
+    "expanded_only": {
+      "passed": 9,
+      "total": 15
+    },
+    "matched_cases": {
+      "passed": 21,
+      "total": 21
+    },
+    "original_pass": false,
+    "score_available": true,
+    "step_count": 249,
+    "step_pass_count": 231,
+    "units": "action sequence"
+  },
+  "m3_narrow": {
+    "baseline_status": "checked",
+    "checks_passed": 21,
+    "checks_total": 21,
+    "expanded_only": {
+      "passed": 0,
+      "total": 0
+    },
+    "matched_cases": {
+      "passed": 21,
+      "total": 21
+    },
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 126,
+    "step_pass_count": 126,
+    "units": "action sequence"
+  }
+}

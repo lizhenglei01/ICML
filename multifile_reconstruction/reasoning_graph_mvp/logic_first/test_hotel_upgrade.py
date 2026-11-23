@@ -2,6 +2,7 @@
 from .hotel_stateful_bench import BOOK, PROGRAM, start_workbook
 from .hotel_upgrade_bench import grade, public_reports, validate_order
 from .hotel_upgrade_cases import LedgerModel, fixture, generated_worlds
+from .hotel_upgrade_diagnostic import retained_waiting_adr
 from .hotel_upgrade_reference import upgrade_source
 
 
@@ -33,3 +34,12 @@ def test_native_reports_and_signed_snapshot_follow_business_actions(tmp_path):
                                                    "cell(application_row, 2, 'reserved')"))
     wrong = grade(tmp_path, cases)
     assert wrong['cases'][0]['pass'] is False
+
+
+def test_waiting_adr_diagnostic_keeps_original_and_promotion_authoritative():
+    original = next(row for row in generated_worlds(3, 'expanded') if row['name'] == '101:reversal_before_promotion')
+    alternative = retained_waiting_adr(original)
+    reversal = 3
+    assert original['steps'][reversal]['workbook']['Applications'][1] == ['Alder', 'waiting', 13000]
+    assert alternative['steps'][reversal]['workbook']['Applications'][1] == ['Alder', 'waiting', 11900]
+    assert alternative['steps'][reversal + 1:] == original['steps'][reversal + 1:]

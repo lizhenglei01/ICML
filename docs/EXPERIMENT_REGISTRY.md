@@ -6,6 +6,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 
 | 实验 | Run ID | 证据 |
 |---|---|---|
+| 酒店业务升级范围对照 | `gpt62_upgrade_20261123T161601107239Z` | [公开清单](../experiments/gpt62_upgrade_20261123T161601107239Z/manifest.json) |
 | 酒店政策路由对照 | `gpt62_scope_20261123T124429168003Z` | [公开清单](../experiments/hotel_policy_routing/manifest.json) |
 | 酒店公式工作流 | `gpt62_workflow_20261123T134800813601Z` | [公开清单](../experiments/hotel_workflow_001/manifest.json) |
 | 有状态酒店审批 | `gpt62_stateful_20261123T150141302533Z` | [公开清单](../experiments/hotel_workflow_002/manifest.json) |

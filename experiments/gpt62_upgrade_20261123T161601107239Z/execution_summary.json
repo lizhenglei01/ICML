@@ -1,0 +1,95 @@
+{
+  "m1": {
+    "change_summary": {
+      "functions_added": [
+        "eligible_adr",
+        "issue",
+        "ledger_entry",
+        "request"
+      ],
+      "functions_modified": [
+        "main"
+      ],
+      "functions_removed": [
+        "upgrade_main"
+      ],
+      "report_templates_changed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 1,
+    "starting_point": "original_workspace",
+    "status": "COMPLETED",
+    "wall_seconds": 65.99401903292164
+  },
+  "m2": {
+    "change_summary": {
+      "functions_added": [
+        "publish",
+        "refresh_reports",
+        "run_action"
+      ],
+      "functions_modified": [
+        "eligible_adr",
+        "main"
+      ],
+      "functions_removed": [
+        "issue",
+        "ledger_entry",
+        "request"
+      ],
+      "report_templates_changed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 2,
+    "starting_point": "actual_predecessor",
+    "status": "COMPLETED",
+    "wall_seconds": 173.38285108096898
+  },
+  "m3_expanded": {
+    "change_summary": {
+      "functions_added": [
+        "append_record",
+        "persist",
+        "recorded_payload",
+        "replay_result"
+      ],
+      "functions_modified": [
+        "refresh_reports",
+        "run_action"
+      ],
+      "functions_removed": [
+        "eligible_adr",
+        "publish"
+      ],
+      "report_templates_changed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "actual_predecessor",
+    "status": "COMPLETED",
+    "wall_seconds": 244.45917692093644
+  },
+  "m3_narrow": {
+    "change_summary": {
+      "functions_added": [],
+      "functions_modified": [
+        "run_action"
+      ],
+      "functions_removed": [],
+      "report_templates_changed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "actual_predecessor",
+    "status": "COMPLETED",
+    "wall_seconds": 219.0551578529412
+  }
+}

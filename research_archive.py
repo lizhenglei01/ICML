@@ -321,8 +321,12 @@ def dependency_report(kind, archive, run):
                           'withdraw_and_reassign', 'cross_month_publish_versions')
                 checks[name] = {group: {'passed': sum(row['pass'] for row in rows), 'total': len(rows)}
                                 for group in groups if (rows := [row for row in read(path)['cases'] if row['scenario'] == group])}
-        return {'runs': checks, 'scope': 'Matched inputs and existing operations; expanded branch adds operations and interactions.',
-                'comparison_limitation': 'The two treatments differ in both functional scope and dependencies.'}
+        summary = {'runs': checks, 'scope': 'Matched inputs and existing operations; expanded branch adds operations and interactions.',
+                   'comparison_limitation': 'The two treatments differ in both functional scope and dependencies.'}
+        review = run / 'business_rescore.json'
+        if review.is_file():
+            summary['diagnostic_rescore'] = read(review)
+        return summary
     if kind == 'stateful':
         summary = {}
         for name in ('m3_continuous', 'm3_independent'):
