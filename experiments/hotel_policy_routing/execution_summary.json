@@ -1,0 +1,59 @@
+{
+  "m1": {
+    "change_summary": {
+      "objects_changed_by_file": {
+        "hotel_review.xlsx": 32
+      }
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 1,
+    "starting_point": "original_workspace",
+    "status": "COMPLETED",
+    "wall_seconds": 169.5938638590742
+  },
+  "m2": {
+    "change_summary": {
+      "objects_changed_by_file": {
+        "hotel_policy.docx": 1,
+        "hotel_review.xlsx": 19
+      }
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 2,
+    "starting_point": "actual_m1_submission",
+    "status": "COMPLETED",
+    "wall_seconds": 158.99399175297003
+  },
+  "m3_a": {
+    "change_summary": {
+      "objects_changed_by_file": {
+        "hotel_briefing.pptx": 5,
+        "hotel_policy.docx": 2,
+        "hotel_review.xlsx": 115
+      }
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "actual_m2_submission",
+    "status": "COMPLETED",
+    "wall_seconds": 194.427750390023
+  },
+  "m3_b": {
+    "change_summary": {
+      "objects_changed_by_file": {
+        "hotel_briefing.pptx": 5,
+        "hotel_policy.docx": 2,
+        "hotel_review.xlsx": 24
+      }
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "actual_m2_submission",
+    "status": "COMPLETED",
+    "wall_seconds": 159.12821792496834
+  }
+}

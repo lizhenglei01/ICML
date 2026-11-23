@@ -1,0 +1,120 @@
+{
+  "by_milestone": {
+    "milestone_001": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 0,
+      "none_to_pass_achieved": 97,
+      "none_to_pass_required": 97,
+      "pass_to_pass_achieved": 2156,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "pass_to_pass_required": 2156
+    },
+    "milestone_002": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 0,
+      "none_to_pass_achieved": 1,
+      "none_to_pass_missing": 0,
+      "none_to_pass_required": 1,
+      "pass_to_pass_achieved": 1658,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "pass_to_pass_required": 1658
+    },
+    "milestone_003_sub-01": {
+      "fail_to_pass_achieved": 4,
+      "fail_to_pass_required": 4,
+      "none_to_pass_achieved": 138,
+      "none_to_pass_missing": 0,
+      "none_to_pass_required": 181,
+      "pass_to_pass_achieved": 910,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "pass_to_pass_required": 910
+    },
+    "milestone_003_sub-02": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 0,
+      "none_to_pass_achieved": 0,
+      "none_to_pass_required": 95,
+      "pass_to_pass_achieved": 643,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 1314,
+      "pass_to_pass_required": 1957
+    },
+    "milestone_003_sub-03": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 0,
+      "none_to_pass_achieved": 0,
+      "none_to_pass_missing": 440,
+      "none_to_pass_required": 83,
+      "pass_to_pass_achieved": 643,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 507,
+      "pass_to_pass_required": 1150
+    },
+    "milestone_003_sub-04": {
+      "fail_to_pass_achieved": 12,
+      "fail_to_pass_required": 12,
+      "none_to_pass_achieved": 11,
+      "none_to_pass_required": 81,
+      "pass_to_pass_achieved": 636,
+      "pass_to_pass_failed": 4,
+      "pass_to_pass_missing": 903,
+      "pass_to_pass_required": 1543
+    },
+    "milestone_004": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 4,
+      "none_to_pass_achieved": 0,
+      "none_to_pass_required": 0,
+      "pass_to_pass_achieved": 680,
+      "pass_to_pass_failed": 56,
+      "pass_to_pass_missing": 486,
+      "pass_to_pass_required": 1222
+    },
+    "milestone_006": {
+      "fail_to_pass_achieved": 6,
+      "fail_to_pass_required": 6,
+      "none_to_pass_achieved": 0,
+      "none_to_pass_missing": 0,
+      "none_to_pass_required": 0,
+      "pass_to_pass_achieved": 1063,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "pass_to_pass_required": 1063
+    },
+    "milestone_007": {
+      "fail_to_pass_achieved": 0,
+      "fail_to_pass_required": 0,
+      "none_to_pass_achieved": 7,
+      "none_to_pass_missing": 2,
+      "none_to_pass_required": 9,
+      "pass_to_pass_achieved": 1410,
+      "pass_to_pass_failed": 0,
+      "pass_to_pass_missing": 0,
+      "pass_to_pass_required": 1410
+    }
+  },
+  "corrected_replay_003_sub_02": {
+    "fail_to_pass_achieved": 0,
+    "fail_to_pass_required": 0,
+    "none_to_pass_achieved": 83,
+    "none_to_pass_missing": 0,
+    "none_to_pass_required": 95,
+    "pass_to_pass_achieved": 1956,
+    "pass_to_pass_failed": 1,
+    "pass_to_pass_missing": 0,
+    "pass_to_pass_required": 1957
+  },
+  "original": {
+    "available": 0,
+    "blocked": 0,
+    "early_unlocked": 9,
+    "error": 0,
+    "failed": 6,
+    "passed": 3,
+    "skipped": 0,
+    "submitted": 0
+  }
+}

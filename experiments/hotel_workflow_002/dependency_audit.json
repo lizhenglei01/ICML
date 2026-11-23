@@ -1,0 +1,16 @@
+{
+  "checked": "remove persisted release and attempt promotion; execute signing and refund in both orders",
+  "runs": {
+    "m3_continuous": {
+      "refund_then_attempt_to_sign": true,
+      "refund_with_release_blocked": true,
+      "sign_then_refund": true
+    },
+    "m3_independent": {
+      "refund_then_attempt_to_sign": true,
+      "refund_with_release_blocked": true,
+      "sign_then_refund": true
+    }
+  },
+  "scope": "actual action traces; no claim about untested operations"
+}

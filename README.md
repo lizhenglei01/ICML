@@ -1,5 +1,7 @@
 # CFBench 第一阶段：复用 OfficeEditBench 资产生成反事实任务
 
+当前研究进展与证据索引见 [项目进度](docs/PROJECT_STATUS.md)、[实验索引](docs/EXPERIMENT_REGISTRY.md) 和 [已知问题](docs/KNOWN_ISSUES.md)。
+
 本目录新增一个薄扩展层，不改动四个上游仓库。当前覆盖 OfficeEditBench OBM-036 的真实上游 XLSX + DOCX 文件；不生成替代 Office 模板，不实现通用编辑 Agent。
 
 四个项目的实现边界、可复用代码和与研究目标的关系见 [UPSTREAM_AUDIT.md](UPSTREAM_AUDIT.md)。已读取本目录的 `ICML_2027.odt` 和上级的交接说明。

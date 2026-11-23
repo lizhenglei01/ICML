@@ -1,0 +1,50 @@
+{
+  "family": "stateful",
+  "label": "hotel_workflow_002",
+  "private_archive": {
+    "anchor_files": {
+      "m1/evaluation/scoring.json": "edd4015b0569a781c5d3c841b25707121d18f9ed68ca5511c7bfd0fd71530774",
+      "m1/grader/oracle.json": "ca91b6691b47b073da38da856d329ed13116f2c5238aad62fd585e1a76df06b8",
+      "m1/input/instruction.md": "f68f1a4a1951aa59025e6993264a0c5f77310c340c4837b38ed1d92be0d7c0ee",
+      "m2_continuous/evaluation/scoring.json": "0cebfccf541a0411edaeb4d5c036c75884603bca2e5bdcb49636a8363207a961",
+      "m2_continuous/grader/oracle.json": "97fb28ddae2f399755871d3fa58f93a9bb1b94202d54845ba5bf97c4962e6fa2",
+      "m2_continuous/input/instruction.md": "ac8e52fac527bbb8a8e7ad54341da87a3550982343475b476045e55250fdff80",
+      "m2_independent/evaluation/scoring.json": "0cebfccf541a0411edaeb4d5c036c75884603bca2e5bdcb49636a8363207a961",
+      "m2_independent/grader/oracle.json": "97fb28ddae2f399755871d3fa58f93a9bb1b94202d54845ba5bf97c4962e6fa2",
+      "m2_independent/input/instruction.md": "ac8e52fac527bbb8a8e7ad54341da87a3550982343475b476045e55250fdff80",
+      "m3_continuous/evaluation/scoring.json": "63cee41507980d82db9a6ab985473f7fe3e56044900c3ddef79b5e2beb34d86c",
+      "m3_continuous/grader/oracle.json": "98bbcb756b26c99d4244ed8f4039c0b1d108318ff522d51ae7dd03252c4f83b4",
+      "m3_continuous/input/instruction.md": "896e09d2e4fa3622d195445490836f064a1c3f5b5966c5ebe2bae524adb83c4b",
+      "m3_independent/evaluation/scoring.json": "63cee41507980d82db9a6ab985473f7fe3e56044900c3ddef79b5e2beb34d86c",
+      "m3_independent/grader/oracle.json": "98bbcb756b26c99d4244ed8f4039c0b1d108318ff522d51ae7dd03252c4f83b4",
+      "m3_independent/input/instruction.md": "896e09d2e4fa3622d195445490836f064a1c3f5b5966c5ebe2bae524adb83c4b",
+      "run/results.json": "611fba34d92c225d42b03c5efde277fd347e4606c82fb609cbfdc2fe90335f53"
+    },
+    "files": 102,
+    "inventory": "inventory.json",
+    "inventory_sha256": "ec3cff9ea118bc2c5b7e09e89a564cbe03cbb6adbbb43f0d0415d5a8e614ec9f",
+    "location": "artifacts_research_archive/gpt62_stateful_20261123T150141302533Z/",
+    "roles": {
+      "construction": 1,
+      "environment": 1,
+      "execution": 1,
+      "fault_controls": 9,
+      "input": 15,
+      "object_or_code_changes": 5,
+      "oracle_reference_and_build": 25,
+      "original_evaluation": 5,
+      "retrospective_baseline": 5,
+      "submission": 10,
+      "trace_or_review": 25
+    }
+  },
+  "provenance": {
+    "baseline_replay_commit": "bd7bf30bf75dc0a4e935b1de4b47227be538cfc7",
+    "note": "Historical run has no recorded project commit or tool versions.",
+    "recorded_at_run": null,
+    "source_review_commit": "bd7bf30"
+  },
+  "run_id": "gpt62_stateful_20261123T150141302533Z",
+  "schema_version": 1,
+  "title": "有状态酒店审批"
+}

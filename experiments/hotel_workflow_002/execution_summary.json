@@ -1,0 +1,110 @@
+{
+  "m1": {
+    "change_summary": {
+      "functions_added": [
+        "eligible_adr",
+        "issue",
+        "ledger_entry",
+        "request"
+      ],
+      "functions_modified": [],
+      "functions_removed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 1,
+    "starting_point": "standard",
+    "status": "COMPLETED",
+    "wall_seconds": 78.63316273200326
+  },
+  "m2_continuous": {
+    "change_summary": {
+      "functions_added": [
+        "apply",
+        "has_capacity",
+        "oldest_unconsumed_release",
+        "policy",
+        "promote",
+        "release",
+        "reserved_application",
+        "waitlist"
+      ],
+      "functions_modified": [
+        "issue",
+        "request"
+      ],
+      "functions_removed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 2,
+    "starting_point": "actual_predecessor",
+    "status": "COMPLETED",
+    "wall_seconds": 103.61701601103414
+  },
+  "m2_independent": {
+    "change_summary": {
+      "functions_added": [
+        "apply_for_seat",
+        "oldest_unconsumed_release",
+        "promote",
+        "release",
+        "waitlist"
+      ],
+      "functions_modified": [
+        "metrics",
+        "request"
+      ],
+      "functions_removed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 2,
+    "starting_point": "standard",
+    "status": "COMPLETED",
+    "wall_seconds": 93.84893753100187
+  },
+  "m3_continuous": {
+    "change_summary": {
+      "functions_added": [
+        "record_release",
+        "refund"
+      ],
+      "functions_modified": [
+        "eligible_adr",
+        "ledger_entry",
+        "release"
+      ],
+      "functions_removed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "actual_predecessor",
+    "status": "COMPLETED",
+    "wall_seconds": 114.98321249999572
+  },
+  "m3_independent": {
+    "change_summary": {
+      "functions_added": [
+        "record_release",
+        "refund"
+      ],
+      "functions_modified": [
+        "release"
+      ],
+      "functions_removed": [],
+      "workbook_seed_changed": false
+    },
+    "effort": "medium",
+    "model": "gpt-6.2-sol",
+    "stage": 3,
+    "starting_point": "standard",
+    "status": "COMPLETED",
+    "wall_seconds": 110.07746841805056
+  }
+}

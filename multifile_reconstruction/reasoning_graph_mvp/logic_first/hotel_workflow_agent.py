@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from alignment_probe.codex_transport import configured_route
+from research_archive import archive_hotel_run, capture_run_environment
 
 from .hotel_agent import freeze_packages
 from .hotel_dependency_scope_agent import MODEL, summarize
@@ -85,6 +86,7 @@ def run(source, output, timeout):
     packages = {label: source / label for label in PACKAGES}
     output.mkdir(parents=True)
     save_json(output / 'plan.json', {'model': MODEL, 'effort': 'medium', 'timeout_seconds': timeout,
+        'environment_at_run': capture_run_environment('workflow'),
         'shared_prefix': ['m1', 'm2'], 'branches': ['m3_manual', 'm3_linked'],
         'starting_point': 'Carry the actual predecessor after a passing score. Use canonical controls after a nonpassing or invalid predecessor.'})
     print('HOTEL_WORKFLOW_FREEZING', str(output), flush=True)
@@ -121,6 +123,7 @@ def run(source, output, timeout):
             name, start = calls[call]
             finish(name, call.result(), start)
     compare_submissions(source, output)
+    archive_hotel_run('workflow', source, output)
     print('HOTEL_WORKFLOW_COMPLETE', str(output), flush=True)
 
 

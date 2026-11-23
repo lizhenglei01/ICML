@@ -1,0 +1,36 @@
+{
+  "m1": {
+    "baseline_status": "native_grade",
+    "checks_passed": 192,
+    "checks_total": 192,
+    "original_pass": true,
+    "score_available": true,
+    "units": "formula assertion"
+  },
+  "m2": {
+    "baseline_status": "native_grade",
+    "checks_passed": 343,
+    "checks_total": 343,
+    "original_pass": true,
+    "score_available": true,
+    "units": "formula assertion"
+  },
+  "m3_a": {
+    "baseline_status": "native_grade",
+    "business_rescore_pass": true,
+    "checks_passed": 330,
+    "checks_total": 330,
+    "original_pass": true,
+    "score_available": true,
+    "units": "formula assertion"
+  },
+  "m3_b": {
+    "baseline_status": "native_grade",
+    "business_rescore_pass": true,
+    "checks_passed": 314,
+    "checks_total": 330,
+    "original_pass": false,
+    "score_available": true,
+    "units": "formula assertion"
+  }
+}

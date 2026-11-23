@@ -1,0 +1,6 @@
+{
+  "cleanup": "The replacement repository API panicked in the official test mock. Production cleanup was not independently reproduced.",
+  "controlled_dependency_blocking": "not_run",
+  "cross_library_move": "Submitted code skipped cross-library lookup when the scan state listed one library.",
+  "scope": "Official milestone DAG plus post-run behavior diagnosis"
+}

@@ -1,0 +1,44 @@
+{
+  "family": "navidrome",
+  "label": "swe_milestone_navidrome",
+  "private_archive": {
+    "anchor_files": {
+      "evaluation/raw_summary.json": "9b1a9dadc5363d376b8d0268d4b0aa3df4699c66452fe539da3210626da00ab1",
+      "milestone_001/evaluation/source_snapshot.tar": "936ffa78f66315eb2f4afdf65409d189791b7275de05bdc93da7697c8b9d2904",
+      "milestone_002/evaluation/source_snapshot.tar": "4ea40af272ebd734aecd272498e5a06226e513c1ae6c4f77e5944c27d45b234b",
+      "milestone_003_sub-01/evaluation/source_snapshot.tar": "5252de5040ba63a827cbe12993ad3ce7359be217c5e05a3c3dd87caeff9ad3ec",
+      "milestone_003_sub-02/evaluation/source_snapshot.tar": "65a734d61fbf27fec28f0a0f2f45d746753fed148af8fa869dbec08efeca2b93",
+      "milestone_003_sub-03/evaluation/source_snapshot.tar": "25520582d40cc33102031ca92f172b87137ff8d6d4478ac8cc56d08f3ada249e",
+      "milestone_003_sub-04/evaluation/source_snapshot.tar": "88a1b145ac28ffe9bc8dc4d53550c76133f9d5e175b850742309297515c4fb9c",
+      "milestone_004/evaluation/source_snapshot.tar": "7c9361dcfeab688cac8f2aa1518b1d0bb2d947d1b070e86052f9eba85d5f734c",
+      "milestone_006/evaluation/source_snapshot.tar": "3f14333b104f4ac229eeede5e5fc5ebcc854e991fd13c2940abc311c69587ea1",
+      "milestone_007/evaluation/source_snapshot.tar": "9d7b081668cc7866cb2eb3f42f61e94c6c94d8be48e7a17c6664d4a4f9a617e2"
+    },
+    "files": 179,
+    "inventory": "inventory.json",
+    "inventory_sha256": "42e59b264ac5b64c01388af7eaa38e68a0c4882ffa97e656ff073568f4314ddf",
+    "location": "artifacts_research_archive/codex_gpt-6.2-sol_navidrome_001/",
+    "roles": {
+      "browser_reproduction": 22,
+      "diagnostic_replay": 12,
+      "environment_or_task_design": 8,
+      "historical_replay": 73,
+      "input": 9,
+      "oracle": 9,
+      "original_evaluation": 34,
+      "submission": 9,
+      "trace": 3
+    }
+  },
+  "provenance": {
+    "corrected_replay_image_id": "442f52a2fc4d720674f95756d4e886e5e84c26c4b37a8a4a554a98abe214d64d",
+    "model": "gpt-6.2-sol",
+    "note": "Milestone snapshots have exact submission SHAs. The local diagnostic scripts were outside the project Git history.",
+    "prototype_git_commit": null,
+    "reasoning_effort": "max",
+    "upstream_commit": "17a8f1593e172e26b36cea15e2b30fb9536c93f5"
+  },
+  "run_id": "codex_gpt-6.2-sol_navidrome_001",
+  "schema_version": 1,
+  "title": "SWE-Milestone Navidrome 九轮对照"
+}

@@ -1,0 +1,106 @@
+{
+  "after": "preserved original score",
+  "baseline": "retrospective replay of recorded pre-submission input",
+  "by_stage": {
+    "m1": {
+      "new": {
+        "count": 2,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 2,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 0,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      }
+    },
+    "m2_continuous": {
+      "new": {
+        "count": 3,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 3,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 2,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 2
+      }
+    },
+    "m2_independent": {
+      "new": {
+        "count": 3,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 3,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 2,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 2
+      }
+    },
+    "m3_continuous": {
+      "new": {
+        "count": 6,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 6,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 5,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 5
+      }
+    },
+    "m3_independent": {
+      "new": {
+        "count": 6,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 6,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 5,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 5
+      }
+    }
+  }
+}

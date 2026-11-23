@@ -1,0 +1,15 @@
+{
+  "scope": "Centralized versus local routing. No persisted action replay.",
+  "scoring_revision": {
+    "m3_a": {
+      "business_pass": true,
+      "original_pass": true,
+      "removed_nonapplicable_failed_checks": 0
+    },
+    "m3_b": {
+      "business_pass": true,
+      "original_pass": false,
+      "removed_nonapplicable_failed_checks": 16
+    }
+  }
+}

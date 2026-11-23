@@ -1,0 +1,52 @@
+{
+  "m1": {
+    "baseline_status": "checked",
+    "checks_passed": 2,
+    "checks_total": 2,
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 9,
+    "step_pass_count": 9,
+    "units": "action sequence"
+  },
+  "m2_continuous": {
+    "baseline_status": "checked",
+    "checks_passed": 5,
+    "checks_total": 5,
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 26,
+    "step_pass_count": 26,
+    "units": "action sequence"
+  },
+  "m2_independent": {
+    "baseline_status": "checked",
+    "checks_passed": 5,
+    "checks_total": 5,
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 26,
+    "step_pass_count": 26,
+    "units": "action sequence"
+  },
+  "m3_continuous": {
+    "baseline_status": "checked",
+    "checks_passed": 11,
+    "checks_total": 11,
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 58,
+    "step_pass_count": 58,
+    "units": "action sequence"
+  },
+  "m3_independent": {
+    "baseline_status": "checked",
+    "checks_passed": 11,
+    "checks_total": 11,
+    "original_pass": true,
+    "score_available": true,
+    "step_count": 58,
+    "step_pass_count": 58,
+    "units": "action sequence"
+  }
+}

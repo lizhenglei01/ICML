@@ -9,6 +9,7 @@ from shutil import copy2
 from threading import Lock
 
 from alignment_probe.codex_transport import configured_route
+from research_archive import archive_hotel_run, capture_run_environment
 
 from . import hotel_agent
 from .hotel_graph import read_json, save_json
@@ -93,6 +94,7 @@ def run(source, output, timeout):
     route['model'] = MODEL
     output.mkdir(parents=True)
     save_json(output / 'plan.json', {'model': MODEL, 'effort': 'medium', 'shared_initial_run': 'm1',
+        'environment_at_run': capture_run_environment('stateful'),
         'continuous': 'Carry every readable actual submission regardless of score.',
         'independent': 'Use the standard previous program and workbook at every milestone.'})
     lock = Lock()
@@ -136,6 +138,7 @@ def run(source, output, timeout):
         continuous(*chain)
         for future in controls:
             future.result()
+    archive_hotel_run('stateful', source, output)
     print('STATEFUL_MODEL_COMPLETE', output, flush=True)
 
 

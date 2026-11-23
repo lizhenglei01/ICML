@@ -1,0 +1,49 @@
+{
+  "family": "workflow",
+  "label": "hotel_workflow_001",
+  "private_archive": {
+    "anchor_files": {
+      "m1/evaluation/scoring.json": "7ebb8e6edb0f04388c5b64de00cfda1fa53b9bae6fa3d2f81dcba89978e0adcb",
+      "m1/grader/oracle.json": "450c18465fa473ff81fa1e8e03511d27a328ddcde0bf672520b5d7cd8b966114",
+      "m1/input/instruction.md": "f41a664d464648fb47fcbe28bfe3e5711dad0090f583bd2a0549422fbdda5539",
+      "m2/evaluation/scoring.json": "01ed0addae36ec066a8bea1e87f20f53936b541c6c9df8d6015ddb8a8b29e093",
+      "m2/grader/oracle.json": "7716b774cf6e25a92f47855a342e76eb1407a626067af3ebdc47c8d23ce8585a",
+      "m2/input/instruction.md": "81552147c27f781ccf96f7b1f120974261b6741f802744ea3c23e9169ef3dfe3",
+      "m3_linked/evaluation/scoring.json": "fc8c931c10327a9ee3a50249142349353cc25c6b868d81b744d752748221db36",
+      "m3_linked/grader/oracle.json": "26cbb2e0cc17e1084a9f4ffea59423a44f591c5be076aadb3fbe462cb617581c",
+      "m3_linked/input/instruction.md": "4e58d2f637f82ca3c305854cbf6d22430809f95ccc29d5213a9c5b34eb3ec661",
+      "m3_manual/evaluation/scoring.json": "791750a994440f69031ed6265cdf66a76a62cdb13aa22edda7303c56b0c4e3f7",
+      "m3_manual/grader/oracle.json": "293aa54706157209ae23f21727f72fe0bf3b9a5488ceb9c4f52861b599d3200d",
+      "m3_manual/input/instruction.md": "4e68c371d4dd6021bd22343ebb486cfed43671d51b267be38fcb404e2c3574e5",
+      "run/results.json": "5d42ed4baeef150412846d1ccf661ad2ca34c14ebbc4edd9c27106216d91c85e"
+    },
+    "files": 123,
+    "inventory": "inventory.json",
+    "inventory_sha256": "60436f666c6573f1f1662052e27fa42d5e0c49f0ea33e8ed8866000544358003",
+    "location": "artifacts_research_archive/gpt62_workflow_20261123T134800813601Z/",
+    "roles": {
+      "construction": 1,
+      "dependency_intervention": 1,
+      "environment": 1,
+      "execution": 1,
+      "fault_controls": 16,
+      "input": 16,
+      "object_or_code_changes": 4,
+      "oracle_reference_and_build": 38,
+      "original_evaluation": 4,
+      "original_or_review": 3,
+      "retrospective_baseline": 4,
+      "submission": 12,
+      "trace_or_review": 22
+    }
+  },
+  "provenance": {
+    "baseline_replay_commit": "bd7bf30bf75dc0a4e935b1de4b47227be538cfc7",
+    "note": "Historical run has no recorded project commit or tool versions.",
+    "recorded_at_run": null,
+    "source_review_commit": "8268e64"
+  },
+  "run_id": "gpt62_workflow_20261123T134800813601Z",
+  "schema_version": 1,
+  "title": "酒店公式工作流"
+}

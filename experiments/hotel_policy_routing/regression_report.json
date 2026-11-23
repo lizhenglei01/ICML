@@ -1,0 +1,86 @@
+{
+  "after": "preserved original score",
+  "baseline": "retrospective replay of recorded pre-submission input",
+  "by_stage": {
+    "m1": {
+      "new": {
+        "count": 192,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 192,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 0,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      }
+    },
+    "m2": {
+      "new": {
+        "count": 119,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 119,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 0
+      },
+      "retained": {
+        "count": 224,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 224
+      }
+    },
+    "m3_a": {
+      "new": {
+        "count": 64,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 46,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 18
+      },
+      "retained": {
+        "count": 266,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 266
+      }
+    },
+    "m3_b": {
+      "new": {
+        "count": 64,
+        "fail_to_fail": 16,
+        "fail_to_missing": 0,
+        "fail_to_pass": 30,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 18
+      },
+      "retained": {
+        "count": 266,
+        "fail_to_fail": 0,
+        "fail_to_missing": 0,
+        "fail_to_pass": 0,
+        "pass_to_fail": 0,
+        "pass_to_missing": 0,
+        "pass_to_pass": 266
+      }
+    }
+  }
+}

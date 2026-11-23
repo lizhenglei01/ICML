@@ -1,0 +1,48 @@
+{
+  "family": "routing",
+  "label": "hotel_policy_routing",
+  "private_archive": {
+    "anchor_files": {
+      "m1/evaluation/scoring.json": "27b6b483f1e74c789bc1d6612e3a1fc778fd39dadb5aea39011407688bcfafec",
+      "m1/grader/oracle.json": "d107e240187b84ca0c95e96ea746f1068387d270949a02dd68ada7a2d130bb57",
+      "m1/input/instruction.md": "b8a921619e80474f33af628cb5a19f4a89ccc91c91c27499407ed2e6cc4c531c",
+      "m2/evaluation/scoring.json": "c8c93e7e9aad9d65aa0914387322b2fc54288d562c41c28d93f2dd142345bec0",
+      "m2/grader/oracle.json": "41d8b76cf3210c01c0fec14b36bb34e3e62ac7da97efe4fd552083e1f8f7a58a",
+      "m2/input/instruction.md": "c1c4d0ef92e46162086228bca4b4fbb1a8c9f06d72918f1c91e3aec9d9556da2",
+      "m3_a/evaluation/scoring.json": "6e0efb082370262f38915701452207c32ff41ce551d4e5ce23a21828972b65bb",
+      "m3_a/grader/oracle.json": "f5384dbbd60c23a7fad6a190b714de730917bf46412a17ed626562e3c5219ce7",
+      "m3_a/input/instruction.md": "3e0bea0e6677a71cc9e1f765716ccea3298b384d28fb414d6b9ff1dd2f7afec1",
+      "m3_b/evaluation/scoring.json": "f5c3561f521d4530caae31dd76ea4e0816a2356ba573327b5b47d029887b3c46",
+      "m3_b/grader/oracle.json": "f5384dbbd60c23a7fad6a190b714de730917bf46412a17ed626562e3c5219ce7",
+      "m3_b/input/instruction.md": "3e0bea0e6677a71cc9e1f765716ccea3298b384d28fb414d6b9ff1dd2f7afec1",
+      "run/results.json": "d120a501c0cfede3beff9475864e8e95791f6cdfc94523fdb951859829699c42"
+    },
+    "files": 124,
+    "inventory": "inventory.json",
+    "inventory_sha256": "9dfc62b51d37e10410b5c53e1613d459f43c501f4c2f2e3e37f379f490a42e14",
+    "location": "artifacts_research_archive/gpt62_scope_20261123T124429168003Z/",
+    "roles": {
+      "construction": 1,
+      "environment": 1,
+      "execution": 1,
+      "fault_controls": 20,
+      "input": 16,
+      "object_or_code_changes": 4,
+      "oracle_reference_and_build": 36,
+      "original_evaluation": 4,
+      "original_or_review": 3,
+      "retrospective_baseline": 4,
+      "submission": 12,
+      "trace_or_review": 22
+    }
+  },
+  "provenance": {
+    "baseline_replay_commit": "bd7bf30bf75dc0a4e935b1de4b47227be538cfc7",
+    "note": "Historical run has no recorded project commit or tool versions.",
+    "recorded_at_run": null,
+    "source_review_commit": "8268e64"
+  },
+  "run_id": "gpt62_scope_20261123T124429168003Z",
+  "schema_version": 1,
+  "title": "酒店政策路由对照"
+}

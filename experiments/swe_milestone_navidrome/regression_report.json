@@ -1,0 +1,67 @@
+{
+  "browser_checks": {
+    "milestone_001": {
+      "save_and_reload_pass": true
+    },
+    "milestone_004": {
+      "save_and_reload_pass": true
+    }
+  },
+  "historical_test_replay": {
+    "milestone_001": {
+      "candidate_regressions": 1,
+      "previously_passing_matched": 1543,
+      "previously_passing_unverified": 709,
+      "repeated_failures": 0
+    },
+    "milestone_002": {
+      "candidate_regressions": 4,
+      "previously_passing_matched": 1654,
+      "previously_passing_unverified": 1,
+      "repeated_failures": 0
+    },
+    "milestone_003_sub-01": {
+      "candidate_regressions": 4,
+      "previously_passing_matched": 639,
+      "previously_passing_unverified": 831,
+      "repeated_failures": 0
+    },
+    "milestone_003_sub-02": {
+      "candidate_regressions": 4,
+      "previously_passing_matched": 639,
+      "previously_passing_unverified": 1396,
+      "repeated_failures": 0
+    },
+    "milestone_003_sub-03": {
+      "candidate_regressions": 4,
+      "previously_passing_matched": 639,
+      "previously_passing_unverified": 0,
+      "repeated_failures": 0
+    },
+    "milestone_003_sub-04": {
+      "candidate_regressions": 0,
+      "previously_passing_matched": 659,
+      "previously_passing_unverified": 0,
+      "repeated_failures": 56
+    },
+    "milestone_004": {
+      "candidate_regressions": 0,
+      "previously_passing_matched": 662,
+      "previously_passing_unverified": 18,
+      "repeated_failures": 56
+    },
+    "milestone_006": {
+      "candidate_regressions": 4,
+      "previously_passing_matched": 1065,
+      "previously_passing_unverified": 0,
+      "repeated_failures": 0
+    },
+    "milestone_007": {
+      "candidate_regressions": 0,
+      "previously_passing_matched": 1000,
+      "previously_passing_unverified": 417,
+      "repeated_failures": 0
+    }
+  },
+  "interpretation": "A failed old fixture may indicate incompatibility. The reproduced user editing path still saved."
+}

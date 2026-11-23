@@ -1,0 +1,16 @@
+{
+  "release_to_promotion": "bypass_observed",
+  "scope": "The release flag and promotion were computed separately in this fixture.",
+  "trace_checks": {
+    "m3_linked": {
+      "current": true,
+      "intervene_on_corrected_adr": true,
+      "intervene_on_reassessment": true
+    },
+    "m3_manual": {
+      "current": true,
+      "intervene_on_corrected_adr": true,
+      "intervene_on_reassessment": true
+    }
+  }
+}
