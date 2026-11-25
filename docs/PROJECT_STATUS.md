@@ -46,4 +46,6 @@ Lite 38 模型对照复用了 M1–M7 的冻结题面、GT 和评分器。DeepSe
 
 Qwen3.5-27B 已完成 Lite 38 M1，冻结评分 21/45。模型提交的调动台账列布局与题面约定不符，旧功能检查 21/21。M2 免费额度用尽，未评分。北京工作空间接口已验证 `qwen4-max` 登录可用，另起轨迹。[Qwen3.5-27B 结果](../experiments/lite38_model_comparison_qwen/analysis.md)
 
+Lite 38 M1 对照中，DeepSeek V4-Pro 为 35/45、Qwen4-Max 为 33/45。两者有可复核的历史人员统计错误。Qwen4-Max 另有两条旧离职报表检查从通过变为失败，诊断副本恢复原公式后通过。两条连续轨迹按用户要求在 M5 截止。[M1 对照与复核](../experiments/lite38_model_comparison_m1_diagnostic/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

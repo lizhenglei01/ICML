@@ -1,0 +1,38 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_m1_diagnostic",
+  "private_archive": {
+    "anchor_files": {},
+    "files": 2,
+    "inventory": "inventory.json",
+    "inventory_sha256": "5b257ec0f32fb44d3ff550d56e42e09f2c0dba326f72647192d5f45f26ccb726",
+    "location": "artifacts_research_archive/lite38_qwen4_m1_regression_probe_20261125/",
+    "roles": {
+      "causal_probe_result": 1,
+      "diagnostic_workbook": 1
+    }
+  },
+  "provenance": {
+    "actual_submission_sha256": "245a73de549226b3c7ac31211ba03e9db74b3ca9428d3c2cd19e6b742220dd60",
+    "frozen_score": [
+      33,
+      45
+    ],
+    "model": "qwen4-max",
+    "official_score_unchanged": true,
+    "old_checks_before": [
+      19,
+      21
+    ],
+    "old_checks_diagnostic": [
+      21,
+      21
+    ],
+    "restored_formulas": 14,
+    "scope": "post_hoc_formula_restoration_probe",
+    "source_run": "lite38_model_compare_qwen4_20261125T144745Z"
+  },
+  "run_id": "lite38_qwen4_m1_regression_probe_20261125",
+  "schema_version": 1,
+  "title": "Lite 38 Qwen4-Max M1 旧报表回归复核"
+}

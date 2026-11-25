@@ -1,0 +1,47 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_qwen4",
+  "private_archive": {
+    "anchor_files": {
+      "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
+      "m1/scoring.json": "8f9103acf2d1a223fc648b230059887ba8cfdc372bc853f9311fa278b3398e0f"
+    },
+    "files": 10,
+    "inventory": "inventory.json",
+    "inventory_sha256": "f0216a4caf65f5fe14415d2f3df0080c8046fa0e0346e51e4d7f798a49906ce6",
+    "location": "artifacts_research_archive/lite38_model_compare_qwen4_20261125T144745Z/",
+    "roles": {
+      "execution_trace": 5,
+      "frozen_suite": 1,
+      "input": 1,
+      "scoring": 1,
+      "submission": 1,
+      "task": 1
+    }
+  },
+  "provenance": {
+    "code_commit_at_start": "3ea2c2a52309ded7a0ed6e3924804ba9b66eebb3",
+    "model": "qwen4-max",
+    "requested_reasoning_effort": "medium",
+    "steps": {
+      "m1": {
+        "duration_seconds": 697.784,
+        "frozen_score": [
+          33,
+          45
+        ],
+        "input_sha256": "140d0a515b0f3a0d8e2c5da6fdb26b811e748c81873bf89bd074dc3d143a5a09",
+        "old_checks": [
+          19,
+          21
+        ],
+        "status": "completed",
+        "submission_sha256": "245a73de549226b3c7ac31211ba03e9db74b3ca9428d3c2cd19e6b742220dd60"
+      }
+    },
+    "target_last_stage": 7
+  },
+  "run_id": "lite38_model_compare_qwen4_20261125T144745Z",
+  "schema_version": 1,
+  "title": "Lite 38 连续模型对照 · qwen4-max"
+}
