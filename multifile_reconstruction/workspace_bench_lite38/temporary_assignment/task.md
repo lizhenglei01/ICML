@@ -1,0 +1,15 @@
+# Support effective-dated temporary assignments
+
+Upgrade the supplied employee management workbook. It already supports permanent department transfers. HR now needs to track temporary assignments without interrupting permanent transfers or losing historical reporting.
+
+Create a visible `TemporaryAssignments` sheet. Its first four columns must be `Employee ID`, `Start Date`, `End Date`, and `Host Department`, in that order, with input beginning at row 2. Support at least 50 records without formula edits. Leave the new input rows blank in the delivered workbook. Dates are Excel dates. Test inputs will have valid employee IDs, including stable IDs from the separated employee archive, and valid host departments. Periods for one employee do not overlap, but can be adjacent. Different employees can have concurrent assignments.
+
+At a report date, use the host department when the date is on or after the start and strictly before the end. Use the latest effective permanent department outside that period, or the starting department if no permanent transfer has taken effect. A permanent transfer during a temporary assignment still updates the permanent department. Its `From Department` refers to the previous permanent assignment. When the temporary assignment expires, the employee belongs to the latest permanent department, which may differ from the department they left at the start. Temporary assignments neither add people to the workforce nor extend employment beyond the separation date. Keep the existing headcount boundary: count an employee after their hire date and before their separation date. One employee counts in at most one department on each report date.
+
+For example, an employee in Engineering is temporarily assigned to Sales from 1 April up to but excluding 1 May. A permanent transfer from Engineering to Finance takes effect on 15 April. April reporting attributes the employee to Sales, and May reporting attributes them to Finance.
+
+Apply the rule to the existing employee department lookup, current department summary, monthly opening and ending headcounts, and annual opening and ending headcounts. Leave the workbook's existing query inputs and month/year selectors usable. Preserve the existing original roster values, permanent transfer input records, and their ability to handle at least 200 rows. Preserve hire and separation statistics, HR cost calculations, and contract reminders. A temporary assignment is neither a hire nor a separation.
+
+Keep the annual report visible and driven by the existing year selector. To identify its outputs regardless of layout, add the workbook-level names `AnnualDepartmentLabels`, `AnnualOpeningCounts`, and `AnnualEndingCounts`. Each must refer to a visible contiguous row or column of seven cells on a single sheet. The ranges must list the same departments in the same order. Opening and ending mean 1 January and 31 December of the selected year. Do not change the existing calculation locations for the employee lookup, current department summary, or monthly headcount outputs.
+
+Return the upgraded XLSX. New input in either ledger must update the reports on recalculation.
