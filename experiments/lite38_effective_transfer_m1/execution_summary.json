@@ -1,0 +1,10 @@
+{
+  "m1": {
+    "model": "gpt-6.2-sol",
+    "run_id": "gpt62_lite38_transfer_20261125T051108Z",
+    "starting_point": "original Lite 38 workbook copy",
+    "status": "completed",
+    "submission": "employee_information_management.xlsx",
+    "wall_seconds_approx": 360
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_effective_transfer_m1",
+  "private_archive": {
+    "anchor_files": {
+      "m1/input/instruction.md": "4894ee6624f627bb701531097345131c8d8f12e146fd88413b4685850df92370"
+    },
+    "files": 22,
+    "inventory": "inventory.json",
+    "inventory_sha256": "7753ab97b0e09fb80adcfa69a4392f694f9b7ea325f8c245f5d89effd1df9aca",
+    "location": "artifacts_research_archive/gpt62_lite38_transfer_20261125T051108Z/",
+    "roles": {
+      "diagnostic_replay": 2,
+      "diagnostic_review": 1,
+      "environment": 1,
+      "input": 2,
+      "oracle_reference_and_build": 10,
+      "original_evaluation": 1,
+      "submission": 1,
+      "trace_or_review": 4
+    }
+  },
+  "provenance": {
+    "input_sha256": "140d0a515b0f3a0d8e2c5da6fdb26b811e748c81873bf89bd074dc3d143a5a09",
+    "interface": "Codex CLI; existing ChatGPT login",
+    "model": "gpt-6.2-sol",
+    "note": "A preliminary score and an initially incomplete reference workbook are retained; final date-aware grader and corrected reference workbook were independently validated. The GPT run itself had no access to the reference workbook/Oracle. Development probe only, not held-out.",
+    "post_run_reference_sha256": {
+      "oracle.py": "85caf345b4aa1f47bc14b5ddcba761b44b4cd07e596560b68f713dfc96bb64e5",
+      "standard.py": "41607e758e6082b99b6b1210c59d15996b974d8032326cd730bb80c5149f9b20",
+      "validate_m1.py": "f6b56bd23dc5f88a50d0c374d8174a3d4ac920517f76cf0c094c27066f5f905d"
+    },
+    "project_commit_at_run": "b355b6a",
+    "reasoning_effort": "not separately configured",
+    "run_duration_approx_seconds": 360,
+    "run_started_utc": "2026-11-25T05:11:08Z",
+    "submission_sha256": "caa6573cd26b304b2858a3daae386bf410cc3921886adabeb77ef74222c60a47",
+    "tree_dirty_at_run": true
+  },
+  "run_id": "gpt62_lite38_transfer_20261125T051108Z",
+  "schema_version": 1,
+  "title": "Workspace-Bench Lite 38 员工调动 M1"
+}

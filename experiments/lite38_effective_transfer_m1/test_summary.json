@@ -1,0 +1,9 @@
+{
+  "m1": {
+    "grader_revision": "final date-aware as-of oracle; gold and model submission both validated",
+    "pass": true,
+    "passed": 13,
+    "total": 13,
+    "unit": "independent feature/regression assertions"
+  }
+}

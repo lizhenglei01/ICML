@@ -1,0 +1,18 @@
+{
+  "baseline_features_preserved": [
+    "employee lookup",
+    "monthly hires",
+    "monthly separations",
+    "company headcount",
+    "HR costs",
+    "contract expiry reminders",
+    "dashboard reminder count"
+  ],
+  "effective_date_cases": [
+    "2020-08-14 source department",
+    "2020-08-15 destination department",
+    "2020-08 month-end",
+    "2020-09 month-end"
+  ],
+  "result": "all listed checks pass"
+}

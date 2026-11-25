@@ -1,0 +1,9 @@
+{
+  "effect_chain": [
+    "transfer ledger",
+    "current employee profile",
+    "period-specific department headcount"
+  ],
+  "event": "effective-dated department transfer",
+  "scope_note": "Single employee/single transfer; development probe, not a broad workload sample."
+}

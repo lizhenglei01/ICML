@@ -36,3 +36,13 @@ agent_runs/
 /multifile_reconstruction/*.png
 /multifile_reconstruction/*.svg
 /multifile_reconstruction/*.json
+/multifile_reconstruction/hr_mature_system/__pycache__/
+/multifile_reconstruction/workspace_bench_lite38/__pycache__/
+/multifile_reconstruction/workspace_bench_lite38/private/
+/multifile_reconstruction/workspace_bench_lite38/agent_input/
+/multifile_reconstruction/workspace_bench_lite38/results/
+!/multifile_reconstruction/hr_mature_system/artifacts/
+!/multifile_reconstruction/hr_mature_system/artifacts/baseline/
+!/multifile_reconstruction/hr_mature_system/artifacts/baseline/*.xlsx
+!/multifile_reconstruction/hr_mature_system/artifacts/baseline/*.docx
+!/multifile_reconstruction/hr_mature_system/artifacts/baseline/*.pptx
