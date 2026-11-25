@@ -4,14 +4,15 @@
   "private_archive": {
     "anchor_files": {
       "deepseek/m3/results.json": "7aa7ff6e724f61d110c78a010cd9dcca624e9f55d7f9d0dc4a3815b3afd29645",
+      "deepseek/m4/results.json": "923f4192a511a47508a5d881c98a22012e7fac41e8eab845b75be6766ae1069f",
       "qwen4/m3/results.json": "48a5bd9ed8dcba9bb247d083baa068fe41d94da210f821733d8661e592a5f00e"
     },
-    "files": 7,
+    "files": 10,
     "inventory": "inventory.json",
-    "inventory_sha256": "a2578feccaff9a5036bb48dae28433616593d15fbce177654803b0e6071f248c",
+    "inventory_sha256": "df0669b6063e2d57e8f8317dfd050c03fd6713aea7e620a5ebcbdedabecf67c8",
     "location": "artifacts_research_archive/lite38_model_m3_m5_date_probes_20261125/",
     "roles": {
-      "date_normalization_diagnostic": 6,
+      "date_normalization_diagnostic": 9,
       "diagnostic_replay_source": 1
     }
   },
@@ -36,6 +37,26 @@
           "raw": [
             114,
             227
+          ],
+          "source_run": "lite38_model_compare_deepseek_20261125T143703Z"
+        },
+        "m4": {
+          "confirmed_submission_sha256": "92257ffcc4587a16cbe993a197602f13ebdb9538918c108fc5047ccacb80d013",
+          "diagnostic": [
+            198,
+            307
+          ],
+          "new_effect_diagnostic": [
+            12,
+            36
+          ],
+          "new_effect_raw": [
+            8,
+            36
+          ],
+          "raw": [
+            135,
+            307
           ],
           "source_run": "lite38_model_compare_deepseek_20261125T143703Z"
         }
