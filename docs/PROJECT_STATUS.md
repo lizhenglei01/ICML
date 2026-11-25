@@ -50,4 +50,6 @@ Lite 38 M1 对照中，DeepSeek V4-Pro 为 35/45、Qwen4-Max 为 33/45。两者�
 
 两组分别继承实际 M1 交付完成 M2。统一月报日期的诊断中，DeepSeek V4-Pro 借调重点检查为 5/12，Qwen4-Max 为 12/12。四条原始 Qwen4-Max 候选回归在日期复核中消失。两组原始评分保留。[M2 同口径结果](../experiments/lite38_model_comparison_deepseek_m2_diagnostic/analysis.md)
 
+两组已完成 M3。归一化报告日期后，DeepSeek V4-Pro 为 158/227、重点 16/27，Qwen4-Max 为 178/227、重点 17/27。两组均观察到前轮错误延续，本轮旧测试没有新出现的通过→失败。Qwen4-Max 在 M4 遇到百炼访问拒绝，保留 M3 提交作为续跑起点。[DeepSeek 结果](../experiments/lite38_model_comparison_deepseek/analysis.md) · [Qwen4 结果](../experiments/lite38_model_comparison_qwen4/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

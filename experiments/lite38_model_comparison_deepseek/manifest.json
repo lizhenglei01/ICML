@@ -6,21 +6,23 @@
       "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
       "m1/scoring.json": "6d5dda7b5100c4a82639a6334f6974e7901727e974d9c86f0c10ef29b91873a3",
       "m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c",
-      "m2/scoring.json": "c0e5fd3cd580bc4f1c91985a7a6b63436fa6737d62e07af1a58f21a1d84dda8f"
+      "m2/scoring.json": "c0e5fd3cd580bc4f1c91985a7a6b63436fa6737d62e07af1a58f21a1d84dda8f",
+      "m3/input/instruction.md": "27df8604b603b994add23f3e7df07181bfc17730fbc0ce8dd0bc6862f2d1c42b",
+      "m3/scoring.json": "f598d5d8212b3e5eda04d15fa15d410bc3f60ca29ef641305b1da3f7fb7f23d8"
     },
-    "files": 22,
+    "files": 34,
     "inventory": "inventory.json",
-    "inventory_sha256": "74d1afc62758632c73967899f30dc7a00baf490036b2706657b0f66cfbfc80de",
+    "inventory_sha256": "7638ae359689edafbaa8aa57595e2f5f1851158f3245a3a45aec85e1c6958191",
     "location": "artifacts_research_archive/lite38_model_compare_deepseek_20261125T143703Z/",
     "roles": {
-      "execution_trace": 10,
-      "frozen_suite": 2,
-      "input": 2,
-      "pre_edit_scoring": 1,
-      "scoring": 2,
-      "submission": 2,
-      "task": 2,
-      "test_transitions": 1
+      "execution_trace": 15,
+      "frozen_suite": 3,
+      "input": 3,
+      "pre_edit_scoring": 2,
+      "scoring": 3,
+      "submission": 3,
+      "task": 3,
+      "test_transitions": 2
     }
   },
   "provenance": {
@@ -66,6 +68,31 @@
         },
         "status": "completed",
         "submission_sha256": "c90004f0291dc01c00f41db027a393d1723f2798aa0956af3537c53cc5b8c910"
+      },
+      "m3": {
+        "duration_seconds": 1827.255,
+        "frozen_score": [
+          114,
+          227
+        ],
+        "input_sha256": "c90004f0291dc01c00f41db027a393d1723f2798aa0956af3537c53cc5b8c910",
+        "new_case_checks": [
+          32,
+          90
+        ],
+        "new_effect_checks": [
+          11,
+          27
+        ],
+        "old_check_transitions": {
+          "failed_to_failed": 55,
+          "failed_to_passed": 0,
+          "matched": 133,
+          "passed_to_failed": 0,
+          "without_baseline": 0
+        },
+        "status": "completed",
+        "submission_sha256": "880084698aeae520ad4fadbbe3710e5cee911ed54f787596ae26c1d351d1e7bf"
       }
     },
     "target_last_stage": 7

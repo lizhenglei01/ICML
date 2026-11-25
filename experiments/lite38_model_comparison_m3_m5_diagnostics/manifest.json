@@ -3,20 +3,43 @@
   "label": "lite38_model_comparison_m3_m5_diagnostics",
   "private_archive": {
     "anchor_files": {
+      "deepseek/m3/results.json": "7aa7ff6e724f61d110c78a010cd9dcca624e9f55d7f9d0dc4a3815b3afd29645",
       "qwen4/m3/results.json": "48a5bd9ed8dcba9bb247d083baa068fe41d94da210f821733d8661e592a5f00e"
     },
-    "files": 4,
+    "files": 7,
     "inventory": "inventory.json",
-    "inventory_sha256": "4791dab82ddbcd5dd2cddf01c83541109fa1442c2f9b73cfd0ffd76b4dc6e2e3",
+    "inventory_sha256": "a2578feccaff9a5036bb48dae28433616593d15fbce177654803b0e6071f248c",
     "location": "artifacts_research_archive/lite38_model_m3_m5_date_probes_20261125/",
     "roles": {
-      "date_normalization_diagnostic": 3,
+      "date_normalization_diagnostic": 6,
       "diagnostic_replay_source": 1
     }
   },
   "provenance": {
     "official_score_unchanged": true,
     "runs": {
+      "deepseek": {
+        "m3": {
+          "confirmed_submission_sha256": "880084698aeae520ad4fadbbe3710e5cee911ed54f787596ae26c1d351d1e7bf",
+          "diagnostic": [
+            158,
+            227
+          ],
+          "new_effect_diagnostic": [
+            16,
+            27
+          ],
+          "new_effect_raw": [
+            11,
+            27
+          ],
+          "raw": [
+            114,
+            227
+          ],
+          "source_run": "lite38_model_compare_deepseek_20261125T143703Z"
+        }
+      },
       "qwen4": {
         "m3": {
           "confirmed_submission_sha256": "383be82f65c44e338320ab8b87a312642cae2eb4fa55eb86d9d352df7e39351e",
