@@ -21,6 +21,7 @@ Run ID 对应一次模型运行或事后复核。公开清单提供已记录的�
 | Workspace-Bench Lite 38 工资分摊 M5 | `gpt62_lite38_evolution_m5_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m5/manifest.json) |
 | Workspace-Bench Lite 38 编制和预算审批 M6 | `gpt62_lite38_evolution_m6_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m6/manifest.json) |
 | Workspace-Bench Lite 38 历史更正与签发保护 M7 | `gpt62_lite38_evolution_m7_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m7/manifest.json) |
+| Lite 38 Qwen3.5-27B 模型对照 | `lite38_model_compare_qwen_20261125T143703Z` | [报告](../experiments/lite38_model_comparison_qwen/analysis.md) · [公开清单](../experiments/lite38_model_comparison_qwen/manifest.json) |
 
 <!-- archive-end -->
 

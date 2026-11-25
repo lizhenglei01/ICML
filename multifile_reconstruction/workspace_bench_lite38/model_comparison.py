@@ -12,6 +12,7 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 from time import monotonic
+from urllib.parse import urlsplit
 
 from research_archive import Archive, ROOT, digest, git, read, verify_inventory, write
 from .responses_transport import credential_proxy
@@ -24,6 +25,7 @@ PRIVATE = BASE / 'private'
 ROUTES = {
     'deepseek': ('deepseek-v4-pro', 'https://api.deepseek.com/responses', 'DEEPSEEK_API_KEY'),
     'qwen': ('qwen3.5-27b', 'https://maas.qianwenaiapi.com/compatible-mode/v1/responses', 'DASHSCOPE_API_KEY'),
+    'qwen4': ('qwen4-max', None, 'DASHSCOPE_API_KEY'),
 }
 LABELS = ('lite38_generic_transfer_clean_m1', 'lite38_temporary_assignment_m2',
           *(f'lite38_evolution_m{number}' for number in range(3, 8)))
@@ -60,6 +62,16 @@ def verify_frozen():
 def run_agent(route, prompt, task_name, staging, directory, original, freeze):
     model, endpoint, env_key = ROUTES[route]
     key = os.environ[env_key]
+    extra_fields = None
+    if route == 'qwen4':
+        base_url = os.environ['LITE38_DASHSCOPE_BASE_URL'].rstrip('/')
+        target = urlsplit(base_url)
+        if (target.scheme != 'https' or not (target.hostname or '').endswith('.maas.aliyuncs.com')
+                or target.username or target.password or target.query or target.fragment
+                or target.path != '/compatible-mode/v1'):
+            raise ValueError('Expected an HTTPS Alibaba Cloud Model Studio workspace base URL')
+        endpoint = base_url + '/responses'
+        extra_fields = {'enable_thinking': True}
     workspace = directory / 'workspace'
     output = directory / 'completion'
     isolated.prepare_workspace(staging, workspace, (WORKBOOK, task_name))
@@ -70,7 +82,8 @@ def run_agent(route, prompt, task_name, staging, directory, original, freeze):
     codex = Path(shutil.which('codex')).resolve()
     started_utc = datetime.now(timezone.utc).isoformat()
     start = monotonic()
-    with TemporaryDirectory(prefix='lite38_api_auth_') as auth, credential_proxy(endpoint, key, trace) as proxy:
+    with TemporaryDirectory(prefix='lite38_api_auth_') as auth, \
+            credential_proxy(endpoint, key, trace, extra_fields=extra_fields) as proxy:
         mounts = isolated.sandbox_arguments(workspace, output, Path(auth), codex)
         probe = isolated.isolated_check(mounts, env, original, freeze, (WORKBOOK, task_name))
         command = isolated.model_command(model, isolated.EFFORT)

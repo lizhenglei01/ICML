@@ -9,7 +9,7 @@ from urllib.request import Request, urlopen
 
 
 @contextmanager
-def credential_proxy(endpoint, key, trace):
+def credential_proxy(endpoint, key, trace, *, extra_fields=None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *_):
             pass
@@ -20,6 +20,9 @@ def credential_proxy(endpoint, key, trace):
                 return
             body = self.rfile.read(int(self.headers['Content-Length']))
             payload = json.loads(body)
+            if extra_fields:
+                payload.update(extra_fields)
+                body = json.dumps(payload).encode('utf-8')
             record = {'model': payload.get('model'), 'stream': payload.get('stream'),
                       'tool_names': [tool.get('name', tool.get('type')) for tool in payload.get('tools', [])]}
             headers = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json',

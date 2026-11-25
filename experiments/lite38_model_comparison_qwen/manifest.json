@@ -1,0 +1,54 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_qwen",
+  "private_archive": {
+    "anchor_files": {
+      "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
+      "m1/scoring.json": "5b2ade3f118dd3fcfaeb7c5c8ef188165b4632c026c1d194913b99c69d49c924",
+      "m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c"
+    },
+    "files": 18,
+    "inventory": "inventory.json",
+    "inventory_sha256": "de9d50cd4b8bebe6503967816fae4c56d158160929c366c29cf889b1185308bc",
+    "location": "artifacts_research_archive/lite38_model_compare_qwen_20261125T143703Z/",
+    "roles": {
+      "execution_trace": 10,
+      "frozen_suite": 2,
+      "input": 2,
+      "scoring": 1,
+      "submission": 1,
+      "task": 2
+    }
+  },
+  "provenance": {
+    "code_commit_at_start": "08d48d637bb22a2ae38697a026c0daf841749a99",
+    "model": "qwen3.5-27b",
+    "requested_reasoning_effort": "medium",
+    "steps": {
+      "m1": {
+        "duration_seconds": 354.722,
+        "frozen_score": [
+          21,
+          45
+        ],
+        "input_sha256": "140d0a515b0f3a0d8e2c5da6fdb26b811e748c81873bf89bd074dc3d143a5a09",
+        "old_checks": [
+          21,
+          21
+        ],
+        "status": "completed",
+        "submission_sha256": "25eb3bbd84c332d8d572d9838f640a5f502798de0acd5a13ded10c4dbdc8193a"
+      },
+      "m2": {
+        "duration_seconds": 20.03,
+        "input_sha256": "25eb3bbd84c332d8d572d9838f640a5f502798de0acd5a13ded10c4dbdc8193a",
+        "status": "runtime_error",
+        "submission_sha256": null
+      }
+    },
+    "target_last_stage": 7
+  },
+  "run_id": "lite38_model_compare_qwen_20261125T143703Z",
+  "schema_version": 1,
+  "title": "Lite 38 连续模型对照 · qwen3.5-27b"
+}
