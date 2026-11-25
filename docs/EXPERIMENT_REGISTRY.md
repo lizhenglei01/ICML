@@ -27,3 +27,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 ## 数据源可行性核查
 
 - 2026-11-25 · `workspace_bench_range_20261125` · [Workspace-Bench Office 样本、公式重算与选材](WORKSPACE_BENCH_FEASIBILITY.md)
+
+## 设计规格
+
+- 2026-11-25 · 非模型实验 · [初始成熟 Office HR 系统设计草案](INITIAL_MATURE_OFFICE_SYSTEM.md)。借鉴 Lite 38 工作簿模块并提出含政策、审批、归档和报告发布的基线系统。待讨论，不是已经生成或验收的任务资产。
