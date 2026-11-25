@@ -23,3 +23,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 ## 重建与核验
 
 在项目根目录执行 `python -m research_archive backfill` 可从该工作站保存的原始实验重建索引。用 `python -m research_archive verify <实验目录名>` 核对私有文件、清单和 SHA‑256。完整追溯需要这台工作站的本地档案。
+
+## 数据源可行性核查
+
+- 2026-11-25 · `workspace_bench_range_20261125` · [Workspace-Bench Office 样本、公式重算与选材](WORKSPACE_BENCH_FEASIBILITY.md)
