@@ -10,27 +10,56 @@
       "m3/input/instruction.md": "27df8604b603b994add23f3e7df07181bfc17730fbc0ce8dd0bc6862f2d1c42b",
       "m3/scoring.json": "f598d5d8212b3e5eda04d15fa15d410bc3f60ca29ef641305b1da3f7fb7f23d8",
       "m4/input/instruction.md": "40725d62713f3c28b77352ad3b33f93d196db77a2eb67a3fe088e9eb7c30abfe",
-      "m4/scoring.json": "380257184b176adeaa956d1f279e69861c28e207e26af9d94ffdd738d4dca0f6"
+      "m4/scoring.json": "380257184b176adeaa956d1f279e69861c28e207e26af9d94ffdd738d4dca0f6",
+      "m5/diagnostic_interrupted_run/payroll_month_probe/results.json": "7a7d6e4bb53d83b4383b9bb2dcc239de6207ea38c7ccf02f2ffb6b5170686f15",
+      "m5/diagnostic_interrupted_run/results.json": "7badc2f13ba7836afb9b131180a43896cc2334ef2b6660d867428972b8969de9",
+      "m5/input/instruction.md": "d1907153a6ba98e85b60184575ed269ae5864ae1e77b0816bf2a516ae58e77c1"
     },
-    "files": 46,
+    "files": 62,
     "inventory": "inventory.json",
-    "inventory_sha256": "0a306b527b5831a393a3113efc55abe1aae2862c360883b0a411e459cbd40c5a",
+    "inventory_sha256": "ab29734f4df5ffadaa76586ce0fc08c770dd49ea126f18b667f2a8ffdf48327f",
     "location": "artifacts_research_archive/lite38_model_compare_deepseek_20261125T143703Z/",
     "roles": {
-      "execution_trace": 20,
-      "frozen_suite": 4,
-      "input": 4,
+      "execution_trace": 25,
+      "frozen_suite": 5,
+      "input": 5,
+      "interrupted_workbook_diagnostic": 6,
       "pre_edit_scoring": 3,
       "scoring": 4,
-      "submission": 4,
-      "task": 4,
-      "test_transitions": 3
+      "submission": 5,
+      "task": 5,
+      "test_transitions": 3,
+      "user_requested_stage_limit": 1
     }
   },
   "provenance": {
     "code_commit_at_start": "08d48d637bb22a2ae38697a026c0daf841749a99",
+    "effective_last_stage": 5,
+    "m5_interrupted_workbook_diagnostic": {
+      "completed_submission": false,
+      "date_normalized_score": [
+        188,
+        367
+      ],
+      "frozen_method_score": [
+        112,
+        367
+      ],
+      "new_effect_checks": [
+        0,
+        10
+      ],
+      "old_cost_checks_pass_to_fail": 38,
+      "targeted_cost_month_date_probe_new_effects": [
+        2,
+        10
+      ]
+    },
     "model": "deepseek-v4-pro",
+    "provider_error": "402 Insufficient Balance",
     "requested_reasoning_effort": "medium",
+    "resume_from_stage": "m5",
+    "resume_input_sha256": "92257ffcc4587a16cbe993a197602f13ebdb9538918c108fc5047ccacb80d013",
     "steps": {
       "m1": {
         "duration_seconds": 1303.197,
@@ -120,9 +149,16 @@
         },
         "status": "completed",
         "submission_sha256": "92257ffcc4587a16cbe993a197602f13ebdb9538918c108fc5047ccacb80d013"
+      },
+      "m5": {
+        "duration_seconds": 1136.32,
+        "input_sha256": "92257ffcc4587a16cbe993a197602f13ebdb9538918c108fc5047ccacb80d013",
+        "status": "runtime_error",
+        "submission_sha256": "b20288f788b78e623e3b0cab24a48737061cec4304f2623b7466d50312d7e15c"
       }
     },
-    "target_last_stage": 7
+    "target_last_stage": 7,
+    "termination": "provider_insufficient_balance_on_m5"
   },
   "run_id": "lite38_model_compare_deepseek_20261125T143703Z",
   "schema_version": 1,

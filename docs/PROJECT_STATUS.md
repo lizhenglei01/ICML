@@ -54,4 +54,6 @@ Lite 38 M1 对照中，DeepSeek V4-Pro 为 35/45、Qwen4-Max 为 33/45。两者�
 
 DeepSeek V4-Pro 已完成 M4，冻结分 135/307，日期复核为 198/307，部门合并重点检查 12/36。69 条旧检查在相同日期复核中延续了旧失败，未观测到新的通过→失败。M5 使用实际 M4 工作簿。[DeepSeek 连续对照](../experiments/lite38_model_comparison_deepseek/analysis.md)
 
+模型对照评测已归档到各自可执行的最后一轮。DeepSeek 比较到 M4，M5 因余额不足中断。中断时保存的工作簿已完成离线复核，冻结方法为 112/367，日期复核 188/367。Qwen4-Max 比较到 M3，M4 因百炼访问拒绝中断。Qwen3.5-27B 比较到 M1，M2 因免费额度用尽中断。三条轨迹都已验证续跑起点，M6 和 M7 没有启动。[DeepSeek](../experiments/lite38_model_comparison_deepseek/analysis.md) · [Qwen4-Max](../experiments/lite38_model_comparison_qwen4/analysis.md) · [Qwen3.5-27B](../experiments/lite38_model_comparison_qwen/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。
