@@ -1,0 +1,152 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_evolution_m4",
+  "private_archive": {
+    "anchor_files": {
+      "first_m1/input/instruction.md": "40725d62713f3c28b77352ad3b33f93d196db77a2eb67a3fe088e9eb7c30abfe",
+      "first_m1/scoring.json": "b264d61bf487e378a35c5330c8b50a31b0b77a78de1a4bc58286ec911c8cc611",
+      "second_m1/input/instruction.md": "40725d62713f3c28b77352ad3b33f93d196db77a2eb67a3fe088e9eb7c30abfe",
+      "second_m1/scoring.json": "b264d61bf487e378a35c5330c8b50a31b0b77a78de1a4bc58286ec911c8cc611"
+    },
+    "files": 71,
+    "inventory": "inventory.json",
+    "inventory_sha256": "0fd6ed69bca778e0f7c29f7f9792db931aebd0308e8288b3fb6df753d923c80a",
+    "location": "artifacts_research_archive/gpt62_lite38_evolution_m4_after_20261125T115236Z/",
+    "roles": {
+      "frozen_suite": 1,
+      "hidden_inputs_and_gt": 1,
+      "input": 2,
+      "oracle_and_reference_source": 2,
+      "pre_edit_scoring": 2,
+      "preflight_validation": 1,
+      "prompt": 2,
+      "recalculated_assets": 38,
+      "reference": 1,
+      "reference_score": 1,
+      "run": 2,
+      "run_and_scoring_source": 1,
+      "runner_source": 2,
+      "scoring": 2,
+      "scoring_source": 1,
+      "submission": 2,
+      "task": 2,
+      "trace": 8
+    }
+  },
+  "provenance": {
+    "code_commit": "9db2650b30c0141335e1c19de4aa75f8c1eb8191",
+    "frozen_at_utc": "2026-11-25T12:11:07.699496+00:00",
+    "paths": {
+      "first_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            85,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "a3500a85c44008d5f15efb25b49fa7c5fbb2a7240d748aa0cf0e490cc785e378",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 222,
+          "persistent_failures": [],
+          "regressions": []
+        },
+        "started_utc": "2026-11-25T12:11:08.792927+00:00",
+        "submission_sha256": "5f3c504ac13b74f8dee31ba576d1309c39ba794c066ef6069edd9951b87f803a",
+        "wall_seconds": 713.736
+      },
+      "second_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            85,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "8a355cdc9548a8a07b30fbeec70d3ce4403dfd0052d3ecded916f3cf5c7da9b1",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 222,
+          "persistent_failures": [],
+          "regressions": []
+        },
+        "started_utc": "2026-11-25T12:11:08.764741+00:00",
+        "submission_sha256": "af29c635decfc7291d2cf8e2f202563317b93530de851748aea83b3c85d2ebef",
+        "wall_seconds": 728.629
+      }
+    },
+    "prior_run": "gpt62_lite38_evolution_m3_20261125T115236Z",
+    "recalc": "LibreOffice 7.3.7.2 30(Build:2)",
+    "stage": "m4"
+  },
+  "run_id": "gpt62_lite38_evolution_m4_after_20261125T115236Z",
+  "schema_version": 1,
+  "title": "Lite 38 M4 双轨演化"
+}
