@@ -4,19 +4,23 @@
   "private_archive": {
     "anchor_files": {
       "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
-      "m1/scoring.json": "8f9103acf2d1a223fc648b230059887ba8cfdc372bc853f9311fa278b3398e0f"
+      "m1/scoring.json": "8f9103acf2d1a223fc648b230059887ba8cfdc372bc853f9311fa278b3398e0f",
+      "m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c",
+      "m2/scoring.json": "50539a98fb938d05339165f37a8bb087e375a4b076927d2a1e9b2dcaaaeb543f"
     },
-    "files": 10,
+    "files": 22,
     "inventory": "inventory.json",
-    "inventory_sha256": "f0216a4caf65f5fe14415d2f3df0080c8046fa0e0346e51e4d7f798a49906ce6",
+    "inventory_sha256": "01711d3252c010f54f9d723600bea2fb79e578f64ac6d685e3c5a70315fa71a2",
     "location": "artifacts_research_archive/lite38_model_compare_qwen4_20261125T144745Z/",
     "roles": {
-      "execution_trace": 5,
-      "frozen_suite": 1,
-      "input": 1,
-      "scoring": 1,
-      "submission": 1,
-      "task": 1
+      "execution_trace": 10,
+      "frozen_suite": 2,
+      "input": 2,
+      "pre_edit_scoring": 1,
+      "scoring": 2,
+      "submission": 2,
+      "task": 2,
+      "test_transitions": 1
     }
   },
   "provenance": {
@@ -37,6 +41,31 @@
         ],
         "status": "completed",
         "submission_sha256": "245a73de549226b3c7ac31211ba03e9db74b3ca9428d3c2cd19e6b742220dd60"
+      },
+      "m2": {
+        "duration_seconds": 671.994,
+        "frozen_score": [
+          66,
+          133
+        ],
+        "input_sha256": "245a73de549226b3c7ac31211ba03e9db74b3ca9428d3c2cd19e6b742220dd60",
+        "new_case_checks": [
+          16,
+          54
+        ],
+        "new_effect_checks": [
+          4,
+          12
+        ],
+        "old_check_transitions": {
+          "failed_to_failed": 25,
+          "failed_to_passed": 3,
+          "matched": 76,
+          "passed_to_failed": 4,
+          "without_baseline": 0
+        },
+        "status": "completed",
+        "submission_sha256": "6d13d318c2f464f4866617dd47f11c3361560d18132c03efa74e68252b07c514"
       }
     },
     "target_last_stage": 7

@@ -1,0 +1,44 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_qwen4_m2_diagnostic",
+  "private_archive": {
+    "anchor_files": {
+      "results.json": "81ba0b2dcdc497a3d95b7383e00548132f571d5e414b31b04f5e3b364baaa771"
+    },
+    "files": 3,
+    "inventory": "inventory.json",
+    "inventory_sha256": "69d07f6817767cfff4bfb972ba6aa750060252c27ebd447d7c1ec3460699e0fd",
+    "location": "artifacts_research_archive/lite38_qwen4_m2_date_probe_20261125/",
+    "roles": {
+      "date_normalization_diagnostic": 3
+    }
+  },
+  "provenance": {
+    "diagnostic_score": [
+      118,
+      133
+    ],
+    "frozen_score": [
+      66,
+      133
+    ],
+    "model": "qwen4-max",
+    "new_effect_checks_diagnostic": [
+      12,
+      12
+    ],
+    "new_effect_checks_raw": [
+      4,
+      12
+    ],
+    "observed_pass_to_fail_diagnostic": 0,
+    "observed_pass_to_fail_raw": 4,
+    "official_score_unchanged": true,
+    "same_submission_sha256": "6d13d318c2f464f4866617dd47f11c3361560d18132c03efa74e68252b07c514",
+    "scope": "post_hoc_recalc_date_normalization",
+    "source_run": "lite38_model_compare_qwen4_20261125T144745Z"
+  },
+  "run_id": "lite38_qwen4_m2_date_probe_20261125",
+  "schema_version": 1,
+  "title": "Lite 38 Qwen4-Max M2 月报重算日期复核"
+}
