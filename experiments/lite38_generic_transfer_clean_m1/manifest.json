@@ -1,0 +1,50 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_generic_transfer_clean_m1",
+  "private_archive": {
+    "anchor_files": {
+      "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
+      "m1/scoring.json": "5f29e27340f75b2e413451d819ab34a58876720615666a87a65a75b6d75acff4"
+    },
+    "files": 22,
+    "inventory": "inventory.json",
+    "inventory_sha256": "b5a1563ff45697940e5d1c2c15e0ff4b3eb1b45e47922b072362262383c77bef",
+    "location": "artifacts_research_archive/gpt62_lite38_generic_transfer_clean_20261125T082839Z/",
+    "roles": {
+      "diagnostic_scoring": 1,
+      "environment": 1,
+      "execution_prompt": 1,
+      "hidden_test_and_gt": 1,
+      "input": 2,
+      "oracle_source": 1,
+      "recalculated_workbook": 6,
+      "reference_builder": 1,
+      "reference_workbook": 1,
+      "scorer_source": 1,
+      "scoring": 1,
+      "submission": 1,
+      "suite_manifest": 1,
+      "trace": 3
+    }
+  },
+  "provenance": {
+    "fresh_session": true,
+    "frozen_score": "41/45",
+    "frozen_suite_id": "lite38_generic_transfer_clean_v2",
+    "frozen_suite_sha256": "41029a6dff2fa617f2206bd52a92128333adea67920e2ae562cdc670a924e82a",
+    "git_commit": "86f12387b9f8b5ffefa9c1938b1568ce5ead1bd8",
+    "input_sha256": "140d0a515b0f3a0d8e2c5da6fdb26b811e748c81873bf89bd074dc3d143a5a09",
+    "model": "gpt-6.2-sol",
+    "model_duration_seconds_approx": 528,
+    "old_function_checks": "21/21",
+    "post_run_output_location_diagnostic": "45/45",
+    "prior_archived_employee_failure_reproduced": false,
+    "run_start_utc_approx": "2026-11-25T08:29:01Z",
+    "submission_sha256": "b8683753bc0ff227fa00ccf23c3fd67a41b3231205149f81c8f524cd75748917",
+    "suite_frozen_utc": "2026-11-25T08:28:39Z",
+    "task_sha256": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2"
+  },
+  "run_id": "gpt62_lite38_generic_transfer_clean_20261125T082839Z",
+  "schema_version": 1,
+  "title": "Lite 38 通用部门调动功能干净复跑"
+}
