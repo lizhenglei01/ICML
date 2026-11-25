@@ -30,4 +30,6 @@
 
 2026-11-25 两份实际 M1 提交分别继承到临时借调 M2。两组 GPT‑6.2‑sol 均通过冻结后的 133 项检查。第一组修复了一项原有离职员工调动功能，第二组保留了原有功能，两组均未观测到旧功能回归。详见 [M2 双轨演化](../experiments/lite38_temporary_assignment_m2/analysis.md)。
 
+2026-11-25 两条轨迹继续从实际 M2 文件执行重新入职 M3。冻结原分分别为 227/227 和 223/227，累计旧检查均为 133/133。轨迹二四项差异来自隐藏模板内的活动统计，题面所列实际报表全部通过。两份 M3 实际提交均归档。详见 [M3 结果](../experiments/lite38_evolution_m3/analysis.md)。
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

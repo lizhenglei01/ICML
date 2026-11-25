@@ -15,6 +15,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | Workspace-Bench Lite 38 通用调动功能 | `gpt62_lite38_generic_transfer_20261125T073431Z` | [公开清单](../experiments/lite38_generic_transfer_m1/manifest.json) |
 | Workspace-Bench Lite 38 通用调动功能干净复跑 | `gpt62_lite38_generic_transfer_clean_20261125T082839Z` | [公开清单](../experiments/lite38_generic_transfer_clean_m1/manifest.json) |
 | Workspace-Bench Lite 38 临时借调 M2 双轨演化 | `gpt62_lite38_m2_20261125T092133Z` | [公开清单](../experiments/lite38_temporary_assignment_m2/manifest.json) |
+| Workspace-Bench Lite 38 重新入职 M3 | `gpt62_lite38_evolution_m3_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m3/manifest.json) |
 
 <!-- archive-end -->
 
