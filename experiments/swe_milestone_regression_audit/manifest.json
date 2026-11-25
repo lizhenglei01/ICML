@@ -1,0 +1,40 @@
+{
+  "family": "navidrome",
+  "label": "swe_milestone_regression_audit",
+  "private_archive": {
+    "anchor_files": {
+      "analysis/results.json": "80dcf5ee958abfd156723879bd6ae4762a53ca60ba336774fab5839d4a5eb32a"
+    },
+    "files": 33,
+    "inventory": "inventory.json",
+    "inventory_sha256": "89d15ea23b5305a12e07c3afdbc755511d1f82401100202c10a01ee794c9ca75",
+    "location": "artifacts_research_archive/swe_nav_lite38_regression_audit_20261125/",
+    "roles": {
+      "browser_reproduction": 2,
+      "derived_per_test_audit": 1,
+      "diagnostic_replay": 3,
+      "execution_order_and_provenance": 2,
+      "failure_diagnostic": 2,
+      "original_evaluation": 14,
+      "original_test_outcome": 9
+    }
+  },
+  "provenance": {
+    "audit_script_sha256": "c123105a1d990e2889a39d68ef79911278bca5e9f18fef9f2679690f7f7aaed5",
+    "models_reexecuted": false,
+    "official_access": {
+      "error_code": "GatedRepo",
+      "metadata_listable": true,
+      "paper_version": "2603.13428v4",
+      "raw_files_http_status": 401,
+      "repository": "DeepCommit-ai/SWE-Milestone-log",
+      "revision": "7064a6427ae749a191f023a0ba9d8c2586315ce3"
+    },
+    "repository_head_at_audit": "5d936cd21c3935021c8aba99396f67f63ea2c149",
+    "source_experiment": "codex_gpt-6.2-sol_navidrome_001",
+    "work": "post_hoc_audit_of_local_trial"
+  },
+  "run_id": "swe_nav_lite38_regression_audit_20261125",
+  "schema_version": 1,
+  "title": "Navidrome 逐轮失分和旧测试变化复核"
+}

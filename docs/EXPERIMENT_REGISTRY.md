@@ -1,6 +1,6 @@
 # 实验索引
 
-Run ID 对应一次模型运行。公开清单提供已记录的版本、私有档案相对位置及 SHA‑256。早于 Git 初始化的实验注明源码审查版本，实际运行版本未知时保留为空。
+Run ID 对应一次模型运行或事后复核。公开清单提供已记录的版本、私有档案相对位置及 SHA‑256。早于 Git 初始化的实验注明源码审查版本，实际运行版本未知时保留为空。
 
 <!-- archive-start -->
 
@@ -11,6 +11,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | 酒店公式工作流 | `gpt62_workflow_20261123T134800813601Z` | [公开清单](../experiments/hotel_workflow_001/manifest.json) |
 | 有状态酒店审批 | `gpt62_stateful_20261123T150141302533Z` | [公开清单](../experiments/hotel_workflow_002/manifest.json) |
 | SWE-Milestone Navidrome 九轮对照 | `codex_gpt-6.2-sol_navidrome_001` | [公开清单](../experiments/swe_milestone_navidrome/manifest.json) |
+| Navidrome 九轮失败来源复核 | `swe_nav_lite38_regression_audit_20261125` | [报告](../experiments/swe_milestone_regression_audit/analysis.md) · [公开清单](../experiments/swe_milestone_regression_audit/manifest.json) |
 | Workspace-Bench Lite 38 员工调动 M1 | `gpt62_lite38_transfer_20261125T051108Z` | [公开清单](../experiments/lite38_effective_transfer_m1/manifest.json) |
 | Workspace-Bench Lite 38 通用调动功能 | `gpt62_lite38_generic_transfer_20261125T073431Z` | [公开清单](../experiments/lite38_generic_transfer_m1/manifest.json) |
 | Workspace-Bench Lite 38 通用调动功能干净复跑 | `gpt62_lite38_generic_transfer_clean_20261125T082839Z` | [公开清单](../experiments/lite38_generic_transfer_clean_m1/manifest.json) |

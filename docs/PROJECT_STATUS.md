@@ -40,4 +40,6 @@
 
 2026-11-25 Lite 38 双轨演化实验完成至 M7。轨迹一为 531/531，轨迹二冻结原分 512/531，台账日期归一化诊断为 515/531。轨迹二改变了入职日人数边界，九项旧检查由通过变为失败，诊断副本重算已定位根因。见 [M7 及五轮累计结果](../experiments/lite38_evolution_m7/analysis.md)。
 
+2026-11-25 重计本地 Navidrome 的九轮原始结果。最后一轮 56 项计分旧测试在前一轮已失败。另一轮的四项计分旧测试从通过变为失败，日志显示在模拟组件异常处中断。Lite 38 的两条轨迹在 M2–M7 确认一轮真实旧功能回归。论文实验日志需授权，整体频率还无法比较。[逐轮复核](../experiments/swe_milestone_regression_audit/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。
