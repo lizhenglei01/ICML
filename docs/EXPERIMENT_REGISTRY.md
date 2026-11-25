@@ -26,6 +26,7 @@ Run ID 对应一次模型运行或事后复核。公开清单提供已记录的�
 | Lite 38 Qwen4-Max 模型对照 | `lite38_model_compare_qwen4_20261125T144745Z` | [公开清单](../experiments/lite38_model_comparison_qwen4/manifest.json) |
 | Lite 38 M1 模型对照与旧离职报表复核 | `lite38_qwen4_m1_regression_probe_20261125` | [报告](../experiments/lite38_model_comparison_m1_diagnostic/analysis.md) · [公开清单](../experiments/lite38_model_comparison_m1_diagnostic/manifest.json) |
 | Lite 38 Qwen4-Max M2 日期重算复核 | `lite38_qwen4_m2_date_probe_20261125` | [报告](../experiments/lite38_model_comparison_qwen4_m2_diagnostic/analysis.md) · [公开清单](../experiments/lite38_model_comparison_qwen4_m2_diagnostic/manifest.json) |
+| Lite 38 DeepSeek V4-Pro M2 日期重算复核 | `lite38_deepseek_m2_date_probe_20261125` | [报告](../experiments/lite38_model_comparison_deepseek_m2_diagnostic/analysis.md) · [公开清单](../experiments/lite38_model_comparison_deepseek_m2_diagnostic/manifest.json) |
 
 <!-- archive-end -->
 

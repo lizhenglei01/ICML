@@ -1,0 +1,42 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_deepseek_m2_diagnostic",
+  "private_archive": {
+    "anchor_files": {
+      "results.json": "343f797cbd80d8699d6aa9394f2151a100bd0dcf0dccd845d1b51225cba5d832"
+    },
+    "files": 3,
+    "inventory": "inventory.json",
+    "inventory_sha256": "a9fc6f98da120e02eb9a1067f16ffd703448b0e0c961abfcce95a0e636076a05",
+    "location": "artifacts_research_archive/lite38_deepseek_m2_date_probe_20261125/",
+    "roles": {
+      "date_normalization_diagnostic": 3
+    }
+  },
+  "provenance": {
+    "diagnostic_score": [
+      103,
+      133
+    ],
+    "frozen_score": [
+      78,
+      133
+    ],
+    "model": "deepseek-v4-pro",
+    "new_effect_checks_diagnostic": [
+      5,
+      12
+    ],
+    "new_effect_checks_raw": [
+      4,
+      12
+    ],
+    "official_score_unchanged": true,
+    "same_submission_sha256": "c90004f0291dc01c00f41db027a393d1723f2798aa0956af3537c53cc5b8c910",
+    "scope": "post_hoc_recalc_date_normalization",
+    "source_run": "lite38_model_compare_deepseek_20261125T143703Z"
+  },
+  "run_id": "lite38_deepseek_m2_date_probe_20261125",
+  "schema_version": 1,
+  "title": "Lite 38 DeepSeek V4-Pro M2 月报重算日期复核"
+}

@@ -48,4 +48,6 @@ Qwen3.5-27B 已完成 Lite 38 M1，冻结评分 21/45。模型提交的调动台
 
 Lite 38 M1 对照中，DeepSeek V4-Pro 为 35/45、Qwen4-Max 为 33/45。两者有可复核的历史人员统计错误。Qwen4-Max 另有两条旧离职报表检查从通过变为失败，诊断副本恢复原公式后通过。两条连续轨迹按用户要求在 M5 截止。[M1 对照与复核](../experiments/lite38_model_comparison_m1_diagnostic/analysis.md)
 
+两组分别继承实际 M1 交付完成 M2。统一月报日期的诊断中，DeepSeek V4-Pro 借调重点检查为 5/12，Qwen4-Max 为 12/12。四条原始 Qwen4-Max 候选回归在日期复核中消失。两组原始评分保留。[M2 同口径结果](../experiments/lite38_model_comparison_deepseek_m2_diagnostic/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。
