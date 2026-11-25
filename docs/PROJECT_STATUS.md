@@ -34,4 +34,6 @@
 
 2026-11-25 两条轨迹分别从实际 M3 文件执行部门组织变更 M4。两份提交的冻结原分均为 307/307，222 项累计旧检查无回归。M5 继续继承两份实际提交。详见 [M4 结果](../experiments/lite38_evolution_m4/analysis.md)。
 
+2026-11-25 两条轨迹分别从实际 M4 文件执行工资分摊 M5，冻结原分均为 367/367，307 项累计旧检查无回归。M6 以两份 M5 实际提交作为起点。详见 [M5 结果](../experiments/lite38_evolution_m5/analysis.md)。
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

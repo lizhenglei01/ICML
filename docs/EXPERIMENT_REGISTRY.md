@@ -17,6 +17,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | Workspace-Bench Lite 38 临时借调 M2 双轨演化 | `gpt62_lite38_m2_20261125T092133Z` | [公开清单](../experiments/lite38_temporary_assignment_m2/manifest.json) |
 | Workspace-Bench Lite 38 重新入职 M3 | `gpt62_lite38_evolution_m3_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m3/manifest.json) |
 | Workspace-Bench Lite 38 部门组织变更 M4 | `gpt62_lite38_evolution_m4_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m4/manifest.json) |
+| Workspace-Bench Lite 38 工资分摊 M5 | `gpt62_lite38_evolution_m5_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m5/manifest.json) |
 
 <!-- archive-end -->
 
