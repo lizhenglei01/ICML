@@ -1,0 +1,195 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_temporary_assignment_m2",
+  "private_archive": {
+    "anchor_files": {
+      "first_m1/m2/baseline/scoring.json": "134602b97153f2103ef96e3835bf19e68bdafbbc80b140f034269fb7cd2a1adc",
+      "first_m1/m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c",
+      "first_m1/m2/scoring.json": "87c7a65d3d2963c645ce23cbee2741db3b6dd9d400b2772ed2cf762c2e1c0b57",
+      "second_m1/m2/baseline/scoring.json": "d1f7783db5cefd9e0cd7038ee9b3fc8c8b30b77b6c65d7b3e16c4d6ac2096dfc",
+      "second_m1/m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c",
+      "second_m1/m2/scoring.json": "17a4f37a8434ab8437dbe3c761ab811c12ad19e94f57cbf34788967456476a89"
+    },
+    "files": 87,
+    "inventory": "inventory.json",
+    "inventory_sha256": "624b6670bbec80413e5af507346aa75ef17c7b9be026466aba8bf261f26cdec7",
+    "location": "artifacts_research_archive/gpt62_lite38_m2_20261125T092133Z/",
+    "roles": {
+      "archive_source": 1,
+      "environment": 3,
+      "execution_prompt": 2,
+      "hidden_test_and_gt": 1,
+      "input": 4,
+      "oracle_and_reference_source": 1,
+      "oracle_source": 1,
+      "original_roster": 1,
+      "pre_edit_scoring": 2,
+      "recalculated_workbook": 54,
+      "reference_scoring": 1,
+      "reference_workbook": 1,
+      "runner_source": 2,
+      "scorer_source": 2,
+      "scoring": 2,
+      "submission": 2,
+      "suite_manifest": 1,
+      "trace": 6
+    }
+  },
+  "provenance": {
+    "code_commit": "c556a66434f5d3b19e00075b7a1543101dfdc00b",
+    "paths": {
+      "first_m1": {
+        "baseline": {
+          "m1_business": [
+            26,
+            27
+          ],
+          "m1_new_effect": [
+            0,
+            0
+          ],
+          "m1_protection": [
+            15,
+            15
+          ],
+          "m2_business": [
+            42,
+            54
+          ],
+          "m2_new_effect": [
+            0,
+            12
+          ],
+          "m2_protection": [
+            30,
+            30
+          ],
+          "workbook": [
+            4,
+            4
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "7deb04447abc1cac79c202ba38ce458386eaadb3da40ac53756a82b7d07b272d",
+        "model": "gpt-6.2-sol",
+        "new_regression_count": 0,
+        "old_defects_persisting": 0,
+        "old_defects_repaired": 1,
+        "prior_run_id": "gpt62_lite38_generic_transfer_20261125T073431Z",
+        "started_utc": "2026-11-25T09:21:33.821273+00:00",
+        "submission": {
+          "m1_business": [
+            27,
+            27
+          ],
+          "m1_new_effect": [
+            0,
+            0
+          ],
+          "m1_protection": [
+            15,
+            15
+          ],
+          "m2_business": [
+            54,
+            54
+          ],
+          "m2_new_effect": [
+            12,
+            12
+          ],
+          "m2_protection": [
+            30,
+            30
+          ],
+          "workbook": [
+            7,
+            7
+          ]
+        },
+        "submission_sha256": "fa2f95782373fc9e251d199a9ad403f840d50dc04fc2a0aea2bfd8d1fcdc9044",
+        "wall_seconds": 524.589
+      },
+      "second_m1": {
+        "baseline": {
+          "m1_business": [
+            27,
+            27
+          ],
+          "m1_new_effect": [
+            0,
+            0
+          ],
+          "m1_protection": [
+            15,
+            15
+          ],
+          "m2_business": [
+            42,
+            54
+          ],
+          "m2_new_effect": [
+            0,
+            12
+          ],
+          "m2_protection": [
+            30,
+            30
+          ],
+          "workbook": [
+            4,
+            4
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "b8683753bc0ff227fa00ccf23c3fd67a41b3231205149f81c8f524cd75748917",
+        "model": "gpt-6.2-sol",
+        "new_regression_count": 0,
+        "old_defects_persisting": 0,
+        "old_defects_repaired": 0,
+        "prior_run_id": "gpt62_lite38_generic_transfer_clean_20261125T082839Z",
+        "started_utc": "2026-11-25T09:21:33.818177+00:00",
+        "submission": {
+          "m1_business": [
+            27,
+            27
+          ],
+          "m1_new_effect": [
+            0,
+            0
+          ],
+          "m1_protection": [
+            15,
+            15
+          ],
+          "m2_business": [
+            54,
+            54
+          ],
+          "m2_new_effect": [
+            12,
+            12
+          ],
+          "m2_protection": [
+            30,
+            30
+          ],
+          "workbook": [
+            7,
+            7
+          ]
+        },
+        "submission_sha256": "4f729b2ce357073edbdb3991d7af3c00bae7f4bcdd907877706bc126e7dec627",
+        "wall_seconds": 317.243
+      }
+    },
+    "source_comparison": "Both paths inherit their corresponding actual M1 workbook.",
+    "suite": "lite38_temporary_assignment_m2_v1",
+    "suite_frozen_at_utc": "2026-11-25T09:21:21.187709+00:00",
+    "suite_manifest_sha256": "d9dd2c8d69d529939ad915ff18506f430ffb0f81b8fa6b8709e93e3aa23def32",
+    "task_sha256": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c"
+  },
+  "run_id": "gpt62_lite38_m2_20261125T092133Z",
+  "schema_version": 1,
+  "title": "Lite 38 临时借调 M2 双轨演化"
+}

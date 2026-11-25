@@ -28,4 +28,6 @@
 
 2026-11-25 冻结修正版评分器并以原题、原工作簿开启新会话复跑。原判 41/45，旧功能保护 21/21。四项扣分来自评分器读入指定的隐藏辅助表。对模型实际交付的年度报表按同一份 GT 复核后为 45/45。此次离职员工调动记录有效，月初人数统计正确。详见 [干净复跑](../experiments/lite38_generic_transfer_clean_m1/analysis.md)。
 
+2026-11-25 两份实际 M1 提交分别继承到临时借调 M2。两组 GPT‑6.2‑sol 均通过冻结后的 133 项检查。第一组修复了一项原有离职员工调动功能，第二组保留了原有功能，两组均未观测到旧功能回归。详见 [M2 双轨演化](../experiments/lite38_temporary_assignment_m2/analysis.md)。
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

@@ -14,6 +14,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | Workspace-Bench Lite 38 员工调动 M1 | `gpt62_lite38_transfer_20261125T051108Z` | [公开清单](../experiments/lite38_effective_transfer_m1/manifest.json) |
 | Workspace-Bench Lite 38 通用调动功能 | `gpt62_lite38_generic_transfer_20261125T073431Z` | [公开清单](../experiments/lite38_generic_transfer_m1/manifest.json) |
 | Workspace-Bench Lite 38 通用调动功能干净复跑 | `gpt62_lite38_generic_transfer_clean_20261125T082839Z` | [公开清单](../experiments/lite38_generic_transfer_clean_m1/manifest.json) |
+| Workspace-Bench Lite 38 临时借调 M2 双轨演化 | `gpt62_lite38_m2_20261125T092133Z` | [公开清单](../experiments/lite38_temporary_assignment_m2/manifest.json) |
 
 <!-- archive-end -->
 
@@ -37,3 +38,4 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 - 2026-11-25 · [Lite 38 生效日期调动 M1](../experiments/lite38_effective_transfer_m1/analysis.md)。模型在原始工作簿副本上完成单次调动，最终独立核验 13/13；初始本地评分口径错误已留痕并修正。该开发性案例已公开题目与标准，不再作为盲测样本。
 - 2026-11-25 · [Lite 38 通用调动功能](../experiments/lite38_generic_transfer_m1/analysis.md)。GPT‑6.2‑sol 交付修改后工作簿，校正评分器后的诊断结果为 44/45，旧功能 21/21。评分器修正发生于模型运行后。
 - 2026-11-25 · [Lite 38 通用调动功能干净复跑](../experiments/lite38_generic_transfer_clean_m1/analysis.md)。冻结评分 41/45，按提交中的年度报表复核 45/45。旧功能 21/21，离职员工调动遗漏未复现。
+- 2026-11-25 · [Lite 38 临时借调 M2 双轨演化](../experiments/lite38_temporary_assignment_m2/analysis.md)。两组继承各自实际 M1 提交，均为 133/133。一组修复原有离职调动缺陷，两组均未观测到旧功能回归。
