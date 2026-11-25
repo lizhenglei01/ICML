@@ -38,4 +38,6 @@
 
 2026-11-25 两条轨迹分别从实际 M5 文件执行编制与工资预算审批 M6，冻结原分均为 451/451，367 项累计旧检查无回归。M7 以这两份实际提交作为起点。详见 [M6 结果](../experiments/lite38_evolution_m6/analysis.md)。
 
+2026-11-25 Lite 38 双轨演化实验完成至 M7。轨迹一为 531/531，轨迹二冻结原分 512/531，台账日期归一化诊断为 515/531。轨迹二改变了入职日人数边界，九项旧检查由通过变为失败，诊断副本重算已定位根因。见 [M7 及五轮累计结果](../experiments/lite38_evolution_m7/analysis.md)。
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

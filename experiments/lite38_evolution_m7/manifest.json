@@ -1,0 +1,222 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_evolution_m7",
+  "private_archive": {
+    "anchor_files": {
+      "first_m1/input/instruction.md": "d5b98d5b2f12f2d90368ebaa0c8b6215390f83206ae1aebf7792aecab2ac823c",
+      "first_m1/scoring.json": "0881fece3d4769664016c15f039e553d7352cdb1de6318f5ed816614888c2417",
+      "second_m1/input/instruction.md": "d5b98d5b2f12f2d90368ebaa0c8b6215390f83206ae1aebf7792aecab2ac823c",
+      "second_m1/scoring.json": "efb5f7129d1d872a2c7d263265f606db0da79638d33018fc6c87335f06cc7a26"
+    },
+    "files": 109,
+    "inventory": "inventory.json",
+    "inventory_sha256": "d9362a9904538f77fce07ac74613afa37b97af40de969b36e36147aee2a8c4b1",
+    "location": "artifacts_research_archive/gpt62_lite38_evolution_m7_after_20261125T115236Z/",
+    "roles": {
+      "diagnostic_recalculation": 2,
+      "diagnostic_scoring": 2,
+      "diagnostic_source": 1,
+      "diagnostic_workbook": 1,
+      "frozen_suite": 1,
+      "hidden_inputs_and_gt": 1,
+      "input": 2,
+      "oracle_and_reference_source": 2,
+      "pre_edit_scoring": 2,
+      "preflight_validation": 1,
+      "prompt": 2,
+      "recalculated_assets": 70,
+      "reference": 1,
+      "reference_score": 1,
+      "run": 2,
+      "run_and_scoring_source": 1,
+      "runner_source": 2,
+      "scoring": 2,
+      "scoring_source": 1,
+      "submission": 2,
+      "task": 2,
+      "trace": 8
+    }
+  },
+  "provenance": {
+    "code_commit": "08ac9522b8c62c347f33bd0daaeaaf436e5ef7fd",
+    "frozen_at_utc": "2026-11-25T13:30:55.490528+00:00",
+    "paths": {
+      "first_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            85,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "m5_checks": [
+            60,
+            60
+          ],
+          "m5_effect_checks": [
+            10,
+            10
+          ],
+          "m6_checks": [
+            84,
+            84
+          ],
+          "m6_effect_checks": [
+            21,
+            21
+          ],
+          "m7_checks": [
+            80,
+            80
+          ],
+          "m7_effect_checks": [
+            12,
+            12
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "21bb37b0f97732b040932b95a2249f96eef20286a510b20aebb8b926c1eb7007",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 451,
+          "persistent_failures": [],
+          "regressions": []
+        },
+        "started_utc": "2026-11-25T13:30:56.390459+00:00",
+        "submission_sha256": "8fd86e3bb2ae0c3cf301a40127d3210c2b9af65bf4a71ac6c059dc9a088d62f2",
+        "wall_seconds": 708.802
+      },
+      "second_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            80,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "m5_checks": [
+            56,
+            60
+          ],
+          "m5_effect_checks": [
+            10,
+            10
+          ],
+          "m6_checks": [
+            84,
+            84
+          ],
+          "m6_effect_checks": [
+            21,
+            21
+          ],
+          "m7_checks": [
+            70,
+            80
+          ],
+          "m7_effect_checks": [
+            10,
+            12
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "1ad6eafbac0f9afb77acbb21874d74ed0b7bea16325acc37122b7dea0117381b",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 451,
+          "persistent_failures": [],
+          "regressions": [
+            "old_spell_query/opening",
+            "old_spell_query/opening_total",
+            "payroll_gap_with_borrow_and_merger/opening",
+            "payroll_gap_with_borrow_and_merger/opening_total",
+            "rehire_last_input_row/annual_opening",
+            "rehire_last_input_row/opening",
+            "rehire_last_input_row/opening_total",
+            "salary_changes_when_merger_date_changes/opening",
+            "salary_changes_when_merger_date_changes/opening_total"
+          ]
+        },
+        "started_utc": "2026-11-25T13:30:56.373589+00:00",
+        "submission_sha256": "f487e674daf01fb5e223f714de8a99e0737d9bd6e50ceed7871ad17f111f1fb3",
+        "wall_seconds": 842.426
+      }
+    },
+    "prior_run": "gpt62_lite38_evolution_m6_after_20261125T115236Z",
+    "recalc": "LibreOffice 7.3.7.2 30(Build:2)",
+    "second_m1_post_run_review": {
+      "confirmed_old_checks_regressed": 9,
+      "date_serial_adjusted_total": "515/531",
+      "ledger_date_representation_false_failures": 3,
+      "old_checks": "442/451",
+      "raw_total": "512/531",
+      "scope": "The input workbook, frozen score and GT remain unchanged. Diagnose only the date-type difference and a separate hire-boundary probe."
+    },
+    "stage": "m7"
+  },
+  "run_id": "gpt62_lite38_evolution_m7_after_20261125T115236Z",
+  "schema_version": 1,
+  "title": "Lite 38 M7 双轨演化"
+}

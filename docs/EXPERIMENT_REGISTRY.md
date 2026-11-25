@@ -19,6 +19,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | Workspace-Bench Lite 38 部门组织变更 M4 | `gpt62_lite38_evolution_m4_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m4/manifest.json) |
 | Workspace-Bench Lite 38 工资分摊 M5 | `gpt62_lite38_evolution_m5_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m5/manifest.json) |
 | Workspace-Bench Lite 38 编制和预算审批 M6 | `gpt62_lite38_evolution_m6_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m6/manifest.json) |
+| Workspace-Bench Lite 38 历史更正与签发保护 M7 | `gpt62_lite38_evolution_m7_after_20261125T115236Z` | [公开清单](../experiments/lite38_evolution_m7/manifest.json) |
 
 <!-- archive-end -->
 
