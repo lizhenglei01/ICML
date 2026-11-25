@@ -1,0 +1,184 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_evolution_m6",
+  "private_archive": {
+    "anchor_files": {
+      "first_m1/input/instruction.md": "44011c979c6d726e55aef530e3879a41d1df09479f943147039a1d8ba9ae33a5",
+      "first_m1/scoring.json": "f044e11505762bea557001b1a432bf35139aaea869e1bcfd937753b160e22ee6",
+      "second_m1/input/instruction.md": "44011c979c6d726e55aef530e3879a41d1df09479f943147039a1d8ba9ae33a5",
+      "second_m1/scoring.json": "f044e11505762bea557001b1a432bf35139aaea869e1bcfd937753b160e22ee6"
+    },
+    "files": 85,
+    "inventory": "inventory.json",
+    "inventory_sha256": "1eaebc59b6ed3f27c33a4db2485b7a5e1a9e87f3cc390a493e8c52426e0634f7",
+    "location": "artifacts_research_archive/gpt62_lite38_evolution_m6_after_20261125T115236Z/",
+    "roles": {
+      "frozen_suite": 1,
+      "hidden_inputs_and_gt": 1,
+      "input": 2,
+      "oracle_and_reference_source": 2,
+      "pre_edit_scoring": 2,
+      "preflight_validation": 1,
+      "prompt": 2,
+      "recalculated_assets": 52,
+      "reference": 1,
+      "reference_score": 1,
+      "run": 2,
+      "run_and_scoring_source": 1,
+      "runner_source": 2,
+      "scoring": 2,
+      "scoring_source": 1,
+      "submission": 2,
+      "task": 2,
+      "trace": 8
+    }
+  },
+  "provenance": {
+    "code_commit": "bef16ea7511a647a0b1b89f356c0cb865aafeb07",
+    "frozen_at_utc": "2026-11-25T12:56:57.598101+00:00",
+    "paths": {
+      "first_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            85,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "m5_checks": [
+            60,
+            60
+          ],
+          "m5_effect_checks": [
+            10,
+            10
+          ],
+          "m6_checks": [
+            84,
+            84
+          ],
+          "m6_effect_checks": [
+            21,
+            21
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "a97f68e9fda88c329f18683ce381582c3093d9be934fafa008a7de85f9695fbb",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 367,
+          "persistent_failures": [],
+          "regressions": []
+        },
+        "started_utc": "2026-11-25T12:56:59.550409+00:00",
+        "submission_sha256": "21bb37b0f97732b040932b95a2249f96eef20286a510b20aebb8b926c1eb7007",
+        "wall_seconds": 701.325
+      },
+      "second_m1": {
+        "counts": {
+          "m1_checks": [
+            42,
+            42
+          ],
+          "m1_effect_checks": [
+            0,
+            0
+          ],
+          "m2_checks": [
+            84,
+            84
+          ],
+          "m2_effect_checks": [
+            12,
+            12
+          ],
+          "m3_checks": [
+            85,
+            85
+          ],
+          "m3_effect_checks": [
+            27,
+            27
+          ],
+          "m4_checks": [
+            85,
+            85
+          ],
+          "m4_effect_checks": [
+            36,
+            36
+          ],
+          "m5_checks": [
+            60,
+            60
+          ],
+          "m5_effect_checks": [
+            10,
+            10
+          ],
+          "m6_checks": [
+            84,
+            84
+          ],
+          "m6_effect_checks": [
+            21,
+            21
+          ],
+          "structure": [
+            11,
+            11
+          ]
+        },
+        "effort": "medium",
+        "input_sha256": "4920c5329fa9cdb151549a1a7e410e99d3b12746ab0a667509cf106a1c2a7e55",
+        "model": "gpt-6.2-sol",
+        "old_function_transitions": {
+          "fixes": [],
+          "old_checks": 367,
+          "persistent_failures": [],
+          "regressions": []
+        },
+        "started_utc": "2026-11-25T12:56:59.548964+00:00",
+        "submission_sha256": "1ad6eafbac0f9afb77acbb21874d74ed0b7bea16325acc37122b7dea0117381b",
+        "wall_seconds": 950.652
+      }
+    },
+    "prior_run": "gpt62_lite38_evolution_m5_after_20261125T115236Z",
+    "recalc": "LibreOffice 7.3.7.2 30(Build:2)",
+    "stage": "m6"
+  },
+  "run_id": "gpt62_lite38_evolution_m6_after_20261125T115236Z",
+  "schema_version": 1,
+  "title": "Lite 38 M6 双轨演化"
+}
