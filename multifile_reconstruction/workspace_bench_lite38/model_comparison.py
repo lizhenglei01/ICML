@@ -212,14 +212,56 @@ def summarize(number, outcome, before):
     return summary
 
 
-def run(route, directory, last_stage):
+def resume_point(manifest_path, model, original):
+    manifest = read(manifest_path)
+    provenance = manifest['provenance']
+    if provenance['model'] != model:
+        raise ValueError('Continuing a trajectory requires the same model')
+    private = ROOT / manifest['private_archive']['location']
+    verify_inventory(private, manifest['private_archive']['inventory_sha256'])
+    current = original
+    steps = {}
+    for number in range(1, 8):
+        stage = f'm{number}'
+        run_path = private / stage / 'run.json'
+        if not run_path.is_file():
+            break
+        run_record = read(run_path)
+        if run_record['status'] != 'completed':
+            break
+        submission = private / stage / 'submission.xlsx'
+        if (run_record['model'] != model or run_record['input_sha256'] != digest(current) or
+                run_record['submission_sha256'] != digest(submission)):
+            raise ValueError(f'Model or submission lineage mismatch at {stage}')
+        steps[stage] = provenance['steps'][stage]
+        current = submission
+    if not steps:
+        raise ValueError('No completed submission to resume from')
+    return private, current, steps
+
+
+def run(route, directory, last_stage, resume_from=None):
     original, tasks, freezes, baselines = verify_frozen()
     code_commit = git('rev-parse', 'HEAD')
+    model = ROUTES[route][0]
     current = original
     label = f'lite38_model_comparison_{route}'
-    archive = Archive(label, directory.name)
     steps = {}
-    for number in range(1, last_stage + 1):
+    previous = None
+    if resume_from is not None:
+        previous, current, steps = resume_point(resume_from, model, original)
+        label = directory.name
+        if label == read(resume_from)['label'] or (ROOT / 'experiments' / label).exists():
+            raise ValueError('Use a new run directory name when resuming')
+    first_stage = len(steps) + 1
+    if first_stage > last_stage:
+        raise ValueError('Every requested stage already has a completed submission')
+    archive = Archive(label, directory.name)
+    if previous is not None:
+        for relative, evidence in read(previous / 'inventory.json').items():
+            if Path(relative).parts[0] in steps:
+                archive.add(previous / relative, relative, evidence['role'])
+    for number in range(first_stage, last_stage + 1):
         stage = f'm{number}'
         work = directory / stage
         task = tasks[number - 1]
@@ -258,9 +300,11 @@ def run(route, directory, last_stage):
                 archive.add(work / name, f'{stage}/{name}', 'execution_trace')
         print('STAGE_RESULT', route, stage, row, flush=True)
         steps[stage] = row
-        archive.seal(f'Lite 38 连续模型对照 · {ROUTES[route][0]}', 'office_business_workflow',
-                     {'model': ROUTES[route][0], 'requested_reasoning_effort': isolated.EFFORT,
-                      'code_commit_at_start': code_commit, 'target_last_stage': last_stage, 'steps': steps})
+        archive.seal(f'Lite 38 连续模型对照 · {model}', 'office_business_workflow',
+                     {'model': model, 'requested_reasoning_effort': isolated.EFFORT, 'steps': steps,
+                      'code_commit_at_start': code_commit, 'target_last_stage': last_stage,
+                      'previous_run': previous.name if previous else None,
+                      'started_at_stage': f'm{first_stage}'})
         if report['status'] != 'completed':
             break
         current = submission
@@ -271,5 +315,6 @@ if __name__ == '__main__':
     parser.add_argument('route', choices=ROUTES)
     parser.add_argument('directory', type=Path)
     parser.add_argument('--last-stage', type=int, choices=range(1, 8), default=7)
+    parser.add_argument('--resume-from', type=Path, help='Public manifest of an interrupted run of the same model')
     options = parser.parse_args()
-    run(options.route, options.directory.resolve(), options.last_stage)
+    run(options.route, options.directory.resolve(), options.last_stage, options.resume_from)

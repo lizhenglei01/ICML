@@ -13,3 +13,5 @@ M1 的失败可以直接从提交工作簿复核。题面要求 `DepartmentTrans
 M2 的 Responses 流返回 `Free quota exhausted`，虽有 HTTP 200，这次试验没有产出 M2 工作簿。新提供的百炼北京工作空间支持 `qwen4-max`，对 `qwen3.5-27b` 返回 `403 PERMISSION_DENIED`。Qwen4-Max 从相同原始工作簿独立开始，后续只继承自己的交付物。
 
 这条轨迹提供一个在相同 M1 条件下可以复核的新增功能失败。M2 中断之后，没有该模型的旧功能回归观测。
+
+额度恢复后，可在对照入口传入 `--resume-from` 和本次 `manifest.json`。运行器核验已归档的提交哈希和模型 ID 后，从 M2 新开会话。续跑使用新的归档目录，保留本次额度中断记录。[对照入口](../../multifile_reconstruction/workspace_bench_lite38/model_comparison.py)
