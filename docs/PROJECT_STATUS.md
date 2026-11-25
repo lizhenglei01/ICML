@@ -42,4 +42,6 @@
 
 2026-11-25 重计本地 Navidrome 的九轮原始结果。最后一轮 56 项计分旧测试在前一轮已失败。另一轮的四项计分旧测试从通过变为失败，日志显示在模拟组件异常处中断。Lite 38 的两条轨迹在 M2–M7 确认一轮真实旧功能回归。论文实验日志需授权，整体频率还无法比较。[逐轮复核](../experiments/swe_milestone_regression_audit/analysis.md)
 
+Lite 38 模型对照复用了 M1–M7 的冻结题面、GT 和评分器。DeepSeek V4-Pro 与 Qwen3.5-27B 通过了独立工作簿工具预检。当前 ChatGPT 登录下，Codex CLI 返回 GPT-5.3-Codex 不可用。工具预检未提交正式里程碑分数。[对照入口](../multifile_reconstruction/workspace_bench_lite38/model_comparison.py)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。
