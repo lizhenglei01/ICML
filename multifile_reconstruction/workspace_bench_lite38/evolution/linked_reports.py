@@ -89,6 +89,11 @@ def score(source,cases,recalc_dir,start,original):
         later,later_errors=additional_outputs(calculated,case.get('linked_gt',{}))
         actual=report|legacy|added|later
         expected=case['gt']|case['legacy_gt']|case.get('extra_gt',{})|case.get('linked_gt',{})
+        # The frozen M3 scorer treated this duplicate range on a hidden
+        # template as an output. The annual activity contract uses the named
+        # visible ranges. Preserve the original legacy checks in M1/M2 cases.
+        if case['stage'] not in ('m1','m2'):
+            expected.pop('annual_hires_separations',None)
         checks={key:matches(actual.get(key),value) for key,value in expected.items()}
         for endpoint in ('opening','ending'):
             counts=report[endpoint]
