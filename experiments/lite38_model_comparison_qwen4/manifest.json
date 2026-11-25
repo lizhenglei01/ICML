@@ -6,27 +6,35 @@
       "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
       "m1/scoring.json": "8f9103acf2d1a223fc648b230059887ba8cfdc372bc853f9311fa278b3398e0f",
       "m2/input/instruction.md": "96f776bcdfef96d8b7f5990df4dbf224d086453bd7e37675dd806e2a822df05c",
-      "m2/scoring.json": "50539a98fb938d05339165f37a8bb087e375a4b076927d2a1e9b2dcaaaeb543f"
+      "m2/scoring.json": "50539a98fb938d05339165f37a8bb087e375a4b076927d2a1e9b2dcaaaeb543f",
+      "m3/input/instruction.md": "27df8604b603b994add23f3e7df07181bfc17730fbc0ce8dd0bc6862f2d1c42b",
+      "m3/scoring.json": "956b70f275e812f6912ef73b3749365dea5ccbde02a5055746ac342de2d43ea6",
+      "m4/input/instruction.md": "40725d62713f3c28b77352ad3b33f93d196db77a2eb67a3fe088e9eb7c30abfe"
     },
-    "files": 22,
+    "files": 43,
     "inventory": "inventory.json",
-    "inventory_sha256": "01711d3252c010f54f9d723600bea2fb79e578f64ac6d685e3c5a70315fa71a2",
+    "inventory_sha256": "06735c812377999b64bfeae1fdd7aa61cb303e6d024eff780c48a513639aa6e6",
     "location": "artifacts_research_archive/lite38_model_compare_qwen4_20261125T144745Z/",
     "roles": {
-      "execution_trace": 10,
-      "frozen_suite": 2,
-      "input": 2,
-      "pre_edit_scoring": 1,
-      "scoring": 2,
-      "submission": 2,
-      "task": 2,
-      "test_transitions": 1
+      "execution_trace": 20,
+      "frozen_suite": 4,
+      "input": 4,
+      "pre_edit_scoring": 2,
+      "scoring": 3,
+      "submission": 3,
+      "task": 4,
+      "test_transitions": 2,
+      "user_requested_stage_limit": 1
     }
   },
   "provenance": {
     "code_commit_at_start": "3ea2c2a52309ded7a0ed6e3924804ba9b66eebb3",
+    "effective_last_stage": 5,
     "model": "qwen4-max",
+    "provider_error": "403 AccessDenied.Unpurchased",
     "requested_reasoning_effort": "medium",
+    "resume_from_stage": "m4",
+    "resume_input_sha256": "383be82f65c44e338320ab8b87a312642cae2eb4fa55eb86d9d352df7e39351e",
     "steps": {
       "m1": {
         "duration_seconds": 697.784,
@@ -66,9 +74,41 @@
         },
         "status": "completed",
         "submission_sha256": "6d13d318c2f464f4866617dd47f11c3361560d18132c03efa74e68252b07c514"
+      },
+      "m3": {
+        "duration_seconds": 1112.109,
+        "frozen_score": [
+          99,
+          227
+        ],
+        "input_sha256": "6d13d318c2f464f4866617dd47f11c3361560d18132c03efa74e68252b07c514",
+        "new_case_checks": [
+          29,
+          90
+        ],
+        "new_effect_checks": [
+          11,
+          27
+        ],
+        "old_check_transitions": {
+          "failed_to_failed": 65,
+          "failed_to_passed": 2,
+          "matched": 133,
+          "passed_to_failed": 0,
+          "without_baseline": 0
+        },
+        "status": "completed",
+        "submission_sha256": "383be82f65c44e338320ab8b87a312642cae2eb4fa55eb86d9d352df7e39351e"
+      },
+      "m4": {
+        "duration_seconds": 937.139,
+        "input_sha256": "383be82f65c44e338320ab8b87a312642cae2eb4fa55eb86d9d352df7e39351e",
+        "status": "runtime_error",
+        "submission_sha256": null
       }
     },
-    "target_last_stage": 7
+    "target_last_stage": 7,
+    "termination": "provider_access_denied_on_m4"
   },
   "run_id": "lite38_model_compare_qwen4_20261125T144745Z",
   "schema_version": 1,

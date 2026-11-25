@@ -1,0 +1,48 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_model_comparison_m3_m5_diagnostics",
+  "private_archive": {
+    "anchor_files": {
+      "qwen4/m3/results.json": "48a5bd9ed8dcba9bb247d083baa068fe41d94da210f821733d8661e592a5f00e"
+    },
+    "files": 4,
+    "inventory": "inventory.json",
+    "inventory_sha256": "4791dab82ddbcd5dd2cddf01c83541109fa1442c2f9b73cfd0ffd76b4dc6e2e3",
+    "location": "artifacts_research_archive/lite38_model_m3_m5_date_probes_20261125/",
+    "roles": {
+      "date_normalization_diagnostic": 3,
+      "diagnostic_replay_source": 1
+    }
+  },
+  "provenance": {
+    "official_score_unchanged": true,
+    "runs": {
+      "qwen4": {
+        "m3": {
+          "confirmed_submission_sha256": "383be82f65c44e338320ab8b87a312642cae2eb4fa55eb86d9d352df7e39351e",
+          "diagnostic": [
+            178,
+            227
+          ],
+          "new_effect_diagnostic": [
+            17,
+            27
+          ],
+          "new_effect_raw": [
+            11,
+            27
+          ],
+          "raw": [
+            99,
+            227
+          ],
+          "source_run": "lite38_model_compare_qwen4_20261125T144745Z"
+        }
+      }
+    },
+    "scope": "post_hoc_recalc_date_normalization"
+  },
+  "run_id": "lite38_model_m3_m5_date_probes_20261125",
+  "schema_version": 1,
+  "title": "Lite 38 M3–M5 模型对照日期复核"
+}
