@@ -12,6 +12,7 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 | 有状态酒店审批 | `gpt62_stateful_20261123T150141302533Z` | [公开清单](../experiments/hotel_workflow_002/manifest.json) |
 | SWE-Milestone Navidrome 九轮对照 | `codex_gpt-6.2-sol_navidrome_001` | [公开清单](../experiments/swe_milestone_navidrome/manifest.json) |
 | Workspace-Bench Lite 38 员工调动 M1 | `gpt62_lite38_transfer_20261125T051108Z` | [公开清单](../experiments/lite38_effective_transfer_m1/manifest.json) |
+| Workspace-Bench Lite 38 通用调动功能 | `gpt62_lite38_generic_transfer_20261125T073431Z` | [公开清单](../experiments/lite38_generic_transfer_m1/manifest.json) |
 
 <!-- archive-end -->
 
@@ -33,3 +34,4 @@ Run ID 对应一次模型运行。公开清单提供已记录的版本、私有�
 
 - 2026-11-25 · 非模型实验 · [初始成熟 Office HR 系统设计草案](INITIAL_MATURE_OFFICE_SYSTEM.md)。借鉴 Lite 38 工作簿模块并提出含政策、审批、归档和报告发布的基线系统。待讨论，不是已经生成或验收的任务资产。
 - 2026-11-25 · [Lite 38 生效日期调动 M1](../experiments/lite38_effective_transfer_m1/analysis.md)。模型在原始工作簿副本上完成单次调动，最终独立核验 13/13；初始本地评分口径错误已留痕并修正。该开发性案例已公开题目与标准，不再作为盲测样本。
+- 2026-11-25 · [Lite 38 通用调动功能](../experiments/lite38_generic_transfer_m1/analysis.md)。GPT‑6.2‑sol 交付修改后工作簿；校正评分器后的诊断结果为 44/45，旧功能 21/21。评分器修正在模型运行后完成，尚待冻结套件后的干净复跑。

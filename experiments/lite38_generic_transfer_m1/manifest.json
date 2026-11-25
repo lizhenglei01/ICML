@@ -1,0 +1,44 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_generic_transfer_m1",
+  "private_archive": {
+    "anchor_files": {
+      "m1/input/instruction.md": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2",
+      "m1/scoring.json": "3686e39976f8e57b28e79ebb5ffea54a136d6a6fce2f5dc556039796086467b2"
+    },
+    "files": 25,
+    "inventory": "inventory.json",
+    "inventory_sha256": "3d40f5cd84d3eca79e9914a7bf487b1c9a2a5f70c8b98ceded66c2addb0f0db2",
+    "location": "artifacts_research_archive/gpt62_lite38_generic_transfer_20261125T073431Z/",
+    "roles": {
+      "diagnostic_scoring": 1,
+      "environment": 1,
+      "execution_prompt": 1,
+      "hidden_test_and_gt": 2,
+      "input": 2,
+      "oracle_source": 1,
+      "recalculated_workbook": 6,
+      "reference_builder": 1,
+      "scorer_source": 1,
+      "scoring": 1,
+      "submission": 1,
+      "suite_manifest": 2,
+      "superseded_raw_scoring": 2,
+      "trace": 3
+    }
+  },
+  "provenance": {
+    "duration_approx_minutes": 9,
+    "input_sha256": "140d0a515b0f3a0d8e2c5da6fdb26b811e748c81873bf89bd074dc3d143a5a09",
+    "model": "gpt-6.2-sol",
+    "private_artifacts": "The original workbook, model submission, raw trace, hidden cases, GT, oracle, scorer, reference workbook, and recalculation outputs are private.",
+    "result_caveat": "Initial scorer used the wrong annual year and a prior-day opening cutoff. Raw v1 is retained but superseded. The corrected v2 score was computed after the run and must be treated as diagnostic until a clean frozen-suite replication.",
+    "run_started_utc": "2026-11-25T07:34:31Z",
+    "score": "corrected diagnostic v2 44/45; reference 45/45",
+    "submission_sha256": "7deb04447abc1cac79c202ba38ce458386eaadb3da40ac53756a82b7d07b272d",
+    "task_sha256": "2514b2cb7240198dc03ce614185fbd1d1ba961951e3abc5c7f601dfc3e3677a2"
+  },
+  "run_id": "gpt62_lite38_generic_transfer_20261125T073431Z",
+  "schema_version": 1,
+  "title": "Lite 38 通用部门调动功能"
+}
