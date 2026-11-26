@@ -536,14 +536,25 @@ def refresh_docs():
     index = ['| 实验 | Run ID | 证据 |', '|---|---|---|']
     summary = ['| 实验 | 最新归档结果 |', '|---|---|']
     open_checks = []
+    managed_labels = set()
     for item in manifests:
         label, kind = item['label'], item['family']
+        test_path = PUBLIC / label / 'test_summary.json'
+        if kind not in {*BUILDERS, 'navidrome', 'automatic_business'} or not test_path.is_file():
+            # Other experiment families keep their curated index entries.
+            continue
+        managed_labels.add(label)
         index.append(f"| {item['title']} | `{item['run_id']}` | [公开清单](../experiments/{label}/manifest.json) |")
-        test = read(PUBLIC / label / 'test_summary.json')
+        test = read(test_path)
         if kind == 'navidrome':
             original = test['original']
             outcome = f"原始评分 {original['passed']} 轮通过，{original['failed']} 轮失败"
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 保留覆盖不完整和测试接口异常的诊断。')
+        elif kind == 'automatic_business':
+            cases = test['cases']
+            layouts = sum(len(case['layouts']) for case in cases.values())
+            outcome = f'{len(cases)} 个业务案例，{layouts} 组原生文件与 Oracle 通过验证'
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 两组使用合成政策，难度以已登记规则为界。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -551,6 +562,11 @@ def refresh_docs():
             if passing < len(scored):
                 open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 有原始未通过记录，诊断和复核另存。')
         summary.append(f"| [{item['title']}](../experiments/{label}/analysis.md) | {outcome} |")
+    registry = (ROOT / 'docs' / 'EXPERIMENT_REGISTRY.md').read_text(encoding='utf-8')
+    for line in registry.partition('<!-- archive-start -->')[2].partition('<!-- archive-end -->')[0].splitlines():
+        linked = re.search(r'\.\./experiments/([^/]+)/', line)
+        if line.startswith('| ') and linked and linked[1] not in managed_labels:
+            index.append(line)
     anchors = {'EXPERIMENT_REGISTRY.md': index, 'PROJECT_STATUS.md': summary, 'KNOWN_ISSUES.md': open_checks}
     for name, lines in anchors.items():
         path = ROOT / 'docs' / name
@@ -569,6 +585,69 @@ def archive_hotel_run(kind, source, run, *, label=None, title=None, source_revie
               'upgrade': '酒店业务升级范围对照'}
     archive = hotel(kind, title or titles[kind], label or run.name, source, run, source_review)
     write_analysis(archive, kind)
+    refresh_docs()
+    return archive
+
+
+def archive_automatic_business(run):
+    """Publish validation counts and seal the private generated task packages."""
+    archive = Archive('automatic_business_construction', run.name)
+    title = '酒店与采购端到端自动构建'
+    verified = run / 'verified'
+    cases = {}
+    all_threads = set()
+    for case in sorted(verified.iterdir()):
+        summary = read(case / 'summary.json')
+        if not summary['passed']:
+            raise ValueError(f'Unverified generated case: {case.name}')
+        config = read(case / 'input.json')
+        stage_audits = []
+        for call_path in sorted((case / 'proposals').glob('attempt_*/*/call.json')):
+            call = read(call_path)
+            audit = read(call_path.parent / 'transport' / 'transport_audit.json')
+            start = next(row['params'] for row in audit['wire_requests'] if row['method'] == 'thread/start')
+            requests = audit['thread_start_results']
+            request = read(call_path.parent / 'request.json')
+            messages = request['messages']
+            given = json.loads(messages[1]['content'])
+            if (len(messages) != 2 or not start['ephemeral'] or not audit['host_tools_disabled']
+                    or not audit['apps_disabled'] or len(requests) != 1 or requests[0]['instructionSources']
+                    or call['thread_reused'] or call['tool_events'] or call['thread_id'] in all_threads
+                    or given['business_topic'] != config['topic'] or given['business_goal'] != config['goal']
+                    or (call_path.parent.name == 'observations' and given['available'])):
+                raise ValueError(f'Generation isolation audit failed for {call_path}')
+            all_threads.add(call['thread_id'])
+            stage_audits.append({'stage': call_path.parent.name, 'model': call['reported_model'],
+                                 'fresh_isolated_thread': True, 'seconds': call['wall_seconds']})
+        if {row['stage'] for row in stage_audits} != {'observations', 'forward', 'backward', 'policy'}:
+            raise ValueError(f'Incomplete proposal stages for {case.name}')
+        cases[case.name] = {'topic': config['topic'], 'goal': config['goal'], 'seed': config['seed'],
+                            'model_calls': stage_audits, 'search': summary['basis'],
+                            'layouts': {key: {k: row[k] for k in ('minimum_files', 'minimum_depth',
+                                                                   'insufficient_subsets', 'witnessed_subsets',
+                                                                   'reference_grade', 'controls')}
+                                        for key, row in summary['layouts'].items()}}
+        archive.tree(case, Path('verified') / case.name, 'validated_build')
+        for rejected in sorted((run / case.name / 'proposals').glob('attempt_*/rejection.json')):
+            archive.add(rejected, Path('development_diagnostics') / case.name / rejected.parent.name / rejected.name,
+                        'development_rejection')
+    opens = read(run / 'office_open_check.json')
+    archive.add(run / 'office_open_check.json', Path('office_open_check.json'), 'office_open_check')
+    regression = run / 'regression_check.json'
+    if regression.is_file():
+        archive.add(regression, Path('regression_check.json'), 'regression_check')
+    write(archive.public / 'test_summary.json', {'cases': cases, 'office_open_check': opens,
+                                                 'regression': read(regression) if regression.is_file() else None,
+                                                 'distinct_model_threads': len(all_threads)})
+    source = ('scenario_author.py', 'scenario_graph.py', 'scenario_bench.py',
+              'hotel_visibility.py', 'hotel_office.py', 'test_scenario_bench.py')
+    archive.seal(title, 'automatic_business', {
+        'base_commit': git('rev-parse', 'HEAD'),
+        'source_sha256': {str(LOGIC / name): digest(ROOT / LOGIC / name) for name in source},
+        'author_context': 'Fresh audited threads. Recorded structured context between stages. No evaluated Agent calls.',
+    })
+    manifest = read(archive.public / 'manifest.json')
+    verify_inventory(archive.private, manifest['private_archive']['inventory_sha256'])
     refresh_docs()
     return archive
 
@@ -598,11 +677,16 @@ def main():
     custom.add_argument('kind', choices=BUILDERS)
     custom.add_argument('--source', type=Path, required=True)
     custom.add_argument('--run', type=Path, required=True)
+    automatic = modes.add_parser('automatic-business')
+    automatic.add_argument('--run', type=Path, required=True)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
     elif args.command == 'hotel':
         archive_hotel_run(args.kind, args.source.resolve(), args.run.resolve())
+    elif args.command == 'automatic-business':
+        archive = archive_automatic_business(args.run.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):
             raise ValueError('Invalid experiment label')

@@ -30,6 +30,8 @@ from worldloom.render import docx, pptx, xlsx
 
 FILES = {"excel": "hotel_review.xlsx", "word": "hotel_policy.docx", "ppt": "hotel_briefing.pptx"}
 FORMAT_NAMES = {name: kind for kind, name in FILES.items()}
+BUSINESS_FILES = {"excel": "review.xlsx", "word": "policy.docx", "ppt": "briefing.pptx"}
+FORMAT_NAMES.update({name: kind for kind, name in BUSINESS_FILES.items()})
 TEXT_SEPARATOR = " — "
 ADMIN_ROWS = (
     ("录入复核表份数 / Entry review sheets", 5),
@@ -129,17 +131,21 @@ def validate_slots(slots, before, after):
             raise ValueError("Each native chart requires distinct category names")
 
 
-def office_ir(title, identifier, sections):
+def office_ir(title, identifier, sections, *, generic=False):
     return ArtifactIR(
-        id=identifier, intent_id="hotel-quarterly-review", title=title, sections=sections,
-        metadata={"worldloom_created": STAMP, "note": "Synthetic hotel operations / 合成酒店经营记录"},
+        id=identifier, intent_id="business-period-review" if generic else "hotel-quarterly-review",
+        title=title, sections=sections,
+        metadata={"worldloom_created": STAMP, "note": "Synthetic business review / 合成业务复核" if generic
+                  else "Synthetic hotel operations / 合成酒店经营记录"},
     )
 
 
-def render_original(directory, slots, values, *, ppt_size='small'):
+def render_original(directory, slots, values, *, ppt_size='small', files=FILES, title=None):
     """Use the existing Worldloom renderers for the native editable templates."""
     directory.mkdir(parents=True, exist_ok=True)
-    active = {kind: [slot for slot in slots if slot["file"] == kind] for kind in FILES}
+    active = {kind: [slot for slot in slots if slot["file"] == kind] for kind in files}
+    review_note = ("依据更正后数据及复核口径更新上一版已发布结果。覆盖本期所列全部对象。" if title else REVIEW_NOTE)
+    retention_note = ("留存记录仅用于档案核对。" if title else STABLE_NOTE)
 
     def rows(selected, native=False):
         return [(slot["label"], serial(values[slot["node_id"]]) if native and value_kind(values[slot["node_id"]]) == "number"
@@ -152,9 +158,10 @@ def render_original(directory, slots, values, *, ppt_size='small'):
         if entries:
             workbook_sections.append(ArtifactSection(heading=heading, table=table(role, heading, entries)))
     workbook_sections.append(ArtifactSection(heading="档案核对 / Archive check",
-        table=table("archive", "档案核对 / Archive check", ADMIN_ROWS).model_copy(update={"note": REVIEW_NOTE})))
-    workbook = office_ir("客房季度核验底稿 / Quarterly hotel workbook", "hotel-review", workbook_sections)
-    workbook_path = directory / FILES["excel"]
+        table=table("archive", "档案核对 / Archive check", ADMIN_ROWS).model_copy(update={"note": review_note})))
+    workbook = office_ir(f"{title}｜复核工作簿" if title else "客房季度核验底稿 / Quarterly hotel workbook",
+                         "business-review" if title else "hotel-review", workbook_sections, generic=bool(title))
+    workbook_path = directory / files["excel"]
     workbook_path.write_bytes(xlsx.render(workbook))
     native = load_workbook(workbook_path)
     for sheet in native:
@@ -167,18 +174,19 @@ def render_original(directory, slots, values, *, ppt_size='small'):
         raise ValueError("Missing native archive formula location")
     native.save(workbook_path)
 
-    word_sections = [ArtifactSection(heading="复核范围 / Review scope", body=REVIEW_NOTE)]
+    word_sections = [ArtifactSection(heading="复核范围 / Review scope", body=review_note)]
     for role, heading in [("policy", "经营审查口径 / Operating review terms"), ("evidence", "已更正记录 / Corrected records"),
                           ("output", "复核结论 / Issued conclusions"), ("context", "备查记录 / General records")]:
         lines = [label + TEXT_SEPARATOR + str(value) for label, value in rows(
             [slot for slot in active["word"] if slot["role"] == role])]
         if lines:
             word_sections.append(ArtifactSection(heading=heading, body="\n\n".join(lines)))
-    word_sections.append(ArtifactSection(heading="档案管理 / Retention", body=STABLE_NOTE))
-    note = office_ir("客房经营审查说明 / Hotel operations review note", "hotel-policy", word_sections)
-    (directory / FILES["word"]).write_bytes(docx.render(note, presentation=READER))
+    word_sections.append(ArtifactSection(heading="档案管理 / Retention", body=retention_note))
+    note = office_ir(f"{title}｜政策和结论" if title else "客房经营审查说明 / Hotel operations review note",
+                     "business-policy" if title else "hotel-policy", word_sections, generic=bool(title))
+    (directory / files["word"]).write_bytes(docx.render(note, presentation=READER))
 
-    presentation_sections = [ArtifactSection(heading="复核范围 / Review scope", body=REVIEW_NOTE)]
+    presentation_sections = [ArtifactSection(heading="复核范围 / Review scope", body=review_note)]
     entries = rows([slot for slot in active["ppt"] if not slot.get("chart")])
     if entries:
         presentation_sections.append(ArtifactSection(heading="审核摘要 / Review summary",
@@ -197,9 +205,11 @@ def render_original(directory, slots, values, *, ppt_size='small'):
         presentation_sections.append(ArtifactSection(heading="独立档案核验 / Archive review", table=source,
             charts=[Chart(key="archive_chart", title="档案复核工作量 / Archive review workload", kind=ChartKind.BAR,
                           table="archive_chart", series=["value"], value_axis="审核表份数 / Review sheets")]))
-    presentation_sections.append(ArtifactSection(heading="档案管理 / Retention", body=STABLE_NOTE))
-    presentation = office_ir("季度客房经营复核简报 / Quarterly hotel review briefing", "hotel-briefing", presentation_sections)
-    (directory / FILES["ppt"]).write_bytes(pptx.render(presentation, profile=READER, artifact_type="hotel_review", size_class=ppt_size))
+    presentation_sections.append(ArtifactSection(heading="档案管理 / Retention", body=retention_note))
+    presentation = office_ir(f"{title}｜复核简报" if title else "季度客房经营复核简报 / Quarterly hotel review briefing",
+                             "business-briefing" if title else "hotel-briefing", presentation_sections, generic=bool(title))
+    (directory / files["ppt"]).write_bytes(pptx.render(presentation, profile=READER,
+        artifact_type="business_review" if title else "hotel_review", size_class=ppt_size))
 
 
 def chart_heading(title, role):
@@ -207,11 +217,11 @@ def chart_heading(title, role):
     return prefix + " · " + title
 
 
-def native_locations(directory, slots, values):
+def native_locations(directory, slots, values, *, files=FILES):
     """Bind visible labels to addresses in the actual rendered native files."""
-    workbook = load_workbook(directory / FILES["excel"], data_only=False)
-    document = Document(directory / FILES["word"])
-    deck = Presentation(directory / FILES["ppt"])
+    workbook = load_workbook(directory / files["excel"], data_only=False)
+    document = Document(directory / files["word"])
+    deck = Presentation(directory / files["ppt"])
     locators = defaultdict(list)
     for sheet in workbook:
         for row in sheet.iter_rows(min_col=1, max_col=2):
@@ -255,7 +265,7 @@ def native_locations(directory, slots, values):
             raise ValueError(f"Evidence {slot['label']!r} in {file} rendered at unexpected locations {locations}")
         for location in locations:
             evidence_id = f"evidence:{file}:{slot['node_id']}:{location['kind']}"
-            bindings.append({**slot, "file": FILES[file], "evidence_id": evidence_id, "location": location,
+            bindings.append({**slot, "file": files[file], "evidence_id": evidence_id, "location": location,
                              "value_type": value_kind(values[slot["node_id"]])})
     if len({b["evidence_id"] for b in bindings}) != len(bindings):
         raise ValueError("Repeated node in the same evidence channel")
@@ -266,7 +276,7 @@ def read_observations(directory, bindings, files=None, *, excel_data_only=False,
     """Read source data and results, checking that each identifying label still agrees."""
     directory = Path(directory)
     computed_cells = computed_cells or {}
-    selected = set(FILES.values()) if files is None else set(files)
+    selected = {binding["file"] for binding in bindings} if files is None else set(files)
     bindings = [binding for binding in bindings if binding["file"] in selected]
     readers = {"excel": lambda path: load_workbook(path, data_only=excel_data_only), "word": Document, "ppt": Presentation}
     docs = {file: readers[FORMAT_NAMES[file]](directory / file) for file in {binding["file"] for binding in bindings}}
@@ -368,9 +378,9 @@ def set_presentation_value(cell, binding, value):
     replace_span(paragraph, 0, len(paragraph.text), text)
 
 
-def preserve_display_precision(directory, bindings, values):
+def preserve_display_precision(directory, bindings, values, *, files=FILES):
     """Keep native chart tables faithful when the general renderer rounds floats."""
-    path = directory / FILES["ppt"]
+    path = directory / files["ppt"]
     reports = [binding for binding in bindings if binding["location"]["kind"] == "table"
                and binding["value_type"] == "number"]
     if not reports:
@@ -388,37 +398,37 @@ def preserve_display_precision(directory, bindings, values):
         deck.save(path)
 
 
-def patch_reference(original, reference, bindings, before, after):
+def patch_reference(original, reference, bindings, before, after, *, files=FILES):
     """Copy the package and update only changed native objects."""
     reference.mkdir(parents=True, exist_ok=True)
-    for file in FILES.values():
+    for file in files.values():
         shutil.copy2(original / file, reference / file)
     changed = defaultdict(list)
     for binding in bindings:
         key = binding["node_id"]
         if before[key] != after[key]:
             changed[binding["file"]].append(binding)
-    if changed[FILES["excel"]]:
-        path = reference / FILES["excel"]
+    if changed[files["excel"]]:
+        path = reference / files["excel"]
         workbook = load_workbook(path)
-        for binding in changed[FILES["excel"]]:
+        for binding in changed[files["excel"]]:
             location = binding["location"]
             value = after[binding["node_id"]]
             workbook[location["sheet"]][location["cell"]] = serial(value) if binding["value_type"] == "number" else display(value)
         workbook.save(path)
-    if changed[FILES["word"]]:
-        path = reference / FILES["word"]
+    if changed[files["word"]]:
+        path = reference / files["word"]
         document = Document(path)
-        for binding in changed[FILES["word"]]:
+        for binding in changed[files["word"]]:
             paragraph = document.paragraphs[binding["location"]["paragraph"]]
             start = len(binding["label"]) + len(TEXT_SEPARATOR)
             replace_span(paragraph, start, len(paragraph.text), display(after[binding["node_id"]]))
         document.save(path)
-    if changed[FILES["ppt"]]:
-        path = reference / FILES["ppt"]
+    if changed[files["ppt"]]:
+        path = reference / files["ppt"]
         deck = Presentation(path)
         charts = defaultdict(dict)
-        for binding in changed[FILES["ppt"]]:
+        for binding in changed[files["ppt"]]:
             location = binding["location"]
             si, sh = location["slide"], location["shape"]
             value = after[binding["node_id"]]
@@ -621,6 +631,7 @@ def native_controls(package, oracle):
     package = Path(package)
     public, private = package / "public", package / "private"
     reference = private / "reference"
+    files = {FORMAT_NAMES[name]: name for name in oracle["files"]}
     results = {}
 
     def record(case, directory):
@@ -633,18 +644,29 @@ def native_controls(package, oracle):
 
     record("reference", reference)
     record("unchanged_original", public)
-    for case in ("unchanged_word", "protected_formula_replaced", "chart_cache_corrupted"):
+    for case in ("unchanged_word", "wrong_corrected_value", "protected_formula_replaced", "chart_cache_corrupted"):
         with TemporaryDirectory(prefix="hotel_oracle_") as tmp:
             probe = Path(tmp)
             for file in oracle["files"]:
                 shutil.copy2(reference / file, probe / file)
             if case == "unchanged_word":
-                if not any(check["group"] == "required" and check["object"].startswith(FILES["word"] + ":")
+                if not any(check["group"] == "required" and check["object"].startswith(files["word"] + ":")
                            for check in oracle["checks"]):
                     continue
-                shutil.copy2(public / FILES["word"], probe / FILES["word"])
+                shutil.copy2(public / files["word"], probe / files["word"])
+            elif case == "wrong_corrected_value":
+                updated = {item["evidence_id"] for item in oracle["evidence_checks"] if item["group"] == "required"}
+                binding = next((item for item in oracle["bindings"] if item["evidence_id"] in updated
+                                and item["file"] == files["excel"] and item["value_type"] == "number"), None)
+                if binding is None:
+                    continue
+                path = probe / files["excel"]
+                workbook = load_workbook(path)
+                location = binding["location"]
+                workbook[location["sheet"]][location["cell"]].value += 1
+                workbook.save(path)
             elif case == "protected_formula_replaced":
-                path = probe / FILES["excel"]
+                path = probe / files["excel"]
                 workbook = load_workbook(path)
                 count_formula = oracle.get("count_formula")
                 if count_formula:
@@ -656,7 +678,7 @@ def native_controls(package, oracle):
             else:
                 from lxml import etree
 
-                path = probe / FILES["ppt"]
+                path = probe / files["ppt"]
                 with ZipFile(path) as archive:
                     parts = {name: archive.read(name) for name in archive.namelist()}
                 chart_part = next(name for name in parts if name.startswith("ppt/charts/chart") and name.endswith(".xml"))
@@ -673,28 +695,29 @@ def native_controls(package, oracle):
     return results
 
 
-def build_layout(package, slots, before, after, instruction, *, ppt_size='small'):
+def build_layout(package, slots, before, after, instruction, *, ppt_size='small', title=None):
     """Bind evidence, compile the expected edits and independently read assets back."""
     package = Path(package)
     public, private = package / "public", package / "private"
     reference = private / "reference"
+    files = BUSINESS_FILES if title else FILES
     validate_slots(slots, before, after)
-    render_original(public, slots, before, ppt_size=ppt_size)
+    render_original(public, slots, before, ppt_size=ppt_size, files=files, title=title)
     (public / "instruction.md").write_text(instruction, encoding="utf-8")
-    if set(path.name for path in public.iterdir()) != {*FILES.values(), "instruction.md"}:
+    if set(path.name for path in public.iterdir()) != {*files.values(), "instruction.md"}:
         raise ValueError("Public package contains files outside the declared artifact list")
-    bindings = native_locations(public, slots, before)
-    preserve_display_precision(public, bindings, before)
-    count = workbook_count_formula(public, bindings, before)
+    bindings = native_locations(public, slots, before, files=files)
+    preserve_display_precision(public, bindings, before, files=files)
+    count = None if title else workbook_count_formula(public, bindings, before)
     if count:
         flag_ids = {binding["evidence_id"]: binding["node_id"] for binding in bindings}
         count["after"] = sum(after[flag_ids[key]] for key in count["inputs"])
         populate_count_cache(public, count["before"])
-    patch_reference(public, reference, bindings, before, after)
+    patch_reference(public, reference, bindings, before, after, files=files)
     if count:
         populate_count_cache(reference, count["after"])
-    old_state = snapshot(public, tuple(FILES.values()))
-    ref_state = snapshot(reference, tuple(FILES.values()))
+    old_state = snapshot(public, tuple(files.values()))
+    ref_state = snapshot(reference, tuple(files.values()))
     if set(old_state) != set(ref_state):
         raise ValueError("Native reference changed the object inventory")
     expected_diff = set()
@@ -711,12 +734,13 @@ def build_layout(package, slots, before, after, instruction, *, ppt_size='small'
     if actual_diff != expected_diff:
         raise ValueError(f"Native reference diff disagrees with declared edits. Extra {sorted(actual_diff - expected_diff)}. Missing {sorted(expected_diff - actual_diff)}.")
     oracle = {"contract": "Registered native objects and answer values. Preserve protected cells, prose, chart structure and embedded data.",
-              "files": list(FILES.values()), "bindings": bindings, "evidence_checks": evidence_checks,
+              "files": list(files.values()), "bindings": bindings, "evidence_checks": evidence_checks,
               "checks": [{"object": key, "group": "required" if key in actual_diff else "protected", "expected": ref_state[key]}
                          for key in sorted(ref_state)]}
     if count:
         oracle["count_formula"] = count
-    oracle = with_unordered_qualification_list(oracle)
+    if not title:
+        oracle = with_unordered_qualification_list(oracle)
     before_observations = read_observations(public, bindings)
     after_observations = read_observations(reference, bindings)
     for observed, wanted in ((before_observations, before), (after_observations, after)):
@@ -728,8 +752,8 @@ def build_layout(package, slots, before, after, instruction, *, ppt_size='small'
     save(private / "evidence_map.json", bindings + ([count] if count else []))
     save(private / "oracle.json", oracle)
     save(private / "native_reference_evaluation.json", result)
-    save(private / "native_manifest.json", {"public_sha256": {file: digest(public / file) for file in FILES.values()},
-         "reference_sha256": {file: digest(reference / file) for file in FILES.values()},
+    save(private / "native_manifest.json", {"public_sha256": {file: digest(public / file) for file in files.values()},
+         "reference_sha256": {file: digest(reference / file) for file in files.values()},
          "native_formula": count or "Archive-check sum in the original workbook is independently protected in the Oracle.",
          "chart": "Every editable chart point is backed by its native PPT chart cache and embedded Excel worksheet."})
     return {"before_observations": before_observations, "after_observations": after_observations,

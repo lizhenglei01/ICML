@@ -1,0 +1,49 @@
+{
+  "family": "automatic_business",
+  "label": "automatic_business_construction",
+  "private_archive": {
+    "anchor_files": {
+      "verified/hotel/case/layouts/deep_concentrated/private/oracle.json": "53ef45161b8362299cb8b10f4931bd64ea5c44a5062582ae3f9a367e7ed65694",
+      "verified/hotel/case/layouts/deep_concentrated/public/instruction.md": "be1110730bfe07c15936aa38a31deead3643f66935282cb407391391d3363527",
+      "verified/hotel/case/layouts/deep_cross_file/private/oracle.json": "d4402317ab323b376d29f1da8d45f965205deb354ecf81eef5a4036ba8c79a1e",
+      "verified/hotel/case/layouts/deep_cross_file/public/instruction.md": "be1110730bfe07c15936aa38a31deead3643f66935282cb407391391d3363527",
+      "verified/hotel/case/layouts/shallow_concentrated/private/oracle.json": "245d26a423cebdda6d8135543fa6c5bd75aea5b964cfd95f76a5147b67ad94ef",
+      "verified/hotel/case/layouts/shallow_concentrated/public/instruction.md": "be1110730bfe07c15936aa38a31deead3643f66935282cb407391391d3363527",
+      "verified/hotel/case/layouts/shallow_cross_file/private/oracle.json": "0fd4a41b91b7f978e7a6ef614860b25ece65b9ec1851e22fa8e9f47bff5f3cdc",
+      "verified/hotel/case/layouts/shallow_cross_file/public/instruction.md": "be1110730bfe07c15936aa38a31deead3643f66935282cb407391391d3363527",
+      "verified/procurement/case/layouts/deep_concentrated/private/oracle.json": "8ff8e1bc77c1109ac7ee83b919da640488b7b283f76b9d789a6c1c9f0519be17",
+      "verified/procurement/case/layouts/deep_concentrated/public/instruction.md": "5af5512072c0994235ca4bf2603ee620628b76b93a3a84bebb3421f307f7e0e3",
+      "verified/procurement/case/layouts/deep_cross_file/private/oracle.json": "960eb9c4c1b18d7075b029c134d5ef8bf6d2877257e437a4cf1629b4969fbc30",
+      "verified/procurement/case/layouts/deep_cross_file/public/instruction.md": "5af5512072c0994235ca4bf2603ee620628b76b93a3a84bebb3421f307f7e0e3",
+      "verified/procurement/case/layouts/shallow_concentrated/private/oracle.json": "db14ea29e9d01e7c493fe5d64acbedd27e985c7947b99af567cfdae78028ee47",
+      "verified/procurement/case/layouts/shallow_concentrated/public/instruction.md": "5af5512072c0994235ca4bf2603ee620628b76b93a3a84bebb3421f307f7e0e3",
+      "verified/procurement/case/layouts/shallow_cross_file/private/oracle.json": "dd3e82787d0a9677bdfc12ffe39cf2a1316fa89cefb38ac2c9858a56690fec28",
+      "verified/procurement/case/layouts/shallow_cross_file/public/instruction.md": "5af5512072c0994235ca4bf2603ee620628b76b93a3a84bebb3421f307f7e0e3"
+    },
+    "files": 196,
+    "inventory": "inventory.json",
+    "inventory_sha256": "66f32292887b24509f2303448a7fccb670ddee08fe87b5a2137d913022580a4b",
+    "location": "artifacts_research_archive/automatic_business_20261126T140730686Z/",
+    "roles": {
+      "development_rejection": 2,
+      "office_open_check": 1,
+      "regression_check": 1,
+      "validated_build": 192
+    }
+  },
+  "provenance": {
+    "author_context": "Fresh audited threads. Recorded structured context between stages. No evaluated Agent calls.",
+    "base_commit": "04c0cf07f10d23393971cb21140fa3e164b4e0ea",
+    "source_sha256": {
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_office.py": "485c5f35a8c9b35997a99f8fcdced00c23906aff3731bb7b1226e3cf5fa5788b",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_visibility.py": "e1f10588fd7139f1048c5daed23a6509bd75da3baa498c6e301715076604c39a",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_author.py": "716e9249e12d1de7b9d32f74b91133984d62e53bf1935fe3887f4fa31c99e5c3",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_bench.py": "dcd2a3ad4325623fc4b2a1ea3f636784728fae8821796318f96f26032db1742b",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_graph.py": "af2ac6310373acb712cb5f1118e884f0fdf699e9f063ceed08a223075fed6c33",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/test_scenario_bench.py": "79101c396f49c8eae297165e65ea4ec92dc2af2a6588c9942014b220b5579b85"
+    }
+  },
+  "run_id": "automatic_business_20261126T140730686Z",
+  "schema_version": 1,
+  "title": "酒店与采购端到端自动构建"
+}

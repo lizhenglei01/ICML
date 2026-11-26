@@ -1,0 +1,380 @@
+{
+  "cases": {
+    "hotel": {
+      "goal": "季度经营资格复核",
+      "layouts": {
+        "deep_concentrated": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 4,
+          "minimum_depth": 5,
+          "minimum_files": 1,
+          "reference_grade": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 4
+        },
+        "deep_cross_file": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 7,
+          "minimum_depth": 5,
+          "minimum_files": 3,
+          "reference_grade": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 7
+        },
+        "shallow_concentrated": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 4,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "reference_grade": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 4
+        },
+        "shallow_cross_file": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 7,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "reference_grade": {
+            "protected": {
+              "passed": 215,
+              "total": 215
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 7
+        }
+      },
+      "model_calls": [
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 34.31029515800765,
+          "stage": "backward"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 37.690789974003565,
+          "stage": "forward"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 68.63023540799622,
+          "stage": "observations"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 34.779229036998004,
+          "stage": "policy"
+        }
+      ],
+      "search": {
+        "event_candidates": 362,
+        "initial_data_candidates": 1,
+        "nontrivial_event_candidates": 29,
+        "rejected_events": {
+          "An insufficient file subset has no verified indistinguishable counterworld": 28
+        },
+        "row_strata": {
+          "00": 60,
+          "01": 60,
+          "10": 60,
+          "11": 60
+        }
+      },
+      "seed": 8128,
+      "topic": "酒店经营分析"
+    },
+    "procurement": {
+      "goal": "季度供应商采购资格复核",
+      "layouts": {
+        "deep_concentrated": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 4,
+          "minimum_depth": 4,
+          "minimum_files": 1,
+          "reference_grade": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 4
+        },
+        "deep_cross_file": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 7,
+          "minimum_depth": 4,
+          "minimum_files": 3,
+          "reference_grade": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 7
+        },
+        "shallow_concentrated": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 4,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "reference_grade": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 4
+        },
+        "shallow_cross_file": {
+          "controls": {
+            "chart_cache_corrupted": false,
+            "protected_formula_replaced": false,
+            "reference": true,
+            "unchanged_original": false,
+            "unchanged_word": false,
+            "wrong_corrected_value": false
+          },
+          "insufficient_subsets": 7,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "reference_grade": {
+            "protected": {
+              "passed": 228,
+              "total": 228
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "witnessed_subsets": 7
+        }
+      },
+      "model_calls": [
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 19.703309967007954,
+          "stage": "backward"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 35.1590335489891,
+          "stage": "forward"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 49.719297803007066,
+          "stage": "observations"
+        },
+        {
+          "fresh_isolated_thread": true,
+          "model": "gpt-6-astra",
+          "seconds": 20.61968459500349,
+          "stage": "policy"
+        }
+      ],
+      "search": {
+        "event_candidates": 2023,
+        "initial_data_candidates": 4,
+        "nontrivial_event_candidates": 16,
+        "rejected_events": {
+          "An insufficient file subset has no verified indistinguishable counterworld": 15
+        },
+        "row_strata": {
+          "00": 60,
+          "01": 60,
+          "10": 60,
+          "11": 60
+        }
+      },
+      "seed": 8128,
+      "topic": "供应商采购资格评估"
+    }
+  },
+  "distinct_model_threads": 8,
+  "office_open_check": {
+    "failures": [],
+    "formats": {
+      ".docx": {
+        "opened": 16,
+        "tested": 16
+      },
+      ".pptx": {
+        "opened": 16,
+        "tested": 16
+      },
+      ".xlsx": {
+        "opened": 16,
+        "tested": 16
+      }
+    },
+    "method": "LibreOffice XML-to-PDF open check with isolated profile",
+    "passed": true
+  },
+  "regression": {
+    "command": "PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q multifile_reconstruction/reasoning_graph_mvp/logic_first",
+    "failed": 0,
+    "passed": 155,
+    "seconds": 108.74
+  }
+}

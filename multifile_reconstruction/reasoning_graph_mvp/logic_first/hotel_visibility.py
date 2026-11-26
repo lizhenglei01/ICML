@@ -66,6 +66,9 @@ def _compute(rule, values, universe):
     if op == "AVG":
         members, vector = values
         return sum((_number(vector[key]) for key in members), Fraction(0)) / len(members)
+    if op == "SUM":
+        members, vector = values
+        return sum((_number(vector[key]) for key in members), Fraction(0))
     if op in {"AND", "OR"}:
         left, right = (frozenset(value) for value in values)
         return left & right if op == "AND" else left | right
@@ -103,7 +106,13 @@ def _candidates(rule, known, universe):
     op = rule["op"]
     if all(name in known for name in inputs):
         try:
-            yield inputs, _compute(rule, [known[name]["value"] for name in inputs], universe), None
+            result = _compute(rule, [known[name]["value"] for name in inputs], universe)
+            if places := rule.get("decimal_places"):
+                if isinstance(result, dict):
+                    result = {key: round(value, places) for key, value in result.items()}
+                else:
+                    result = round(result, places)
+            yield inputs, result, None
         except ZeroDivisionError:
             pass
     for name in inputs:

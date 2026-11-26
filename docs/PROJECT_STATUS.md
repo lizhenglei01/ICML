@@ -10,6 +10,7 @@
 
 | 实验 | 最新归档结果 |
 |---|---|
+| [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) | 2 个业务案例，8 组原生文件与 Oracle 通过验证 |
 | [酒店业务升级范围对照](../experiments/gpt62_upgrade_20261123T161601107239Z/analysis.md) | 原始评分 3/4 次运行通过 |
 | [酒店政策路由对照](../experiments/hotel_policy_routing/analysis.md) | 原始评分 3/4 次运行通过 |
 | [酒店公式工作流](../experiments/hotel_workflow_001/analysis.md) | 原始评分 4/4 次运行通过 |

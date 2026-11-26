@@ -36,6 +36,7 @@
 
 <!-- archive-start -->
 
+- [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) 两组使用合成政策，难度以已登记规则为界。
 - [酒店业务升级范围对照](../experiments/gpt62_upgrade_20261123T161601107239Z/analysis.md) 有原始未通过记录，诊断和复核另存。
 - [酒店政策路由对照](../experiments/hotel_policy_routing/analysis.md) 有原始未通过记录，诊断和复核另存。
 - [SWE-Milestone Navidrome 九轮对照](../experiments/swe_milestone_navidrome/analysis.md) 保留覆盖不完整和测试接口异常的诊断。
