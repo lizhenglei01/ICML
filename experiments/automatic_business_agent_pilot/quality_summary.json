@@ -1,0 +1,34 @@
+{
+  "builder_commit": "8c898ebbde95240e08e85f99ffa0fc137285197b",
+  "business_checks": {
+    "passed": 164,
+    "total": 164,
+    "by_type": {
+      "base_range": 96,
+      "subset_constraint": 36,
+      "production": 32
+    },
+    "failed": []
+  },
+  "node_gt_csv_rows": 100,
+  "business_review_scope": "Two actual synthetic examples; not validation of arbitrary industry definitions.",
+  "office_source_files": 24,
+  "office_pdf_exports": 24,
+  "visually_inspected_pages": 10,
+  "other_pdf_pages": "Text extracted only, not individually viewed.",
+  "pre_run_original_references_passed": 8,
+  "same_prompt_within_theme": {
+    "hotel": true,
+    "procurement": true
+  },
+  "source_asset_files_hashed": 104,
+  "findings": [
+    "Extreme expense/revenue ratio and quality-failure proportions; business realism not established.",
+    "Both automatically selected corrections substantially reduce denominators.",
+    "Two-condition AND structures and COUNT/AVG summaries only.",
+    "Unwrapped Excel labels and long cross-page definition paragraphs.",
+    "Binary qualification chart mislabeled as a decimal ratio; mixed-language units and blank contents pages.",
+    "Exact text grading rejects equivalent trailing zeros; numeric-cell scorer does not recalculate new formulas."
+  ],
+  "evaluation_scope": "Code-capable agents, fresh isolated sessions; GUI-only accessibility not tested."
+}

@@ -540,7 +540,7 @@ def refresh_docs():
     for item in manifests:
         label, kind = item['label'], item['family']
         test_path = PUBLIC / label / 'test_summary.json'
-        if kind not in {*BUILDERS, 'navidrome', 'automatic_business'} or not test_path.is_file():
+        if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -555,6 +555,10 @@ def refresh_docs():
             layouts = sum(len(case['layouts']) for case in cases.values())
             outcome = f'{len(cases)} 个业务案例，{layouts} 组原生文件与 Oracle 通过验证'
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 两组使用合成政策，难度以已登记规则为界。')
+        elif kind == 'automatic_business_agents':
+            outcome = '；'.join(f"{name} 完成 {row['completed']}/8，原生原判通过 {row['native_passed']}"
+                              for name, row in test['models'].items())
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 原评分与表示差异诊断分开；每布局仅一次运行。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -652,6 +656,84 @@ def archive_automatic_business(run):
     return archive
 
 
+def archive_automatic_business_agents(run, review):
+    """Seal immutable task inputs, submissions and raw scores; publish counts only."""
+    from automatic_business_eval import MODELS, fatal_runtime_events, source_unchanged
+    from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import grade
+
+    plan = read(run / 'plan.json')
+    frozen = plan['packages']
+    if not all(source_unchanged(record) for record in frozen.values()):
+        raise ValueError('Source task or reference changed')
+    archive = Archive('automatic_business_agent_pilot', run.name)
+    summaries = {route: {'model': model, 'completed': 0, 'native_passed': 0, 'semantic_passed': 0,
+                         'tasks': {}} for route, model in MODELS.items()}
+    candidates = [p for p in run.rglob('run.json')
+                  if p.parent.name in frozen and p.parent.parent.name in MODELS]
+    for path in sorted(candidates):
+        record = read(path)
+        route, task = path.parent.parent.name, path.parent.name
+        row = summaries[route]
+        if task in row['tasks']:
+            raise ValueError(f'Duplicate evaluated submission: {route}/{task}')
+        if record['model'] != MODELS[route]:
+            raise ValueError('Unexpected model')
+        events = record.get('trace', {})
+        fatal = fatal_runtime_events(events.get('runtime_events', []), MODELS[route])
+        completed = record.get('returncode') == 0 and bool(events.get('usage')) and not fatal
+        package = Path(frozen[task]['package'])
+        work = path.parent / 'submission'
+        original_score = path.parent / 'native_evaluation.json'
+        score = read(original_score) if original_score.exists() else None
+        if completed and score is None:
+            # Metadata warnings can prevent the original wrapper from calling the
+            # grader. Preserve that status and perform the first score separately.
+            score = grade(work, read(package / 'private' / frozen[task]['oracle_file']))
+            write(path.parent / 'completion_diagnostic_grade.json', score)
+        if completed:
+            row['completed'] += 1
+            row['native_passed'] += bool(score and score['pass'])
+            semantic = (score or {}).get('groups', {}).get('semantic', {})
+            row['semantic_passed'] += bool(semantic.get('total') and semantic['passed'] == semantic['total'])
+        row['tasks'][task] = {
+            'original_status': record['status'], 'completed_verified': completed,
+            'native_pass': score['pass'] if completed and score else None,
+            'score_available_during_original_run': original_score.exists(),
+            'groups': score['groups'] if score else None,
+            'failed_groups': dict(Counter(c['group'] for c in score['checks'] if not c['pass'])) if score else {},
+            'wall_seconds': record.get('wall_seconds'),
+            'minimum_depth': frozen[task]['minimum_depth'], 'minimum_files': frozen[task]['minimum_files'],
+            'usage': events.get('usage'),
+            'provider_status_counts': dict(Counter(str(r['status']) for r in record.get('provider_requests', []))),
+            'submission_sha256': record.get('submission_sha256'),
+            'metadata_warning_count': len(events.get('runtime_events', [])) - len(fatal),
+        }
+    archive.tree(run, 'runs', 'agent_execution')
+    archive.tree(review, 'quality_review', 'quality_review')
+    for name, record in frozen.items():
+        archive.tree(Path(record['package']), Path('frozen_tasks') / name, 'frozen_task')
+    for topic in ('hotel', 'procurement'):
+        record = next(record for record in frozen.values() if record['topic'] == topic)
+        archive.tree(Path(record['package']).parents[1] / 'private',
+                     Path('business_truth') / topic, 'business_graph_and_gt')
+    write(archive.public / 'test_summary.json', {'planned_trials': 24, 'models': summaries,
+          'cancelled_duplicate_attempts': len(list(run.rglob('cancelled_duplicate.json'))),
+          'duplicate_policy': 'Retain the earlier-started attempt, before inspecting output or scores; preserve cancelled trace.',
+          'source_assets_unchanged': True,
+          'scope': 'One static revision per model per layout; not a replicated difficulty effect estimate.',
+          'scoring': 'Original frozen native grader. Semantics, representation differences and runtime errors remain separate.'})
+    archive.seal('自动构建任务质量核查与三模型试验', 'automatic_business_agents', {
+        'builder_commit': plan['base_commit'], 'run_plan_sha256': digest(run / 'plan.json'),
+        'models': plan['models'], 'requested_effort': plan['effort_requested'],
+        'input_context': 'Fresh isolated tasks, public Office files and task only; no graphs, GT or grader feedback.',
+        'run_source_snapshots': 'runs/source_at_start/ and continuation plans preserve wrapper versions.',
+        'raw_scoring_preserved': True,
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -679,6 +761,9 @@ def main():
     custom.add_argument('--run', type=Path, required=True)
     automatic = modes.add_parser('automatic-business')
     automatic.add_argument('--run', type=Path, required=True)
+    pilot = modes.add_parser('automatic-business-agents')
+    pilot.add_argument('--run', type=Path, required=True)
+    pilot.add_argument('--review', type=Path, required=True)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -686,6 +771,9 @@ def main():
         archive_hotel_run(args.kind, args.source.resolve(), args.run.resolve())
     elif args.command == 'automatic-business':
         archive = archive_automatic_business(args.run.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'automatic-business-agents':
+        archive = archive_automatic_business_agents(args.run.resolve(), args.review.resolve())
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):

@@ -1,0 +1,1136 @@
+{
+  "cancelled_duplicate_attempts": 1,
+  "duplicate_policy": "Retain the earlier-started attempt, before inspecting output or scores; preserve cancelled trace.",
+  "models": {
+    "deepseek": {
+      "completed": 8,
+      "model": "deepseek-v4-pro",
+      "native_passed": 6,
+      "semantic_passed": 6,
+      "tasks": {
+        "hotel__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 5,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 33
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "7bda358538d66e7f45cafab491c714cc44555e055543e1d90d91b96460b71eb3",
+            "policy.docx": "26a0eb6ac9b63ecb612855f1f7082c318a4dfd9cebb10ad2d0d1c76ad7977bbd",
+            "review.xlsx": "747409b64638dae40671fbbd16e044bf775c7b7c2273448e3006e63ba36b4ed5"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 680576,
+              "input_tokens": 696285,
+              "output_tokens": 13770,
+              "reasoning_output_tokens": 7066
+            }
+          ],
+          "wall_seconds": 218.648
+        },
+        "hotel__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 5,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 40
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "e583b0ec2fb6e6d83c3b6a8ea1218e74cac3ed82f8355b3c3c6ccdcd24a91655",
+            "policy.docx": "7b2629a82e1f083a25be8a40117d5fca9b1a69e0d975db1c2cc7a22d2f586527",
+            "review.xlsx": "5382da9773d5219a914d4e39b86c827a739069521758a075bd28045b42f71e4a"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 1253632,
+              "input_tokens": 1273612,
+              "output_tokens": 31159,
+              "reasoning_output_tokens": 23261
+            }
+          ],
+          "wall_seconds": 555.296
+        },
+        "hotel__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "RUN_ERROR",
+          "provider_status_counts": {
+            "200": 38
+          },
+          "score_available_during_original_run": false,
+          "submission_sha256": {
+            "briefing.pptx": "65dd47dbc1c5b912d309c9915df07a04cb42c4221cf4a91c2297a7f81418494f",
+            "policy.docx": "35bf7971ff5550cfdd3ba9279fe639a8549de23ae5cb6767fdeedf7c90a99b6d",
+            "review.xlsx": "d128e4a98b633593cb2497726962172f44fd25f6fb7a80bf0caa81dcf85a9d74"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 1155200,
+              "input_tokens": 1175437,
+              "output_tokens": 28023,
+              "reasoning_output_tokens": 19811
+            }
+          ],
+          "wall_seconds": 420.131
+        },
+        "hotel__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 215,
+              "total": 215
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 58
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "0eb6a334dc1c3b96f7e967aaad9764c5fbb707b951eecda31bcb771f6c82fa38",
+            "policy.docx": "5bbbb9ef5abcf54bfe35f94ccaa512ecdbb5c3cc2238156f052d952ac527554e",
+            "review.xlsx": "b074d66a3be2be53e95ca8813e3f5d848ce7ed8fb8afd9c68d1e87a89aa8147e"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 2948864,
+              "input_tokens": 2992809,
+              "output_tokens": 52520,
+              "reasoning_output_tokens": 42349
+            }
+          ],
+          "wall_seconds": 842.993
+        },
+        "procurement__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1,
+            "semantic": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 55,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 4,
+          "minimum_files": 1,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 26
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "e73ac0c6b1a679d34bdd155bcd20c9c895910a113e068004ea298360558bc218",
+            "policy.docx": "c06ee5760a51d7c2e49d5943f9edfd676dbbcd20cc01d247b36586723c8bfb8f",
+            "review.xlsx": "551708fe69869a5fb79e1f6b8a5e903fba7df61040334e0efff3fed77be4abf0"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 608640,
+              "input_tokens": 630597,
+              "output_tokens": 11975,
+              "reasoning_output_tokens": 6237
+            }
+          ],
+          "wall_seconds": 196.999
+        },
+        "procurement__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 4,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 29
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "99356f6b95f809076a5e6558de33ceee9e08180260829f3292fffcf169b74379",
+            "policy.docx": "9237652ab4ad965fb58fa3c90070746ec3fbe5edf493b6516fd4259b2270db7f",
+            "review.xlsx": "7256af95ef6b5e50e20be381c285210269e5127c9725f03056828a8d2c1df99d"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 611456,
+              "input_tokens": 629676,
+              "output_tokens": 13990,
+              "reasoning_output_tokens": 7618
+            }
+          ],
+          "wall_seconds": 230.204
+        },
+        "procurement__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1,
+            "semantic": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 43,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 21
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "08a52720c800c2aaddbef29487467d990213770874750ee3bd0dcbd9cfcb0423",
+            "policy.docx": "b92d0da2f81de86c3bd1c0008f2370d7ced90ff7c45828fc977c841bcedc4cd9",
+            "review.xlsx": "acbbba99f1b717c1582dd33ff8c79482b07b86370179abd9e84ba0f44371026a"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 670336,
+              "input_tokens": 700223,
+              "output_tokens": 21456,
+              "reasoning_output_tokens": 15484
+            }
+          ],
+          "wall_seconds": 297.395
+        },
+        "procurement__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 228,
+              "total": 228
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 25
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "6b71bd1b45c90ed87d3f13a12c7502bd6f8a321ce3e050162ad8b7816c0a0e86",
+            "policy.docx": "d288afc05651367ebf2b29ee4b0cac33522b30589e60d611a79d951c11a82a76",
+            "review.xlsx": "c14e7c537a01d45448c1ddc3c1b8b559c8c42afb25f2c16f909bb24a346433ba"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 580736,
+              "input_tokens": 599087,
+              "output_tokens": 15164,
+              "reasoning_output_tokens": 8626
+            }
+          ],
+          "wall_seconds": 258.661
+        }
+      }
+    },
+    "gpt62": {
+      "completed": 8,
+      "model": "gpt-6.2-sol",
+      "native_passed": 4,
+      "semantic_passed": 8,
+      "tasks": {
+        "hotel__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 5,
+          "minimum_files": 1,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "a2e1794e7349b58da295dbd505ae8fd462a8745a1aeb4d677d38914d23e9d1ed",
+            "policy.docx": "45e812dcc29d9a7870a06ed38092e184ed0dbbb635dbfd4778135959d7039db0",
+            "review.xlsx": "87a59d836f5f19d6dfbc700c8e42384b234860a0540f0722cc1fa04ead4e1acb"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 109440,
+              "input_tokens": 161582,
+              "output_tokens": 6527,
+              "reasoning_output_tokens": 79
+            }
+          ],
+          "wall_seconds": 181.72
+        },
+        "hotel__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 5,
+          "minimum_files": 3,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "b536142d36655f30b0975c43ffcc74f79a546ef4a3a968367e44520f8d675a9a",
+            "policy.docx": "c20f077d497407d84bac9999bbdf7cda74d026a352acb9d0b2d089371f4c3f3e",
+            "review.xlsx": "a1e085cc08a61d6a10f4e2a2bdc3e3bd9b2d8d6bbef2be845ce4a09212e03eb3"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 60800,
+              "input_tokens": 103585,
+              "output_tokens": 2329,
+              "reasoning_output_tokens": 25
+            }
+          ],
+          "wall_seconds": 103.756
+        },
+        "hotel__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "efc803250b40442c37ae849132530215663961d61d2637b7be6c8e8676dd75c2",
+            "policy.docx": "45e812dcc29d9a7870a06ed38092e184ed0dbbb635dbfd4778135959d7039db0",
+            "review.xlsx": "8f2dc4da8f55828a221c4261a792be5e9a1bceb445704b5f6cf27f85b24f7328"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 88832,
+              "input_tokens": 97976,
+              "output_tokens": 2641,
+              "reasoning_output_tokens": 55
+            }
+          ],
+          "wall_seconds": 97.727
+        },
+        "hotel__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {
+            "required": 1
+          },
+          "groups": {
+            "protected": {
+              "passed": 215,
+              "total": 215
+            },
+            "required": {
+              "passed": 8,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": false,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "aeb330d3ca31dc9bdad10840e1cc9afd6a2b6510100ec564dfa8bc65e9208deb",
+            "policy.docx": "c20f077d497407d84bac9999bbdf7cda74d026a352acb9d0b2d089371f4c3f3e",
+            "review.xlsx": "4a1ec23278d71b69703db033aba344d56cdd58522979e2a8ac62e08fb3ead82e"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 83200,
+              "input_tokens": 105950,
+              "output_tokens": 2887,
+              "reasoning_output_tokens": 34
+            }
+          ],
+          "wall_seconds": 111.57
+        },
+        "procurement__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 4,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "4a8d01bea956d05cd7f96de8c26f275059601a709907b64b820642d59109522e",
+            "policy.docx": "6ffe59103b973a4c883455a7da1dc06a4b6999bee08295b4d91f98ed12b65b4c",
+            "review.xlsx": "2b058565c6df72edeca23c28aea2f061615c086664f27261d654f45cf513a1ef"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 61056,
+              "input_tokens": 83376,
+              "output_tokens": 2478,
+              "reasoning_output_tokens": 24
+            }
+          ],
+          "wall_seconds": 124.711
+        },
+        "procurement__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 4,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "c69cb48949791cd06364f5d6f7fea05bf03ad3eb8b071c09812a98b7c10e188f",
+            "policy.docx": "759bb9a7ac822c3f31dd4b9a4b866ec8411b2c88d3f636a9d3a1d8829a4a66fc",
+            "review.xlsx": "6f1f560b51eba0272a78c89324a220e0d1e48575b640afe4cad54b7c63f60244"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 65664,
+              "input_tokens": 88948,
+              "output_tokens": 2518,
+              "reasoning_output_tokens": 31
+            }
+          ],
+          "wall_seconds": 81.498
+        },
+        "procurement__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "08a52720c800c2aaddbef29487467d990213770874750ee3bd0dcbd9cfcb0423",
+            "policy.docx": "6ffe59103b973a4c883455a7da1dc06a4b6999bee08295b4d91f98ed12b65b4c",
+            "review.xlsx": "acbbba99f1b717c1582dd33ff8c79482b07b86370179abd9e84ba0f44371026a"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 64384,
+              "input_tokens": 83853,
+              "output_tokens": 2589,
+              "reasoning_output_tokens": 32
+            }
+          ],
+          "wall_seconds": 94.295
+        },
+        "procurement__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 228,
+              "total": 228
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 0,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {},
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "713fde5a8311eb37f3420d27beac175e9ea48e440a9c1dbeeab4482fafe2a3c9",
+            "policy.docx": "9a182bd5c21fee75478570e84353f9f6eb4c1926d4eb048fec00afa3e1f1c865",
+            "review.xlsx": "deeccdb00c1797ddce97bd8c02955455ef476fa5b93b3c7c34fe3423428c259f"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 73088,
+              "input_tokens": 87751,
+              "output_tokens": 2928,
+              "reasoning_output_tokens": 30
+            }
+          ],
+          "wall_seconds": 92.977
+        }
+      }
+    },
+    "qwen4": {
+      "completed": 8,
+      "model": "qwen4-max",
+      "native_passed": 8,
+      "semantic_passed": 8,
+      "tasks": {
+        "hotel__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 5,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 15
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "a2e1794e7349b58da295dbd505ae8fd462a8745a1aeb4d677d38914d23e9d1ed",
+            "policy.docx": "5c44edcac1facbfdb181f0a1f61321c311d5f6e85540ce550055b174c30c06d1",
+            "review.xlsx": "87a59d836f5f19d6dfbc700c8e42384b234860a0540f0722cc1fa04ead4e1acb"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 315136,
+              "input_tokens": 348155,
+              "output_tokens": 16956,
+              "reasoning_output_tokens": 8451
+            }
+          ],
+          "wall_seconds": 207.592
+        },
+        "hotel__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 5,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 10
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "f14dad8ac0cc09ec4f50d3badb30f4f0bb7e649966f7df6791bcfd2a12a684fd",
+            "policy.docx": "4babff1eb1de35f019c770dca01ccf240e97ac781e998f5c1ebcf2ae31c16b48",
+            "review.xlsx": "6af08c0e15c654981d9a7198363723b2e3d8a51b0af2e44baf65c49e9e409b8b"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 98048,
+              "input_tokens": 108818,
+              "output_tokens": 4811,
+              "reasoning_output_tokens": 2088
+            }
+          ],
+          "wall_seconds": 71.085
+        },
+        "hotel__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "RUN_ERROR",
+          "provider_status_counts": {
+            "200": 10
+          },
+          "score_available_during_original_run": false,
+          "submission_sha256": {
+            "briefing.pptx": "fd057d43bd65ea880f7c473cdeb75e1a9751e22465380a415defd1bd3b7b5990",
+            "policy.docx": "eeaaef230cc76444637887f6bb20d288ae302d191528a4dc9c925c1c59c71644",
+            "review.xlsx": "7cf447875578d34dc2e809ac566206879f213654733e17a9fd25af36b60c0682"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 98816,
+              "input_tokens": 120460,
+              "output_tokens": 6309,
+              "reasoning_output_tokens": 3801
+            }
+          ],
+          "wall_seconds": 78.832
+        },
+        "hotel__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 215,
+              "total": 215
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 10
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "ebf188b870f2619bcc147d9814d2061b3361af1a2e467efa7896cbb2929a8f85",
+            "policy.docx": "1b7e95a4f429e8ec8c667c814f2c57474e9798b87ce0d0aaa5bb588bff728832",
+            "review.xlsx": "c154bdeb23b3fa6680d3af97d45accdec338934288e8c51d384f543b91692ea0"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 92160,
+              "input_tokens": 101470,
+              "output_tokens": 4255,
+              "reasoning_output_tokens": 1772
+            }
+          ],
+          "wall_seconds": 66.569
+        },
+        "procurement__deep_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 224,
+              "total": 224
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 56,
+              "total": 56
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 4,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 10
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "fd65af71e4afafb11cb383cc91594bbe6be1c5705957799a2862b1eed83f1ef1",
+            "policy.docx": "0a32563854bbb9609d6fd974f608f5fef2d4bec33d49f1eb4d92802a2e5f9da9",
+            "review.xlsx": "ae6622bf15bedf99819490c3884a2c60d1fbde454831249072362be4ce961e8e"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 97536,
+              "input_tokens": 106977,
+              "output_tokens": 4138,
+              "reasoning_output_tokens": 1891
+            }
+          ],
+          "wall_seconds": 59.09
+        },
+        "procurement__deep_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 239,
+              "total": 239
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 4,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 9
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "bd76871976481d7f7c7e145318bb91f51361f37a8cedf4e043eaee731087612a",
+            "policy.docx": "80e878771e1dc6f081368b5bd4be84b2a0f56437aaf73e0d831a93189b3737e4",
+            "review.xlsx": "0c4f108c9768c7e40f39206a85926e32cd0e75546f9a6f84523bd0f316499c56"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 82176,
+              "input_tokens": 91144,
+              "output_tokens": 4088,
+              "reasoning_output_tokens": 1731
+            }
+          ],
+          "wall_seconds": 61.671
+        },
+        "procurement__shallow_concentrated": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 200,
+              "total": 200
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 44,
+              "total": 44
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 1,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 12
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "08a52720c800c2aaddbef29487467d990213770874750ee3bd0dcbd9cfcb0423",
+            "policy.docx": "6ffe59103b973a4c883455a7da1dc06a4b6999bee08295b4d91f98ed12b65b4c",
+            "review.xlsx": "acbbba99f1b717c1582dd33ff8c79482b07b86370179abd9e84ba0f44371026a"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 145664,
+              "input_tokens": 163327,
+              "output_tokens": 6757,
+              "reasoning_output_tokens": 3378
+            }
+          ],
+          "wall_seconds": 82.192
+        },
+        "procurement__shallow_cross_file": {
+          "completed_verified": true,
+          "failed_groups": {},
+          "groups": {
+            "protected": {
+              "passed": 228,
+              "total": 228
+            },
+            "required": {
+              "passed": 9,
+              "total": 9
+            },
+            "semantic": {
+              "passed": 68,
+              "total": 68
+            },
+            "structure": {
+              "passed": 0,
+              "total": 0
+            }
+          },
+          "metadata_warning_count": 1,
+          "minimum_depth": 3,
+          "minimum_files": 3,
+          "native_pass": true,
+          "original_status": "COMPLETED",
+          "provider_status_counts": {
+            "200": 12
+          },
+          "score_available_during_original_run": true,
+          "submission_sha256": {
+            "briefing.pptx": "ea727b483590f6ae1f7b32c2bde95cd39d3dfc485b7f62c95ab3c5914d2a93f5",
+            "policy.docx": "e4dbda455ba5cccbb098316ee0fa35e964329f44233282118202e258a6e5760d",
+            "review.xlsx": "157533f729de6300c6881551c6d58f7ad23ac6f57da31d61af4c405c82fd27de"
+          },
+          "usage": [
+            {
+              "cache_write_input_tokens": 0,
+              "cached_input_tokens": 180992,
+              "input_tokens": 205941,
+              "output_tokens": 8590,
+              "reasoning_output_tokens": 3958
+            }
+          ],
+          "wall_seconds": 115.687
+        }
+      }
+    }
+  },
+  "planned_trials": 24,
+  "scope": "One static revision per model per layout; not a replicated difficulty effect estimate.",
+  "scoring": "Original frozen native grader. Semantics, representation differences and runtime errors remain separate.",
+  "source_assets_unchanged": true
+}

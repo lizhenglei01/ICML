@@ -1,6 +1,8 @@
 # 项目进度
 
-项目研究 Agent 能否持续扩展和维护带依赖的业务工作空间。当前主要原型是酒店审批。Excel 保存业务状态，Agent 交付执行申请、签发、退款和递补的程序。
+项目研究依赖图驱动的业务工作空间构建与Agent维护评测，保留酒店、Lite 38和真实应用的持续演化实验。当前冻结主题驱动构建器，重点核查其生成资产质量与实际评测价值。
+
+2026-11-26 酒店和采购的8套静态修订任务完成三模型共24次独立试验。冻结原生评分为GPT-6.2-sol 4/8、Qwen4-Max 8/8、DeepSeek V4-Pro 6/8。GPT四项失分仅为同值小数末尾零；DeepSeek两题成员正确但违反明确排序要求。未发现数值、资格成员或受保护内容的真实错误，尚不能证明深层或分散布局降低业务正确率。独立GT核查164项一致，同时发现数据现实合理性、Excel排版和评分表示比较问题。详见[质量与模型试验](../experiments/automatic_business_agent_pilot/analysis.md)。构建器和原Oracle保持不变。
 
 2026-11-23 的首个有状态实验中，GPT‑6.2‑sol 的连续组和独立组都通过了三轮测试。原型验证了跨调用状态保存、操作顺序和名额释放依赖。该结果来自一个人工构造的酒店案例。
 
@@ -10,6 +12,7 @@
 
 | 实验 | 最新归档结果 |
 |---|---|
+| [自动构建任务质量核查与三模型试验](../experiments/automatic_business_agent_pilot/analysis.md) | deepseek 完成 8/8，原生原判通过 6；gpt62 完成 8/8，原生原判通过 4；qwen4 完成 8/8，原生原判通过 8 |
 | [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) | 2 个业务案例，8 组原生文件与 Oracle 通过验证 |
 | [酒店业务升级范围对照](../experiments/gpt62_upgrade_20261123T161601107239Z/analysis.md) | 原始评分 3/4 次运行通过 |
 | [酒店政策路由对照](../experiments/hotel_policy_routing/analysis.md) | 原始评分 3/4 次运行通过 |

@@ -1,0 +1,802 @@
+{
+  "observed_records": 24,
+  "cancelled_duplicate_count": 1,
+  "rows": [
+    {
+      "model": "deepseek-v4-pro",
+      "task": "hotel__shallow_cross_file",
+      "run_file": "continuations/deepseek_a/deepseek/hotel__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 215,
+          "total": 215
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "procurement__deep_concentrated",
+      "run_file": "continuations/deepseek_b/deepseek/procurement__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 55,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": false,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": true,
+      "required_roster_order_violated": true,
+      "failure_class_counts": {
+        "same_members_wrong_required_order": 2
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "procurement__shallow_concentrated",
+      "run_file": "continuations/deepseek_b/deepseek/procurement__shallow_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 43,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": false,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": true,
+      "required_roster_order_violated": true,
+      "failure_class_counts": {
+        "same_members_wrong_required_order": 2
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "hotel__deep_concentrated",
+      "run_file": "continuations/qwen4/qwen4/hotel__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "hotel__deep_cross_file",
+      "run_file": "continuations/qwen4/qwen4/hotel__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "hotel__shallow_cross_file",
+      "run_file": "continuations/qwen4/qwen4/hotel__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 215,
+          "total": 215
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "procurement__deep_concentrated",
+      "run_file": "continuations/qwen4/qwen4/procurement__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "procurement__deep_cross_file",
+      "run_file": "continuations/qwen4/qwen4/procurement__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "procurement__shallow_concentrated",
+      "run_file": "continuations/qwen4/qwen4/procurement__shallow_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 44,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "procurement__shallow_cross_file",
+      "run_file": "continuations/qwen4/qwen4/procurement__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 228,
+          "total": 228
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "hotel__shallow_concentrated",
+      "run_file": "deepseek/hotel__shallow_concentrated/run.json",
+      "recorded_status": "RUN_ERROR",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 44,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": true
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "hotel__deep_concentrated",
+      "run_file": "gpt62/hotel__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": true,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {
+        "equivalent_numeric_text_representation": 1
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "hotel__deep_cross_file",
+      "run_file": "gpt62/hotel__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": true,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {
+        "equivalent_numeric_text_representation": 1
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "hotel__shallow_concentrated",
+      "run_file": "gpt62/hotel__shallow_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 44,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": true,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {
+        "equivalent_numeric_text_representation": 1
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "hotel__shallow_cross_file",
+      "run_file": "gpt62/hotel__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": false,
+      "groups": {
+        "required": {
+          "passed": 8,
+          "total": 9
+        },
+        "protected": {
+          "passed": 215,
+          "total": 215
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": true,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {
+        "equivalent_numeric_text_representation": 1
+      },
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "procurement__deep_concentrated",
+      "run_file": "gpt62/procurement__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "procurement__shallow_concentrated",
+      "run_file": "gpt62/procurement__shallow_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 44,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "procurement__shallow_cross_file",
+      "run_file": "gpt62/procurement__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 228,
+          "total": 228
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "hotel__deep_concentrated",
+      "run_file": "parallel_remaining/deepseek__hotel__deep_concentrated/deepseek/hotel__deep_concentrated/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 224,
+          "total": 224
+        },
+        "semantic": {
+          "passed": 56,
+          "total": 56
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "hotel__deep_cross_file",
+      "run_file": "parallel_remaining/deepseek__hotel__deep_cross_file/deepseek/hotel__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "procurement__deep_cross_file",
+      "run_file": "parallel_remaining/deepseek__procurement__deep_cross_file/deepseek/procurement__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "task": "procurement__shallow_cross_file",
+      "run_file": "parallel_remaining/deepseek__procurement__shallow_cross_file/deepseek/procurement__shallow_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 228,
+          "total": 228
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "gpt-6.2-sol",
+      "task": "procurement__deep_cross_file",
+      "run_file": "parallel_remaining/gpt62__procurement__deep_cross_file/gpt62/procurement__deep_cross_file/run.json",
+      "recorded_status": "COMPLETED",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 239,
+          "total": 239
+        },
+        "semantic": {
+          "passed": 68,
+          "total": 68
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": false
+    },
+    {
+      "model": "qwen4-max",
+      "task": "hotel__shallow_concentrated",
+      "run_file": "qwen4/hotel__shallow_concentrated/run.json",
+      "recorded_status": "RUN_ERROR",
+      "diagnostic_status": "ORIGINAL_GRADER_REPLAYED",
+      "frozen_native_pass": true,
+      "groups": {
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "protected": {
+          "passed": 200,
+          "total": 200
+        },
+        "semantic": {
+          "passed": 44,
+          "total": 44
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "semantic_values_pass": true,
+      "equivalent_decimal_text_only": false,
+      "same_members_wrong_required_order_only": false,
+      "required_roster_order_violated": false,
+      "failure_class_counts": {},
+      "metadata_warning_misclassification": true
+    }
+  ],
+  "isolation": {
+    "evaluated_trials": 24,
+    "unique_model_threads": 24,
+    "identical_prompt_per_task_across_models": true,
+    "cancelled_duplicate_attempts": 1,
+    "input_and_oracle_hashes_frozen": true
+  },
+  "method": "Original grader replay; narrowly classified sidecar diagnostics; no raw records or submissions changed.",
+  "limits": [
+    "Every original attempt remains listed; retries are not silently substituted.",
+    "Equivalent decimal text diagnosis requires exact Decimal equality and unchanged paragraph metadata and label.",
+    "Other text, formula, style, chart or protected-object differences are not automatically waived.",
+    "Same-members wrong roster order is an explicit task requirement violation, not a semantic membership failure or grader false negative.",
+    "Documented later-started duplicate cancellations are listed separately and excluded without comparing outputs or scores.",
+    "Semantic success does not by itself establish native-file preservation or natural business realism."
+  ]
+}
