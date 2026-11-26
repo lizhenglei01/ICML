@@ -1,0 +1,50 @@
+{
+  "family": "real_maintenance_pilot",
+  "label": "connecticut_shiny_pilot",
+  "private_archive": {
+    "anchor_files": {
+      "baseline/scoring.json": "34743aa047bb563c42c3f7ca01c9f7da314fcf9fdc0d53c127e0eeca8a4fba56",
+      "execution/results.json": "3d51d8eded9c1c6b542cfd5414fc2c95efeb36f812ba115b531dfb871572437d",
+      "frozen/oracle.json": "e6b8d117206d5f78163b693d095a7a42e14cbe41e2c8760a748cc23733830e7c",
+      "public/instruction.md": "07923103acd8852be5cad3bdf5fc8d9e4f76e97f31c227339b02c43092def589",
+      "reference/scoring.json": "bd1d4ed53fe636889ef2a25dafaa94ebc25a2140505d9a467d23dabe6f550285",
+      "submission/scoring.json": "be52d93978d345816a8b193907e2b85dad6bff96023717f81e8a92a297bef643"
+    },
+    "files": 14,
+    "inventory": "inventory.json",
+    "inventory_sha256": "e2e1825870f17e1ad87b0112d18eb7e66bb8a2c30159176eacf8c7103ae26ecb",
+    "location": "artifacts_research_archive/chr_connecticut_shiny_gpt62_20261126/",
+    "roles": {
+      "agent_input": 1,
+      "agent_response": 1,
+      "agent_trace": 2,
+      "baseline_grade": 1,
+      "environment": 1,
+      "freeze_manifest": 1,
+      "model_grade": 1,
+      "model_submission": 1,
+      "private_oracle": 1,
+      "reference_grade": 1,
+      "run_summary": 1,
+      "solvability_control": 1,
+      "upstream_input": 1
+    }
+  },
+  "provenance": {
+    "agent_wall_seconds": 225.623,
+    "base_commit": "ad09de75303776977039a5d44194f1a7f79abee8",
+    "baseline_passed": 6,
+    "model": "gpt-6.2-sol",
+    "model_passed": 14,
+    "reasoning_effort": "medium",
+    "reference_passed": 14,
+    "scored_via": "Browser-selected area and release; visible measure and downloaded CSV",
+    "started_utc": "2026-11-26T05:39:42.240111+00:00",
+    "total": 14,
+    "trials": 1,
+    "upstream_commit": "3c456c67fd34dbe49ebb270b25bc842a7cbd4c06"
+  },
+  "run_id": "chr_connecticut_shiny_gpt62_20261126",
+  "schema_version": 1,
+  "title": "Connecticut dual geography maintenance via the RShiny browser interface"
+}

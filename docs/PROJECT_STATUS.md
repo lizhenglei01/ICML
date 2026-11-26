@@ -62,4 +62,6 @@ DeepSeek V4-Pro 已完成 M4，冻结分 135/307，日期复核为 198/307，部
 
 2026-11-26 核查康州地区迁移的真实发布资产。2025 Excel 与官网快照都保留 Fairfield 的当期失业率，并使用新区发布 Greater Bridgeport 人口。ArcGIS 的 2025 县级图层只收录新规划区。公开简版应用的 SQL 可查到 2025 Fairfield，但选区目录缺少该旧县。官网实际页面与数据已离线重放，模型未启动。[迁移核查](../experiments/connecticut_geography_migration/analysis.md)
 
+2026-11-26 在真实 RShiny 源码和数据上完成一次 GPT‑6.2‑sol 维护探索。原版 6/14，参考修复 14/14，模型提交 14/14。浏览器验证正常地区选择、页面和 CSV 输出、历史查询以及指标缺失，原本通过的六项全部保留。[实际模型试验](../experiments/connecticut_shiny_pilot/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。
