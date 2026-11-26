@@ -26,6 +26,7 @@
 - Lite 38 Qwen4-Max M2 的原月报日期公式在 Calc 中返回 `#VALUE!`。同业务日期归一化后，四项旧月末人数候选回归消失。保留冻结分 66/133 和诊断分 118/133。[M2 日期复核](../experiments/lite38_model_comparison_qwen4_m2_diagnostic/analysis.md)
 - Lite 38 Qwen4-Max M4 因百炼 `403 AccessDenied.Unpurchased` 中断，最小请求同样被拒绝。保存 M1–M3 成绩，归档了可用于 M4 续跑的实际 M3 提交。[运行报告](../experiments/lite38_model_comparison_qwen4/analysis.md)
 - Lite 38 DeepSeek V4-Pro M5 因 `402 Insufficient Balance` 中断。已写出的文件另行离线诊断。新增的薪资月份解析可在 Calc 中触发旧成本汇总 `#VALUE!`。续跑起点是已完成的实际 M4 提交。[运行报告](../experiments/lite38_model_comparison_deepseek/analysis.md)
+- AQI 对照中的两套插件有真实版本历史，集中版及两套插件的共同离线工作空间由实验构造。已验证两个 HTML 和历史聚合入口，没有核验 PurpleAir 地图、固件与插件的同一生产部署。[证据边界](../experiments/aqi_version_history/analysis.md)
 - Lite 38 调动试验中，个人合同提醒单元格的 LibreOffice 缓存结果为空；只确认其公式未改动及首页到期汇总未变，不能说个人提醒数值行为已重算验证。
 - 合成 HR 原型的测试记录需按代码版本区分：修复前的中间版本为 8/12，修复日期比较及单元格更新问题后的同一原型测试为 12/12。它不是 Lite 38 原始工作簿的分数；原始工作簿成绩见 Lite 38 独立实验归档。
 

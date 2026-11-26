@@ -1,0 +1,32 @@
+{
+  "family": "office_business_workflow",
+  "label": "lite38_regression_audit",
+  "private_archive": {
+    "anchor_files": {},
+    "files": 6,
+    "inventory": "inventory.json",
+    "inventory_sha256": "d7ed0c529b95082b2e940dcd763f89e1c01e08cffe39130884a9af08ed12a212",
+    "location": "artifacts_research_archive/lite38_formula_causal_audit_20261126/",
+    "roles": {
+      "diagnostic_replay": 4,
+      "diagnostic_replay_source": 1,
+      "four_actual_workbook_formula_diff": 1
+    }
+  },
+  "provenance": {
+    "m7_hire_boundary_recovered_existing_checks": 9,
+    "m7_hire_boundary_recovered_new_case_secondary_checks": 2,
+    "m7_issued_commitment_recovered_checks": 5,
+    "m7_issued_commitment_recovered_focal_checks": 2,
+    "original_submissions_changed": false,
+    "qwen_m1_formula_probe": "lite38_qwen4_m1_regression_probe_20261125",
+    "source_runs": [
+      "gpt62_lite38_evolution_m6_after_20261125T115236Z",
+      "gpt62_lite38_evolution_m7_after_20261125T115236Z",
+      "lite38_model_compare_qwen4_20261125T144745Z"
+    ]
+  },
+  "run_id": "lite38_formula_causal_audit_20261126",
+  "schema_version": 1,
+  "title": "Lite 38 旧报表与历史更正回归路径复核"
+}

@@ -56,4 +56,8 @@ DeepSeek V4-Pro 已完成 M4，冻结分 135/307，日期复核为 198/307，部
 
 模型对照评测已归档到各自可执行的最后一轮。DeepSeek 比较到 M4，M5 因余额不足中断。中断时保存的工作簿已完成离线复核，冻结方法为 112/367，日期复核 188/367。Qwen4-Max 比较到 M3，M4 因百炼访问拒绝中断。Qwen3.5-27B 比较到 M1，M2 因免费额度用尽中断。三条轨迹都已验证续跑起点，M6 和 M7 没有启动。[DeepSeek](../experiments/lite38_model_comparison_deepseek/analysis.md) · [Qwen4-Max](../experiments/lite38_model_comparison_qwen4/analysis.md) · [Qwen3.5-27B](../experiments/lite38_model_comparison_qwen/analysis.md)
 
+2026-11-26 从 EPA 规范追到两套 WeeWX 插件的实际版本和 HTML 报表，复现 PM2.5 AQI 高浓度换算变更。只更新一套插件时，另一套报表仍用旧值。以旧插件组成的分散版与人为集中规则的对照，两版 GPT‑6.2‑sol 各跑两次，均为 128/128。本例验证了检测漏改的能力，四次提交均未漏改。[真实版本重放与对照](../experiments/aqi_version_history/analysis.md)
+
+2026-11-26 补齐 Lite 38 两个旧功能回归的公式因果链。四份 M6/M7 工作簿和两种针对性复核确认，轨迹二同日边界造成 9 条旧检查和 2 条本轮次要检查失分，签发效果丢失造成 5 条失分，其中 2 条属于 M7 重点检查。[回归复核](../experiments/lite38_regression_audit/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

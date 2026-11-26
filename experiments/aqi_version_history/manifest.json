@@ -1,0 +1,133 @@
+{
+  "family": "cross_tool_evolution",
+  "label": "aqi_version_history",
+  "private_archive": {
+    "anchor_files": {
+      "agent/concentrated-1/workspace/instruction.md": "684fed8a30e8590278a344b970051f9aa66f1a389ef692cce636318c1044609e",
+      "agent/concentrated-2/workspace/instruction.md": "684fed8a30e8590278a344b970051f9aa66f1a389ef692cce636318c1044609e",
+      "agent/distributed-1/workspace/instruction.md": "684fed8a30e8590278a344b970051f9aa66f1a389ef692cce636318c1044609e",
+      "agent/distributed-2/workspace/instruction.md": "684fed8a30e8590278a344b970051f9aa66f1a389ef692cce636318c1044609e",
+      "agent/results.json": "cf437785193e53e8aec757f88076049ec10d5f2061f6c04d9aa84653465123e5",
+      "controls/before/scoring.json": "466ccec4906db8eb613d92f78ec72832a434d59383c5c5a3263f8a6d3786dc70",
+      "controls/both-updated/scoring.json": "e73a4dadf927a55ef91edf423105394c85654ae9c9335be9b1427307ee072281",
+      "controls/central/scoring.json": "466ccec4906db8eb613d92f78ec72832a434d59383c5c5a3263f8a6d3786dc70",
+      "controls/only-purple-updated/scoring.json": "7374f0a72c435819cff4a3ea1b8b4dd0eee94ab11ac76b532dd99c84910312b4",
+      "requirement/instruction.md": "684fed8a30e8590278a344b970051f9aa66f1a389ef692cce636318c1044609e"
+    },
+    "files": 118,
+    "inventory": "inventory.json",
+    "inventory_sha256": "531ae36d624e2f9193bc56979a18e7fbf82b9ba4a4950d6cf71b748b5ba94204",
+    "location": "artifacts_research_archive/aqi_cross_tool_pilot_20261126/",
+    "roles": {
+      "acceptance_checks": 4,
+      "actual_rendered_html": 24,
+      "actual_submission": 30,
+      "actual_trace_or_score": 20,
+      "equal_task": 1,
+      "execution_and_scoring": 1,
+      "independent_acceptance_values": 1,
+      "release_provenance": 4,
+      "reproduction_source": 2,
+      "upstream_acceptance": 2,
+      "version_replay": 4,
+      "versioned_assets": 25
+    }
+  },
+  "provenance": {
+    "fresh_threads": 4,
+    "inputs_per_tool": 16,
+    "layout_control_identical_before_outputs": true,
+    "model": "gpt-6.2-sol",
+    "published_reference_replay": [
+      128,
+      128
+    ],
+    "reasoning_effort": "medium",
+    "single_plugin_updated_negative_control": [
+      110,
+      128
+    ],
+    "sources": {
+      "epa_rule": "https://www.govinfo.gov/content/pkg/FR-2024-03-06/pdf/2024-02637.pdf",
+      "technical_acceptance": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P101AP0Q.TXT"
+    },
+    "trials": [
+      {
+        "changed": [
+          "bin/user/airgradient.py",
+          "bin/user/aqi_policy.py",
+          "bin/user/purple.py"
+        ],
+        "repeat": 1,
+        "scored": [
+          128,
+          128
+        ],
+        "tool_calls": 15,
+        "variant": "concentrated",
+        "wall_seconds": 126.15
+      },
+      {
+        "changed": [
+          "bin/user/airgradient.py",
+          "bin/user/purple.py"
+        ],
+        "repeat": 1,
+        "scored": [
+          128,
+          128
+        ],
+        "tool_calls": 14,
+        "variant": "distributed",
+        "wall_seconds": 94.281
+      },
+      {
+        "changed": [
+          "bin/user/airgradient.py",
+          "bin/user/purple.py"
+        ],
+        "repeat": 2,
+        "scored": [
+          128,
+          128
+        ],
+        "tool_calls": 18,
+        "variant": "distributed",
+        "wall_seconds": 91.089
+      },
+      {
+        "changed": [
+          "bin/user/airgradient.py",
+          "bin/user/aqi_policy.py",
+          "bin/user/purple.py"
+        ],
+        "repeat": 2,
+        "scored": [
+          128,
+          128
+        ],
+        "tool_calls": 17,
+        "variant": "concentrated",
+        "wall_seconds": 89.883
+      }
+    ],
+    "upstream_revision_pairs": {
+      "airgradient": [
+        "cc7f6a2654b96e6f21b7a2144d58609a0341336f",
+        "9ad5cc7fc818b194c678adbe6bc19f37c697184b"
+      ],
+      "purple": [
+        "92b77bbd198360f92cf42219e56735722213f32b",
+        "7636c4434f2f688c25a3b3bef257caccde1bf4f4"
+      ]
+    },
+    "upstream_tests": {
+      "airgradient": 92,
+      "purple": 97
+    },
+    "weewx": "5.2.0"
+  },
+  "run_id": "aqi_cross_tool_pilot_20261126",
+  "schema_version": 1,
+  "title": "PM2.5 AQI 两套版本历史与集中／分散维护小实验"
+}
