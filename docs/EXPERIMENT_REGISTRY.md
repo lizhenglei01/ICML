@@ -30,6 +30,7 @@ Run ID 对应一次模型运行或事后复核。公开清单提供已记录的�
 | Lite 38 M3–M5 月报日期重算复核 | `lite38_model_m3_m5_date_probes_20261125` | [公开清单](../experiments/lite38_model_comparison_m3_m5_diagnostics/manifest.json) |
 | Lite 38 四份工作簿与旧功能回归复核 | `lite38_formula_causal_audit_20261126` | [报告](../experiments/lite38_regression_audit/analysis.md) · [公开清单](../experiments/lite38_regression_audit/manifest.json) |
 | PM2.5 AQI 版本重放和跨集成维护对照 | `aqi_cross_tool_pilot_20261126` | [报告](../experiments/aqi_version_history/analysis.md) · [公开清单](../experiments/aqi_version_history/manifest.json) |
+| 康州地区迁移的工作簿、快照、GIS 和公开查询应用核查 | `chr_connecticut_geography_migration_20261126` | [报告](../experiments/connecticut_geography_migration/analysis.md) · [公开清单](../experiments/connecticut_geography_migration/manifest.json) |
 
 <!-- archive-end -->
 

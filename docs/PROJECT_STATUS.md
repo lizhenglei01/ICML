@@ -60,4 +60,6 @@ DeepSeek V4-Pro 已完成 M4，冻结分 135/307，日期复核为 198/307，部
 
 2026-11-26 补齐 Lite 38 两个旧功能回归的公式因果链。四份 M6/M7 工作簿和两种针对性复核确认，轨迹二同日边界造成 9 条旧检查和 2 条本轮次要检查失分，签发效果丢失造成 5 条失分，其中 2 条属于 M7 重点检查。[回归复核](../experiments/lite38_regression_audit/analysis.md)
 
+2026-11-26 核查康州地区迁移的真实发布资产。2025 Excel 与官网快照都保留 Fairfield 的当期失业率，并使用新区发布 Greater Bridgeport 人口。ArcGIS 的 2025 县级图层只收录新规划区。公开简版应用的 SQL 可查到 2025 Fairfield，但选区目录缺少该旧县。官网实际页面与数据已离线重放，模型未启动。[迁移核查](../experiments/connecticut_geography_migration/analysis.md)
+
 参考 [研究设计](RESEARCH_DESIGN.md)、[实验索引](EXPERIMENT_REGISTRY.md) 和 [已知问题](KNOWN_ISSUES.md)。

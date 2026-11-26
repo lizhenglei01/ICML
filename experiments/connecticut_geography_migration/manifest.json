@@ -1,0 +1,47 @@
+{
+  "family": "real_version_history",
+  "label": "connecticut_geography_migration",
+  "private_archive": {
+    "anchor_files": {
+      "results.json": "2c82b861fd9e1377e7c630a1e57c1cd4a3b35cb84293de6e7bec2ec8c866a0f5"
+    },
+    "files": 29,
+    "inventory": "inventory.json",
+    "inventory_sha256": "4bb25ec9705597a014f9ad68948d630813e2a8845c742e2990afb23957b86885",
+    "location": "artifacts_research_archive/chr_connecticut_geography_migration_20261126/",
+    "roles": {
+      "arcgis_configuration": 8,
+      "arcgis_query": 4,
+      "archived_app_source_and_data": 4,
+      "official_snapshot_api": 4,
+      "official_snapshot_browser": 1,
+      "release_workbook": 2,
+      "replay_result": 2,
+      "upstream_reference": 4
+    }
+  },
+  "provenance": {
+    "base_commit": "b9e3c7af501ce765e111bc006f2d336b96824e21",
+    "browser": {
+      "name": "chromium",
+      "version": "155.0.8059.39"
+    },
+    "releases": [
+      2024,
+      2025
+    ],
+    "snapshot_app_commit": "3c456c67fd34dbe49ebb270b25bc842a7cbd4c06",
+    "status": "release_replay_complete_no_model_run",
+    "tool_versions": {
+      "duckdb": "2.0.1",
+      "openpyxl": "3.1.5",
+      "playwright": "1.58.0",
+      "pyreadr": "0.5.9",
+      "python": "3.13.5"
+    },
+    "unemployment_notebook_commit": "d39acde42804c272ebbcff4946f7865b933b8084"
+  },
+  "run_id": "chr_connecticut_geography_migration_20261126",
+  "schema_version": 1,
+  "title": "Connecticut geography migration across CHR&R release surfaces"
+}
