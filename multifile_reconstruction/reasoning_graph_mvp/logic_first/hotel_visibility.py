@@ -70,8 +70,24 @@ def _compute(rule, values, universe):
         members, vector = values
         return sum((_number(vector[key]) for key in members), Fraction(0))
     if op in {"AND", "OR"}:
-        left, right = (frozenset(value) for value in values)
-        return left & right if op == "AND" else left | right
+        first, *rest = (frozenset(value) for value in values)
+        return first.intersection(*rest) if op == "AND" else first.union(*rest)
+    if op == "RANK":
+        members, scores = values
+        direction = -1 if rule["order"] == "DESC" else 1
+        return tuple(sorted(members, key=lambda name: (direction * _number(scores[name]), name)))
+    if op in {"ALLOCATE", "INDIVIDUAL_LIMIT"}:
+        ranking, demands, budget = values
+        remaining = _number(budget)
+        selected = set()
+        for name in ranking:
+            amount = _number(demands[name])
+            if amount > remaining:
+                continue
+            selected.add(name)
+            if op == "ALLOCATE":
+                remaining -= amount
+        return frozenset(selected)
     if op in {"GE", "LE", "COMPARE"}:
         left, right = values
         comparison = rule.get("comparison", op)

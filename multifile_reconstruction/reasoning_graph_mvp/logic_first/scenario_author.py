@@ -50,6 +50,25 @@ def request(stage, topic, goal, context, feedback=None):
                         "Choose one or two report summaries alongside the selection. Report labels will be rendered by the program from the operation and selected metric.",
                         "Always mark this as synthetic by following this schema. Do not claim external authority for these thresholds."]},
     }
+    instructions["allocation_observations"] = {
+        **instructions["observations"],
+        "details": [*instructions["observations"]["details"],
+                    "Include a positive raw per-entity demand for one limited resource, in addition to the raw inputs for the two derived measures. Do not introduce a budget amount yet."],
+    }
+    instructions["allocation_policy"] = allocation_stage = dict(instructions["policy"])
+    allocation_stage["schema"] = {**allocation_stage["schema"],
+        "groups": [{"id": "lowercase id", "label": "business meaning", "op": "AND or OR",
+                    "inputs": ["two to four condition or earlier group ids"]}],
+        "allocation": {"priority": "derived metric id", "order": "ASC or DESC", "demand": "positive raw resource demand id",
+                       "limit": "positive whole number in the demand unit", "limit_label": "short business label"}}
+    allocation_stage["schema"]["selection"] = {**allocation_stage["schema"]["selection"],
+                                               "inputs": ["two to four condition or group ids"]}
+    allocation_stage["details"] = [
+        "Choose two to four conditions using distinct derived metrics. Use all conditions. Groups may be empty or nest AND/OR when useful.",
+        "Choose the priority criterion, its direction, the resource demand, and a plausible synthetic limit. The demand must have a positive minimum and must not determine priority or screening. Aim for a limit that could cover two or three typical demands but not all eligible objects.",
+        "Full demand is required. Prefer higher priority, break ties by Unicode name, skip any object that does not fit and keep scanning. The comparison applies the same maximum individually, with no resource shared between objects.",
+        *instructions["policy"]["details"][1:],
+    ]
     data = {"business_topic": topic, "business_goal": goal, "available": context,
             "arithmetic": ARITHMETIC, "semantic_operator_kinds": SEMANTICS,
             **instructions[stage]}

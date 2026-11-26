@@ -9,16 +9,12 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime, timezone
-from decimal import Decimal, InvalidOperation
 import hashlib
+from importlib.util import module_from_spec, spec_from_file_location
 import json
 from pathlib import Path
-import re
 
-from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import grade
-
-
-NUMBER = re.compile(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?\Z")
+from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import grade, same_numeric_paragraph
 
 
 def read(path):
@@ -31,22 +27,7 @@ def digest(path):
 
 def equal_numeric_paragraph(expected, actual):
     """Accept only identical paragraph metadata/label and exactly equal decimals."""
-    if not isinstance(expected, dict) or not isinstance(actual, dict):
-        return False
-    if not isinstance(expected.get("text"), str) or not isinstance(actual.get("text"), str):
-        return False
-    if {k: v for k, v in expected.items() if k != "text"} != {
-            k: v for k, v in actual.items() if k != "text"}:
-        return False
-    left, sep, gold = expected["text"].rpartition(" — ")
-    right, other_sep, value = actual["text"].rpartition(" — ")
-    if not sep or not other_sep or left != right or not NUMBER.fullmatch(gold) or not NUMBER.fullmatch(value):
-        return False
-    try:
-        first, second = Decimal(gold), Decimal(value)
-        return first.is_finite() and second.is_finite() and first == second
-    except InvalidOperation:
-        return False
+    return same_numeric_paragraph(actual, expected)
 
 
 def same_members_wrong_required_order(expected, actual):
@@ -161,6 +142,12 @@ def cancelled_attempts(root):
         record = read(marker)
         cancelled = Path(record["cancelled"]).resolve()
         retained = Path(record["retained"]).resolve()
+        relative = marker.parent.relative_to(root)
+        if len(cancelled.parents) >= len(relative.parts):
+            previous_root = cancelled.parents[len(relative.parts) - 1]
+            if cancelled.relative_to(previous_root) == relative and retained.is_relative_to(previous_root):
+                cancelled = marker.parent.resolve()
+                retained = (root / retained.relative_to(previous_root)).resolve()
         if (record.get("status") != "CANCELLED_DUPLICATE_BEFORE_SCORING"
                 or cancelled != marker.parent.resolve() or cancelled == retained
                 or root not in cancelled.parents or root not in retained.parents):
@@ -180,13 +167,14 @@ def cancelled_attempts(root):
     return records, excluded
 
 
-def diagnose_trial(run_path, plan, root):
+def diagnose_trial(run_path, plan, root, original_grade=grade, *, rescore=False):
     record = read(run_path)
     name = record.get("task", run_path.parent.name)
     if name not in plan["packages"]:
         return None
     frozen = plan["packages"][name]
-    source = Path(frozen["package"])
+    archived = root.parent / "frozen_tasks" / name
+    source = archived if archived.is_dir() else Path(frozen["package"])
     oracle_path = source / "private" / frozen["oracle_file"]
     if digest(oracle_path) != frozen["oracle_sha256"]:
         raise ValueError(f"Frozen Oracle changed for {name}")
@@ -220,9 +208,12 @@ def diagnose_trial(run_path, plan, root):
         result.update(diagnostic_status="SUBMISSION_DIFFERS_FROM_RECORDED_HASH", observed_sha256=hashes)
         return result
     original_record_hash = digest(run_path)
-    score = grade(workspace, read(oracle_path))
+    oracle = read(oracle_path)
+    score = original_grade(workspace, oracle)
     result.update(diagnostic_status="ORIGINAL_GRADER_REPLAYED", submission_sha256=hashes,
-                  original_grader_replay=score, failure_analysis=classify_failures(score, read(oracle_path)))
+                  original_grader_replay=score, failure_analysis=classify_failures(score, oracle))
+    if rescore:
+        result["numeric_output_rescore"] = grade(workspace, oracle)
     result["replay_matches_saved_original_grade"] = (
         score == read(raw_score_path) if raw_score_path.exists() else None)
     after = {file: digest(workspace / file) for file in frozen["office_files"]}
@@ -243,6 +234,8 @@ def summary_rows(results):
                      "recorded_status": row["runtime"]["original_status"],
                      "diagnostic_status": row["diagnostic_status"], "frozen_native_pass": score.get("pass"),
                      "groups": score.get("groups"), "semantic_values_pass": analysis.get("semantic_values_pass"),
+                     **({"numeric_output_rescore_pass": row["numeric_output_rescore"]["pass"]}
+                        if "numeric_output_rescore" in row else {}),
                      "equivalent_decimal_text_only": analysis.get("equivalent_decimal_text_only", False),
                      "same_members_wrong_required_order_only": analysis.get("same_members_wrong_required_order_only", False),
                      "required_roster_order_violated": analysis.get("required_roster_order_violated", False),
@@ -255,6 +248,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, required=True, help="Root run containing the original plan.json")
     parser.add_argument("--out", type=Path, required=True, help="New sidecar directory outside the raw run")
+    parser.add_argument("--numeric-output-rescore", action="store_true", help="Also score with the current grader")
     args = parser.parse_args()
     root, out = args.run.resolve(), args.out.resolve()
     if out == root or root in out.parents or out in root.parents:
@@ -265,20 +259,30 @@ def main():
     project = Path(__file__).resolve().parent
     grader_relative = "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_office.py"
     expected_grader_hash = plan.get("source_sha256", {}).get(grader_relative)
-    if expected_grader_hash and digest(project / grader_relative) != expected_grader_hash:
-        raise ValueError("Original native grader source differs from the frozen plan")
+    grader_source = project / grader_relative
+    original_grade = grade
+    if expected_grader_hash and digest(grader_source) != expected_grader_hash:
+        grader_source = root / "source_at_start" / grader_relative
+        if not grader_source.is_file() or digest(grader_source) != expected_grader_hash:
+            raise ValueError("Original native grader source differs from the frozen plan")
+        name = grade.__module__.rsplit(".", 1)[0] + "._archived_hotel_office"
+        spec = spec_from_file_location(name, grader_source)
+        module = module_from_spec(spec)
+        spec.loader.exec_module(module)
+        original_grade = module.grade
     results = []
     cancellations, excluded = cancelled_attempts(root)
     for path in sorted(root.rglob("run.json")):
         if path.parent.resolve() in excluded:
             continue
-        record = diagnose_trial(path, plan, root)
+        record = diagnose_trial(path, plan, root, original_grade, rescore=args.numeric_output_rescore)
         if record is not None:
             results.append(record)
     rows = summary_rows(results)
     report = {"run_id": plan["run_id"], "recorded_utc": datetime.now(timezone.utc).isoformat(),
               "plan_sha256": digest(root / "plan.json"), "diagnostic_script_sha256": digest(Path(__file__)),
-              "grader_sha256": digest(project / grader_relative),
+              "grader_sha256": digest(grader_source),
+              "rescore_grader_sha256": digest(project / grader_relative) if args.numeric_output_rescore else None,
               "grader_hash_matches_original_plan": bool(expected_grader_hash),
               "snapshot_reader_sha256": digest(project / "multifile_reconstruction/revision.py"),
               "method": "Original grader replay; narrowly classified sidecar diagnostics; no raw records or submissions changed.",
@@ -300,6 +304,13 @@ def main():
     for row in rows:
         lines.append("| " + " | ".join(str(row[key]) for key in (
             "model", "task", "recorded_status", "frozen_native_pass", "semantic_values_pass", "equivalent_decimal_text_only", "same_members_wrong_required_order_only")) + " |")
+    if args.numeric_output_rescore:
+        lines += ["", "| 模型 | 原评分通过 | 新评分通过 |", "|---|---:|---:|"]
+        for model in sorted({row["model"] for row in rows}):
+            model_rows = [row for row in rows if row["model"] == model and "numeric_output_rescore_pass" in row]
+            old = sum(row["frozen_native_pass"] for row in model_rows)
+            new = sum(row["numeric_output_rescore_pass"] for row in model_rows)
+            lines.append(f"| {model} | {old}/{len(model_rows)} | {new}/{len(model_rows)} |")
     lines += ["", "语义值全对不代表文件保护全对；所有其他变化保留逐项诊断。metadata fallback 警告不终止执行的证据也保留，但不声称该默认元数据对性能完全无影响。", "",
               "名单成员正确但顺序违反公开 Unicode 排序要求，单列为明确指令未遵守，不当作评分误判，也不当作成员判断算错。", "",
               "逐项原 grader 复核、文件哈希和错误分类见 diagnosis.json。未结束或发生真实运行错误的记录不会按最终模型提交评分。"]

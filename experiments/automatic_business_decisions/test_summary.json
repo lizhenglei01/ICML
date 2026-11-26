@@ -1,0 +1,82 @@
+{
+  "controls_scope": "Identical raw inputs, correction, public file roles, screening and task wording. Shared consumption makes priority consequential and changes the expected reports and edit count. Registered proof only; does not measure observed Agent difficulty.",
+  "off_target_gain_count": 1,
+  "off_target_loss_count": 1,
+  "original_passes": {
+    "deepseek-v4-pro": 6,
+    "gpt-6.2-sol": 4,
+    "qwen4-max": 8
+  },
+  "pair_agent_runs": 0,
+  "replay_matches_original_scores": true,
+  "rescore_model_calls": 0,
+  "rescore_passes": {
+    "deepseek-v4-pro": 6,
+    "gpt-6.2-sol": 8,
+    "qwen4-max": 8
+  },
+  "rescored_submissions": 24,
+  "variants": {
+    "individual": {
+      "controls": {
+        "chart_cache_corrupted": false,
+        "protected_formula_replaced": false,
+        "reference": true,
+        "unchanged_original": false,
+        "wrong_corrected_value": false
+      },
+      "minimum_depth": 5,
+      "minimum_files": 3,
+      "reference_grade": {
+        "protected": {
+          "passed": 261,
+          "total": 261
+        },
+        "required": {
+          "passed": 1,
+          "total": 1
+        },
+        "semantic": {
+          "passed": 75,
+          "total": 75
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "required_native_objects": 1
+    },
+    "shared_pool": {
+      "controls": {
+        "chart_cache_corrupted": false,
+        "protected_formula_replaced": false,
+        "reference": true,
+        "unchanged_original": false,
+        "unchanged_word": false,
+        "wrong_corrected_value": false
+      },
+      "minimum_depth": 6,
+      "minimum_files": 3,
+      "reference_grade": {
+        "protected": {
+          "passed": 253,
+          "total": 253
+        },
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "semantic": {
+          "passed": 75,
+          "total": 75
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "required_native_objects": 9
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "family": "automatic_business_decisions",
+  "label": "automatic_business_decisions",
+  "private_archive": {
+    "anchor_files": {
+      "paired_build/case/individual/private/oracle.json": "10618e0c378be4c8ff3900845fc7d0643d565b4a2ffcc864b5fe2ab1ce12ba03",
+      "paired_build/case/individual/public/instruction.md": "16636777bfd15106fbbec15c5a72c3ff966db2e181e9bdd0cde165d9f534b06b",
+      "paired_build/case/shared_pool/private/oracle.json": "b0c92893bac9efca5e677368537a440fbbfdf568a29fec9044129610098ac35c",
+      "paired_build/case/shared_pool/public/instruction.md": "16636777bfd15106fbbec15c5a72c3ff966db2e181e9bdd0cde165d9f534b06b"
+    },
+    "files": 79,
+    "inventory": "inventory.json",
+    "inventory_sha256": "a8e7392fe93b79bc9323bcf58dfef9063c9c24aa83aabb462b461ed9c06e9e19",
+    "location": "artifacts_research_archive/automatic_business_allocation_20261126_verified/",
+    "roles": {
+      "generated_decision_pair": 77,
+      "rescored_original_submissions": 2
+    }
+  },
+  "provenance": {
+    "code_base": "68c414840549cc4e26e6b037c044b7c57a272c73",
+    "model_authored_pair": {
+      "decision_pair": true,
+      "goal": "季度采购资格复核与订单预算分配",
+      "seed": 8128,
+      "topic": "供应商采购评估"
+    },
+    "original_grader_sha256": "485c5f35a8c9b35997a99f8fcdced00c23906aff3731bb7b1226e3cf5fa5788b",
+    "original_run_id": "automatic_business_agents_20261126T143622Z",
+    "rescore_grader_sha256": "d70dd1e04ed5a001c62f3ea4a4bc00fb2cedecaef9ea22285ebf96409eede8b8"
+  },
+  "run_id": "automatic_business_allocation_20261126_verified",
+  "schema_version": 1,
+  "title": "Office 评分修复与共享预算对照"
+}

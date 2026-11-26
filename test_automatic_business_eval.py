@@ -1,6 +1,7 @@
 """Keep nonfatal provider metadata warnings separate from real run failures."""
 from automatic_business_eval import fatal_runtime_events
 from automatic_business_diagnose import equal_numeric_paragraph, same_members_wrong_required_order
+from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import same_numeric_paragraph
 
 
 def test_completed_hosted_run_can_have_a_metadata_warning():
@@ -23,6 +24,7 @@ def test_real_failures_are_not_hidden_by_metadata_warning_filter():
 def test_diagnostic_accepts_only_equal_decimal_text_and_keeps_other_requirements():
     expected = {'text': '平均值 — 390.329', 'style': 'Normal'}
     assert equal_numeric_paragraph(expected, {**expected, 'text': '平均值 — 390.3290'})
+    assert same_numeric_paragraph({**expected, 'text': '平均值 — 390.3290'}, expected)
     for actual in (
         {**expected, 'text': '平均值 — 390.3289'},
         {**expected, 'text': '总量 — 390.329'},
@@ -31,6 +33,7 @@ def test_diagnostic_accepts_only_equal_decimal_text_and_keeps_other_requirements
         {**expected, 'text': '平均值 — =390.329'},
     ):
         assert not equal_numeric_paragraph(expected, actual)
+        assert not same_numeric_paragraph(actual, expected)
 
 
 def test_order_diagnosis_does_not_excuse_missing_or_duplicate_entities():

@@ -4,11 +4,13 @@ from __future__ import annotations
 import argparse
 from collections import Counter, defaultdict
 from copy import deepcopy
+from decimal import Decimal, InvalidOperation
 from fractions import Fraction
 from io import BytesIO
 import json
 import math
 from pathlib import Path
+import re
 import shutil
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
@@ -33,6 +35,7 @@ FORMAT_NAMES = {name: kind for kind, name in FILES.items()}
 BUSINESS_FILES = {"excel": "review.xlsx", "word": "policy.docx", "ppt": "briefing.pptx"}
 FORMAT_NAMES.update({name: kind for kind, name in BUSINESS_FILES.items()})
 TEXT_SEPARATOR = " — "
+DECIMAL_TEXT = re.compile(r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?\Z")
 ADMIN_ROWS = (
     ("录入复核表份数 / Entry review sheets", 5),
     ("归档复核表份数 / Archive review sheets", 7),
@@ -493,6 +496,25 @@ def same_named_paragraph(actual, expected):
     return bool(left_sep and right_sep and left_label == right_label and same_names(left_value, right_value))
 
 
+def same_numeric_paragraph(actual, expected):
+    """Compare a numeric output while preserving its label and other attributes."""
+    if not isinstance(actual, dict) or not isinstance(expected, dict) or actual.keys() != expected.keys():
+        return False
+    if any(actual[key] != expected[key] for key in expected if key != "text"):
+        return False
+    if not isinstance(actual.get("text"), str) or not isinstance(expected.get("text"), str):
+        return False
+    left_label, left_sep, left = actual["text"].rpartition(TEXT_SEPARATOR)
+    right_label, right_sep, right = expected["text"].rpartition(TEXT_SEPARATOR)
+    if not (left_sep and right_sep and left_label == right_label
+            and DECIMAL_TEXT.fullmatch(left) and DECIMAL_TEXT.fullmatch(right)):
+        return False
+    try:
+        return Decimal(left) == Decimal(right)
+    except InvalidOperation:
+        return False
+
+
 def active_oracle_path(private):
     """Resolve an explicit rescore sidecar only for the exact frozen original."""
     private = Path(private)
@@ -529,7 +551,7 @@ def _formula_function_checks(directory, spec):
     return checks
 
 
-def grade(directory, oracle):
+def grade(directory, oracle, *, equivalent_numeric_outputs=True):
     """Grade native structure, expected values and all protected objects."""
     checks = []
     functional = oracle.get('functional_excel')
@@ -562,6 +584,12 @@ def grade(directory, oracle):
         formula_objects = functional['objects'] if functional else {}
         editable_areas = tuple(oracle.get('allow_helpers_in', ()))
         expected_objects = {item["object"] for item in oracle["checks"]}
+        numeric_paragraphs = {
+            binding["file"] + f":paragraph:{binding['location']['paragraph']}"
+            for binding in oracle["bindings"]
+            if equivalent_numeric_outputs and binding["role"] == "output"
+            and binding["location"]["kind"] == "paragraph" and binding["value_type"] == "number"
+        }
         for item in oracle["checks"]:
             key = item["object"]
             if key in formula_objects and key in observed:
@@ -573,9 +601,14 @@ def grade(directory, oracle):
                 passed = same_named_paragraph(observed.get(key), item["expected"])
             else:
                 passed = key in observed and observed[key] == item["expected"]
+                if not passed and item["group"] == "required" and key in numeric_paragraphs:
+                    passed = same_numeric_paragraph(observed.get(key), item["expected"])
+                    if passed:
+                        approved_representation_changes.add(key)
             check = {**item, "pass": passed}
             if key in approved_representation_changes:
-                check['comparison'] = 'publication_value_or_equivalent_metadata'
+                check['comparison'] = ('equivalent_numeric_paragraph' if key in numeric_paragraphs
+                                       else 'publication_value_or_equivalent_metadata')
             if not passed:
                 check["observed"] = observed.get(key)
             checks.append(check)

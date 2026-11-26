@@ -5,7 +5,7 @@ from fractions import Fraction
 import pytest
 
 from .scenario_bench import build
-from .scenario_graph import add_backward, observations, verify_metrics
+from .scenario_graph import add_backward, compile_graph, execute_verified, observations, updated, verify_metrics
 
 
 def proposals():
@@ -96,3 +96,40 @@ def test_same_builder_generates_witnessed_native_tasks(tmp_path, monkeypatch):
             "reference": True, "unchanged_original": False, "unchanged_word": False,
             "wrong_corrected_value": False, "protected_formula_replaced": False, "chart_cache_corrupted": False,
         }
+
+
+def test_shared_capacity_changes_two_other_entities_under_unchanged_ranking():
+    drafts = proposals()
+    raw = drafts["observations"]
+    raw["observations"].append({"id": "amount", "label": "所需金额", "concept": None,
+                                "unit": {"CNY": 1}, "min": 1, "max": 100, "step": 1})
+    base = observations(raw)
+    drafts["forward"]["metrics"].append({"id": "missing", "label": "计划未完成数", "concept": None,
+                                          "unit": {"unit": 1}, "semantics": "difference",
+                                          "operands": ["planned", "done"],
+                                          "formula": {"op": "SUB", "args": ["planned", "done"]}})
+    metrics, meanings, expressions = verify_metrics(base, drafts["forward"])
+    backward = add_backward(base, metrics, expressions, "quality", drafts["backward"])
+    policy = {**drafts["policy"], "allocation": {"priority": "quality", "order": "DESC", "demand": "amount",
+                                               "limit": "100", "limit_label": "金额上限"}}
+    policy["conditions"].append({"id": "missing_gate", "metric": "missing", "op": "LE", "threshold": 40})
+    policy["groups"] = [{"id": "completion_alternatives", "label": "达到任一完成标准", "op": "OR",
+                        "inputs": ["completion_gate", "missing_gate"]}]
+    policy["selection"]["inputs"] = ["completion_alternatives", "quality_gate"]
+    policy["reports"][0] = {"id": "completion_count", "op": "COUNT", "metric": None,
+                            "scope": "completion_alternatives"}
+    a, b, c, *_ = raw["entities"]
+    facts = {key: dict(zip(raw["entities"], values, strict=True)) for key, values in {
+        "planned": [100] * 6, "done": [90, 90, 60, 0, 0, 0], "inspected": [100] * 6,
+        "acceptable": [95, 90, 85, 0, 0, 0], "amount": [50, 50, 40, 1, 1, 1],
+    }.items()}
+    facts.update(threshold_completion_gate=Fraction(7, 10), threshold_quality_gate=Fraction(4, 5),
+                 threshold_missing_gate=40, resource_limit=100)
+    changed = updated(facts, {"node_id": "amount", "entity": a, "before": 50, "after": 60})
+    for mode, prior, later in (("INDIVIDUAL_LIMIT", {a, b, c}, {a, b, c}),
+                               ("ALLOCATE", {a, b}, {a, c})):
+        graph = compile_graph(base, metrics, meanings, backward, policy, allocation_mode=mode)
+        assert execute_verified(graph, facts)["selected"] == prior
+        new = execute_verified(graph, changed)
+        assert new["selected"] == later
+        assert new["completion_count"] == 3

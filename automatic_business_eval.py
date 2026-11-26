@@ -47,6 +47,17 @@ def api_route(route):
 
 
 def freeze(source):
+    if (source / 'summary.json').is_file():
+        summary = read(source / 'summary.json')
+        variants = summary.get('variants')
+        if summary.get('passed') is not True or set(variants or ()) != {'individual', 'shared_pool'}:
+            raise ValueError('Expected a validated decision pair')
+        frozen = runner.freeze_packages({name: source / 'case' / name for name in variants}, original_oracle=True)
+        for name, record in frozen.items():
+            details = variants[name]
+            record.update(topic=read(source / 'input.json')['topic'], layout=name,
+                          minimum_depth=details['minimum_depth'], minimum_files=details['minimum_files'])
+        return frozen
     packages = {}
     for layout in runner.LAYOUTS:
         for topic in ('hotel', 'procurement'):

@@ -40,6 +40,27 @@ def texts(graph):
                   f"该条件对应的门槛" for entry in policy["conditions"].values()]
     combine = "两条都满足才入选" if policy["selection"]["op"] == "AND" else "任一条满足即入选"
     rule = f"本期合成内部政策。条件一是{conditions[0]}，条件二是{conditions[1]}。{combine}。"
+    if policy.get("groups") or len(conditions) > 2 or policy.get("allocation"):
+        conditions_by_id = dict(zip(policy["conditions"], conditions, strict=True))
+        groups = policy.get("groups", {})
+        def condition_text(key):
+            if key in conditions_by_id:
+                return conditions_by_id[key]
+            group = {**groups, policy["selection"]["id"]: policy["selection"]}[key]
+            separator = "，且 " if group["op"] == "AND" else "，或 "
+            return "（" + separator.join(map(condition_text, group["inputs"])) + "）"
+        rule = f"本期合成内部政策。初筛要求为{condition_text(policy['selection']['id'])}。"
+        if allocation := policy.get("allocation"):
+            priority = graph["nodes"][allocation["priority"]]["label"]
+            demand = graph["nodes"][allocation["demand"]]["label"]
+            limit_label = graph["nodes"]["resource_limit"]["label"]
+            direction = "从高到低" if allocation["order"] == "DESC" else "从低到高"
+            rule += f"候选按{priority}{direction}排序，同分按名称 Unicode 顺序。"
+            if allocation["mode"] == "ALLOCATE":
+                rule += (f"初始可用资源为{limit_label}。依次检查，{demand}不超过剩余资源时入选并扣减额度。"
+                         "资源不足则跳过该对象并继续检查，不分配部分额度。")
+            else:
+                rule += f"依次检查每个候选。{demand}不超过{limit_label}时入选。各对象独立使用同一上限。"
     definitions = []
     for key, metric in graph["metrics"].items():
         op, args = metric["formula"]["op"], metric["formula"]["args"]
@@ -214,7 +235,7 @@ def delta(graph, old, new, event):
     return result
 
 
-def draw(root, graph):
+def draw(root, graph, caption="同一业务图用于四种证据布局。"):
     kinds = {"base": "evidence", "derived": "set", "policy": "evidence", "rule": "rule",
              "condition": "logic", "selection": "answer", "report": "answer"}
     nodes = [{"id": key, "kind": kinds[node["kind"]], "label": node["label"]} for key, node in graph["nodes"].items()]
@@ -224,7 +245,7 @@ def draw(root, graph):
         nodes.append({"id": operation, "kind": "rule", "label": plan.get("comparison", plan["op"])})
         edges.extend({"source": key, "target": operation} for key in (*plan["inputs"], *plan.get("requires", ())))
         edges.append({"source": operation, "target": plan["output"]})
-    export_diagram(root, graph["title"], nodes, edges, "同一业务图用于四种证据布局。")
+    export_diagram(root, graph["title"], nodes, edges, caption)
 
 
 def package(root, graph, selection, stats):
@@ -271,15 +292,18 @@ def package(root, graph, selection, stats):
     return report
 
 
-def build(topic, goal, root, *, seed=8128, attempts=3, reuse=False, effort="medium"):
+def build(topic, goal, root, *, seed=8128, attempts=3, reuse=False, effort="medium", decision_pair=False):
     root = Path(root)
     if (root / "case").exists():
         raise ValueError("Published case already exists; choose a new output directory")
     root.mkdir(parents=True, exist_ok=True)
-    save_json(root / "input.json", {"topic": topic, "goal": goal, "seed": seed})
+    settings = {"topic": topic, "goal": goal, "seed": seed}
+    if decision_pair:
+        settings["decision_pair"] = True
+    save_json(root / "input.json", settings)
     failures = []
     for index in range(1, attempts + 1):
-        stage = "observations"
+        stage = "allocation_observations" if decision_pair else "observations"
         run = root / "proposals" / f"attempt_{index:02}"
         stats = Counter()
         stats["rejected_events"] = Counter()
@@ -298,9 +322,20 @@ def build(topic, goal, root, *, seed=8128, attempts=3, reuse=False, effort="medi
             backward = add_backward(base, metrics, expressions, target, author(stage, {
                 "observations": raw["observations"], "constraints": raw["constraints"], "target": brief,
                 "intermediate_options": [m for m in forward["metrics"] if m["id"] != target]}))
-            stage = "policy"
-            graph = compile_graph(base, metrics, meanings, backward, author(stage, {
-                "observations": raw["observations"], "metrics": forward["metrics"]}))
+            stage = "allocation_policy" if decision_pair else "policy"
+            policy = author(stage, {"observations": raw["observations"], "metrics": forward["metrics"]})
+            if decision_pair:
+                from .scenario_allocation import build_pair
+
+                stage = "decision_pair"
+                with TemporaryDirectory(dir=root, prefix=".building-") as temporary:
+                    pending = Path(temporary) / "case"
+                    result = build_pair(pending, base, metrics, meanings, backward, policy, seed + index - 1, stats)
+                    pending.rename(root / "case")
+                result.update(attempt=index, rejected_proposals=failures)
+                save_json(root / "summary.json", result)
+                return result
+            graph = compile_graph(base, metrics, meanings, backward, policy)
             save_json(run / "verified_graph.json", graph)
             stage = "counterfactual_and_layout"
             selected = select_case(graph, seed + index - 1, stats)
@@ -333,11 +368,13 @@ def main():
     parser.add_argument("--attempts", type=int, default=3)
     parser.add_argument("--reuse", action="store_true", help="Replay the recorded author prompts and proposals")
     parser.add_argument("--effort", default="medium")
+    parser.add_argument("--decision-pair", action="store_true", help="Compare individual limits and a shared resource pool")
     args = parser.parse_args()
-    report = build(args.topic, args.goal, args.out, seed=args.seed, attempts=args.attempts, reuse=args.reuse, effort=args.effort)
+    report = build(args.topic, args.goal, args.out, seed=args.seed, attempts=args.attempts, reuse=args.reuse,
+                   effort=args.effort, decision_pair=args.decision_pair)
     if not report["passed"]:
         raise SystemExit(1)
-    for name, layout in report["layouts"].items():
+    for name, layout in report.get("layouts", report.get("variants", {})).items():
         print(f"{name} files={layout['minimum_files']} depth={layout['minimum_depth']}")
 
 

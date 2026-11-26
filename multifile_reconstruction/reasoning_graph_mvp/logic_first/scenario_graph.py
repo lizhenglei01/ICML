@@ -212,22 +212,44 @@ def add_backward(base, metrics, expressions, target, proposal):
     return {"target": target, "verified_paths": verified, "additional_paths": accepted, "rejected_paths": rejected}
 
 
-def compile_graph(base, metrics, meanings, backward, proposal):
-    fields(proposal, "conditions", "selection", "reports")
-    conditions = _indexed(proposal["conditions"], 2, 2)
+def compile_graph(base, metrics, meanings, backward, proposal, *, allocation_mode=None):
+    fields(proposal, "conditions", "selection", "reports",
+           *(name for name in ("groups", "allocation") if name in proposal))
+    conditions = _indexed(proposal["conditions"], 2, 4)
+    groups = _indexed(proposal.get("groups", []), 0, 3)
     reports = _indexed(proposal["reports"], 1, 2)
     selection = deepcopy(proposal["selection"])
     fields(selection, "id", "label", "op", "inputs")
     selection_id = identifier(selection["id"])
     label(selection["label"])
-    guard(selection["op"] in ("AND", "OR") and len(selection["inputs"]) == 2
-          and set(selection["inputs"]) == set(conditions), "Invalid policy composition")
-    guard(len({r["metric"] for r in conditions.values()}) == 2, "Policy needs two distinct metric inputs")
+    logic = {**groups, selection_id: selection}
+    for group in logic.values():
+        fields(group, "id", "label", "op", "inputs")
+        label(group["label"])
+        inputs = group["inputs"]
+        guard(group["op"] in ("AND", "OR") and isinstance(inputs, list) and 2 <= len(inputs) <= 4
+              and len(set(inputs)) == len(inputs) and set(inputs) <= conditions.keys() | logic.keys(),
+              "Invalid policy composition")
+    try:
+        order = tuple(TopologicalSorter({k: v["inputs"] for k, v in logic.items()}).static_order())
+    except CycleError as exc:
+        raise ValueError("Policy logic has a cycle") from exc
+    reached = {selection_id}
+    for key in reversed(order):
+        if key in reached and key in logic:
+            reached.update(logic[key]["inputs"])
+    guard(reached == conditions.keys() | logic.keys(), "Policy has unused conditions or groups")
+    guard(len({r["metric"] for r in conditions.values()}) == len(conditions), "Policy conditions need distinct metrics")
     nodes = {key: {"kind": "base", "label": value["label"], "unit": units(value["unit"])}
              for key, value in base["base"].items()}
     nodes.update({key: {"kind": "derived", "label": value["label"], "unit": units(value["unit"]),
                         "meaning": meanings[key]} for key, value in metrics.items()})
-    all_ids = list(nodes) + list(conditions) + list(reports) + [selection_id, "policy_gate"]
+    allocation = deepcopy(proposal.get("allocation"))
+    guard((allocation is None and allocation_mode is None)
+          or (allocation is not None and allocation_mode in {"ALLOCATE", "INDIVIDUAL_LIMIT"}),
+          "Allocation needs an explicit decision mode")
+    allocation_ids = ["resource_limit", "candidate_order", "screened_candidates"] if allocation else []
+    all_ids = list(nodes) + list(conditions) + list(groups) + list(reports) + [selection_id, "policy_gate", *allocation_ids]
     guards = ["threshold_" + key for key in conditions]
     guard(len(set(all_ids + guards)) == len(all_ids + guards), "Policy reuses a reserved identifier")
     known = {**base["base"], **metrics}
@@ -260,24 +282,54 @@ def compile_graph(base, metrics, meanings, backward, proposal):
         nodes[key] = {"kind": "condition", "label": f"{nodes[metric]['label']}符合门槛", "unit": {}}
         add(key, "COMPARE", [metric, threshold], requires=("policy_gate",))["comparison"] = entry["op"]
     nodes["policy_gate"] = {"kind": "rule", "label": "合成复核政策", "unit": {}}
-    nodes[selection_id] = {"kind": "selection", "label": "入选对象", "unit": {}}
-    add(selection_id, selection["op"], selection["inputs"], requires=("policy_gate",))
+    for key in order:
+        if key not in logic:
+            continue
+        entry = logic[key]
+        output = "screened_candidates" if allocation and key == selection_id else key
+        nodes[output] = {"kind": "selection" if output == selection_id else "condition",
+                         "label": "入选对象" if output == selection_id else entry["label"], "unit": {}}
+        add(output, entry["op"], entry["inputs"], requires=("policy_gate",))
+    if allocation:
+        fields(allocation, "priority", "order", "demand", "limit", "limit_label")
+        priority, demand = allocation["priority"], allocation["demand"]
+        guard(priority in metrics and demand in base["base"] and allocation["order"] in {"ASC", "DESC"},
+              "Invalid ranking or resource metric")
+        limit = number(allocation["limit"])
+        guard(base["base"][demand]["min"] > 0 and nodes[demand]["unit"] and limit > 0
+              and limit.denominator == 1 and limit <= 10**10, "Invalid resource amount or budget")
+        allocation["limit"] = limit
+        nodes["resource_limit"] = {"kind": "policy", "label": label(allocation["limit_label"]),
+                                   "unit": nodes[demand]["unit"]}
+        nodes["candidate_order"] = {"kind": "condition", "label": "候选排序", "unit": {}}
+        nodes[selection_id] = {"kind": "selection", "label": "入选对象", "unit": {}}
+        add("candidate_order", "RANK", ["screened_candidates", priority], requires=("policy_gate",))["order"] = allocation["order"]
+        candidates = "candidate_order" if allocation_mode == "ALLOCATE" else "screened_candidates"
+        add(selection_id, allocation_mode, [candidates, demand, "resource_limit"], requires=("policy_gate",))
     for key, report in reports.items():
-        fields(report, "id", "op", "metric")
+        fields(report, "id", "op", "metric", *(('scope',) if 'scope' in report else ()))
         op, metric = report["op"], report["metric"]
+        scope = report.get("scope", selection_id)
+        guard(scope in nodes and nodes[scope]["kind"] in {"condition", "selection"}
+              and scope != "candidate_order", "Report scope must be a named group or selection")
+        group_name = "入选对象" if scope == selection_id else nodes[scope]["label"]
         guard((op == "COUNT" and metric is None) or (op in {"AVG", "SUM"} and metric in known),
               f"Invalid report operation {op} for {key}")
         if op == "COUNT":
-            nodes[key] = {"kind": "report", "label": "入选对象数量", "unit": {"entity": 1}}
+            nodes[key] = {"kind": "report", "label": f"{group_name}数量", "unit": {"entity": 1}}
         else:
             name = "等权平均" if op == "AVG" else "合计"
-            nodes[key] = {"kind": "report", "label": f"入选对象的{nodes[metric]['label']}{name}", "unit": nodes[metric]["unit"]}
-        add(key, op, [selection_id] if op == "COUNT" else [selection_id, metric],
+            nodes[key] = {"kind": "report", "label": f"{group_name}的{nodes[metric]['label']}{name}", "unit": nodes[metric]["unit"]}
+        add(key, op, [scope] if op == "COUNT" else [scope, metric],
             decimal_places=PLACES if op in {"AVG", "SUM"} else None)
     guard(len({r["id"] for r in productions}) == len(productions), "Duplicate production id")
-    return {**base, "nodes": nodes, "metrics": metrics, "productions": productions,
-            "policy": {"origin": "LLM-authored synthetic policy", "conditions": conditions,
-                       "selection": selection, "reports": reports},
+    policy = {"origin": "LLM-authored synthetic policy", "conditions": conditions,
+              "selection": selection, "reports": reports}
+    if groups:
+        policy["groups"] = {key: groups[key] for key in order if key in groups}
+    if allocation:
+        policy["allocation"] = {**allocation, "mode": allocation_mode}
+    return {**base, "nodes": nodes, "metrics": metrics, "productions": productions, "policy": policy,
             "targets": [selection_id, *reports], "backward": backward}
 
 
@@ -289,7 +341,11 @@ def _round(value):
 
 
 def thresholds(graph):
-    return {"threshold_" + key: rule["threshold"] for key, rule in graph["policy"]["conditions"].items()}
+    policy = graph["policy"]
+    result = {"threshold_" + key: rule["threshold"] for key, rule in policy["conditions"].items()}
+    if allocation := policy.get("allocation"):
+        result["resource_limit"] = allocation["limit"]
+    return result
 
 
 def valid_row(graph, row):
@@ -339,23 +395,41 @@ def reference(graph, observations):
             if COMPARE[rule["op"]](measures[rule["metric"]], observations["threshold_" + key]):
                 conditions[key].add(entity)
     selection = policy["selection"]
-    left, right = (conditions[key] for key in selection["inputs"])
-    members = left & right if selection["op"] == "AND" else left | right
-    out = {**observations, **values, **conditions, selection["id"]: members}
+    out = {**observations, **values, **conditions}
+    for rule in (*policy.get("groups", {}).values(), selection):
+        candidates = [entity for entity in entities if
+                      (all if rule["op"] == "AND" else any)(entity in out[key] for key in rule["inputs"])]
+        out[rule["id"]] = set(candidates)
+    members = out[selection["id"]]
+    if allocation := policy.get("allocation"):
+        out["screened_candidates"] = members
+        score = values[allocation["priority"]]
+        direction = allocation["order"] == "DESC"
+        ranking = tuple(sorted(sorted(members), key=score.__getitem__, reverse=direction))
+        out["candidate_order"] = ranking
+        budget = observations["resource_limit"]
+        demand = observations[allocation["demand"]]
+        accepted = []
+        for name in ranking:
+            spent = sum(demand[item] for item in accepted) if allocation["mode"] == "ALLOCATE" else 0
+            if spent + demand[name] <= budget:
+                accepted.append(name)
+        members = out[selection["id"]] = set(accepted)
     for key, report in policy["reports"].items():
+        group = out[report.get("scope", selection["id"])]
         if report["op"] == "COUNT":
-            out[key] = len(members)
+            out[key] = len(group)
         else:
-            guard(members or report["op"] != "AVG", "Undefined mean on an empty selection")
+            guard(group or report["op"] != "AVG", "Undefined mean on an empty selection")
             metric = out[report["metric"]]
-            total = sum((metric[e] for e in members), Fraction(0))
-            out[key] = _round(total / len(members) if report["op"] == "AVG" else total)
+            total = sum((metric[e] for e in group), Fraction(0))
+            out[key] = _round(total / len(group) if report["op"] == "AVG" else total)
     return out
 
 
 def execute_verified(graph, observations):
     expected = reference(graph, observations)
-    proof = solve_public(graph, observations, ["policy_gate"], expected)
+    proof = solve_public(graph, observations, ["policy_gate"], list(expected))
     guard(not proof["missing_targets"] and not proof["conflicts"] and
           all(_equal(expected[key], result["value"]) for key, result in proof["proofs"].items()),
           "Independent interpreter disagrees with graph execution")

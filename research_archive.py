@@ -540,7 +540,8 @@ def refresh_docs():
     for item in manifests:
         label, kind = item['label'], item['family']
         test_path = PUBLIC / label / 'test_summary.json'
-        if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents'} or not test_path.is_file():
+        if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents',
+                        'automatic_business_decisions'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -559,6 +560,9 @@ def refresh_docs():
             outcome = '；'.join(f"{name} 完成 {row['completed']}/8，原生原判通过 {row['native_passed']}"
                               for name, row in test['models'].items())
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 原评分与表示差异诊断分开；每布局仅一次运行。')
+        elif kind == 'automatic_business_decisions':
+            outcome = f"{test['rescored_submissions']} 份原提交重评，{len(test['variants'])} 套配对参考资产通过"
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 已核验跨对象传播，尚无模型难度对照结果。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -734,6 +738,46 @@ def archive_automatic_business_agents(run, review):
     return archive
 
 
+def archive_automatic_business_decisions(run, rescore):
+    summary = read(run / 'summary.json')
+    diagnosis = read(rescore / 'diagnosis.json')
+    if summary.get('passed') is not True or set(summary['variants']) != {'individual', 'shared_pool'}:
+        raise ValueError('Expected a validated allocation pair')
+    if len(diagnosis['rows']) != 24 or not all('numeric_output_rescore_pass' in row for row in diagnosis['rows']):
+        raise ValueError('Expected 24 numeric-output rescores')
+    if any(row['frozen_native_pass'] != row['numeric_output_rescore_pass']
+           and not (row['equivalent_decimal_text_only'] and row['numeric_output_rescore_pass'])
+           for row in diagnosis['rows']):
+        raise ValueError('A rescore changed more than numeric output representation')
+    archive = Archive('automatic_business_decisions', run.name)
+    archive.tree(run, 'paired_build', 'generated_decision_pair')
+    archive.tree(rescore, 'rescore', 'rescored_original_submissions')
+    before, after = Counter(), Counter()
+    for row in diagnosis['rows']:
+        before[row['model']] += row['frozen_native_pass']
+        after[row['model']] += row['numeric_output_rescore_pass']
+    variants = {name: {key: value for key, value in info.items() if key not in {'roster_gains', 'roster_losses'}}
+                for name, info in summary['variants'].items()}
+    shared = summary['variants']['shared_pool']
+    write(archive.public / 'test_summary.json', {
+        'rescored_submissions': len(diagnosis['rows']), 'original_passes': dict(before),
+        'rescore_passes': dict(after), 'rescore_model_calls': 0, 'pair_agent_runs': 0,
+        'variants': variants, 'off_target_gain_count': len(shared['roster_gains']),
+        'off_target_loss_count': len(shared['roster_losses']), 'controls_scope': summary['controls_scope'],
+        'replay_matches_original_scores': all(trial['replay_matches_saved_original_grade'] is not False
+                                             for trial in diagnosis['trials']),
+    })
+    archive.seal('Office 评分修复与共享预算对照', 'automatic_business_decisions', {
+        'code_base': git('rev-parse', 'HEAD'), 'original_run_id': diagnosis['run_id'],
+        'original_grader_sha256': diagnosis['grader_sha256'],
+        'rescore_grader_sha256': diagnosis['rescore_grader_sha256'],
+        'model_authored_pair': read(run / 'input.json'),
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -764,6 +808,9 @@ def main():
     pilot = modes.add_parser('automatic-business-agents')
     pilot.add_argument('--run', type=Path, required=True)
     pilot.add_argument('--review', type=Path, required=True)
+    decisions = modes.add_parser('automatic-business-decisions')
+    decisions.add_argument('--run', type=Path, required=True)
+    decisions.add_argument('--rescore', type=Path, required=True)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -774,6 +821,9 @@ def main():
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     elif args.command == 'automatic-business-agents':
         archive = archive_automatic_business_agents(args.run.resolve(), args.review.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'automatic-business-decisions':
+        archive = archive_automatic_business_decisions(args.run.resolve(), args.rescore.resolve())
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):
