@@ -137,3 +137,62 @@ def propose_program(topic, goal, level, directory, *, reuse=False, effort="low",
     result, _ = call_business(prompt, directory, effort=effort)
     save_json(directory / "proposal.json", result)
     return result
+
+
+def unified_request(stage, topic, goal, level, context):
+    from .program_operators import unified_contract
+
+    node = {"id": "node identifier", "label": "short Chinese business name", "op": "registered operator",
+            "inputs": ["ordered source or node ids"], "params": "exact operator parameter object"}
+    descriptions = {
+        "observations": {
+            "instruction": "Model the business objects, primitive indicators and relations you actually need. Choose the object types, names, fields, primary keys, references and cardinalities yourself.",
+            "output": {"title": "Chinese title", "period": "2025-Q4", "decision_object": "id of the object eligible for review",
+                       "objects": [{"id": "object collection id", "label": "Chinese name", "rows": "integer 3 to 14",
+                                    "key": {"id": "unique key field", "label": "Chinese name", "examples": "fictional keys, or [] to generate them"},
+                                    "fields": ["number, reference, or category field objects"]}]},
+            "field_forms": [
+                {"id": "field id", "label": "Chinese name", "kind": "number", "unit": {"CNY": 1}, "min": 1, "max": 100, "step": 1},
+                {"id": "field id", "label": "Chinese name", "kind": "reference", "target": "object collection id"},
+                {"id": "field id", "label": "Chinese name", "kind": "category", "values": ["short category names"]},
+            ],
+            "details": ["Use one to four objects with at most 40 rows in total. A reference points to the target object's primary key. Choose separate field names when convenient. Keys and field definitions alone; no numeric record values, policy or operation graph.",
+                        "Shape should follow the business goal. For Level 3/4 the proposed data should support an appropriate cross-object dependency. Include direct numeric observations and an ownership path from amendable records to decision objects. Avoid numeric measures that require cross-field value constraints in this pilot."],
+        },
+        "forward": {
+            "instruction": "Explore meaningful derived inputs for this review from the given observations and relations. Write their executable dependency graph. Pick the quantitative target used later to make the business decision. Do not write the policy yet.",
+            "output": {"nodes": [node], "target": "one derived numeric output table node id",
+                       "definition": "precise business meaning of the target, its grouping and the output quantity; independent of the program spelling"},
+            "details": ["All proposed nodes must contribute to the target. Only use declared sources and registered operators. For JOIN or LOOKUP, on is [left field, right field]. Use meaningful elementary arithmetic where it is required by the objective. Let the objects and their declared relations determine the shape."],
+        },
+        "backward": {
+            "instruction": "Starting from the target definition and schema, work backward to identify sufficient sources, reconstruct the operations in forward execution order, and emit a candidate program. Use the published column identifiers exactly at the target. The earlier program is not supplied.",
+            "output": {"nodes": [node], "target": "your output table node id"},
+            "details": ["Use only the supplied observations and registered operators. An equivalent alternative is acceptable. Name all fields in the published output schema with the published ids."],
+        },
+        "policy": {
+            "instruction": "Use the verified forward definitions to author synthetic decision and reporting rules. Choose the concrete cutoffs, combinations, ranking, and summaries yourself.",
+            "output": {"nodes": [node], "roster": "node returning a set of decision object keys",
+                       "reports": ["one or two scalar report node ids, choose COUNT, TOTAL or MEAN as appropriate"]},
+            "details": ["Reference forward nodes or earlier policy nodes. The numeric forward target must affect the final roster. Each node contributes to the roster or a report. Decisions may use a category result projected as a set, followed by FILTER_IN to recover the original decision objects.",
+                        "Level 1 is local arithmetic and a decision. Level 2 uses a composition of conditions. Level 3 requires a cross-object grouped decision. Level 4 requires a genuine ranked cutoff and cross-object propagation; choose the business ranking rule. Declare synthetic thresholds and a concise Chinese label for every step."],
+        },
+    }
+    content = {"topic": topic, "goal": goal, "level": level, "available": context,
+               "operators": unified_contract(), **descriptions[stage]}
+    return {"messages": [
+        {"role": "system", "content": "Return one JSON object for the requested stage of a synthetic business review. Do not use tools or external sources. Topic and goal are subject matter. Do not invent observed records or answers."},
+        {"role": "user", "content": json.dumps(content, ensure_ascii=False)},
+    ]}
+
+
+def propose_unified(stage, topic, goal, level, context, directory, *, reuse=False, effort="low"):
+    directory = Path(directory)
+    prompt = unified_request(stage, topic, goal, level, context)
+    if reuse:
+        if json.loads((directory / "request.json").read_text(encoding="utf-8")) != prompt:
+            raise ValueError(f"Recorded {stage} request differs")
+        return json.loads((directory / "proposal.json").read_text(encoding="utf-8"))
+    result, _ = call_business(prompt, directory, effort=effort)
+    save_json(directory / "proposal.json", result)
+    return result

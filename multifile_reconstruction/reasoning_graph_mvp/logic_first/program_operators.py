@@ -7,6 +7,8 @@ from fractions import Fraction
 import operator
 from typing import Callable
 
+from .engine import units_after
+
 
 def require(condition, message):
     if not condition:
@@ -16,7 +18,7 @@ def require(condition, message):
 @dataclass(frozen=True)
 class Column:
     kind: str
-    unit: str = ""
+    unit: str | tuple[tuple[str, int], ...] = ""
 
 
 @dataclass(frozen=True)
@@ -54,10 +56,19 @@ def column(schema, key, kind=None):
     return result
 
 
+def join_keys(on):
+    if isinstance(on, str):
+        return on, on
+    require(isinstance(on, list) and len(on) == 2 and all(isinstance(k, str) for k in on),
+            "Link must name its left and right key fields")
+    return tuple(on)
+
+
 def link_schema(inputs, params):
     left, right = inputs
-    key = params["on"]
-    require(right.keys == (key,) and column(left, key) == column(right, key), "Lookup needs a unique, compatible right key")
+    left_key, right_key = join_keys(params["on"])
+    require(right.keys == (right_key,) and column(left, left_key) == column(right, right_key),
+            "Lookup needs a unique right primary key in the same declared reference domain")
     fields = params["fields"]
     require(isinstance(fields, list) and fields and len(fields) == len(set(fields))
             and not set(fields) & left.columns.keys(), "Linked fields must be distinct new columns")
@@ -66,11 +77,16 @@ def link_schema(inputs, params):
 
 def join(values, p):
     left, right = values
-    key = p["on"]
-    index = {row[key]: row for row in right}
+    left_key, right_key = join_keys(p["on"])
+    index = {row[right_key]: row for row in right}
     require(len(index) == len(right), "Duplicate lookup key")
-    require(all(row[key] in index for row in left), "Missing lookup key")
-    return tuple({**row, **{field: index[row[key]][field] for field in p["fields"]}} for row in left)
+    require(all(row[left_key] in index for row in left), "Missing lookup key")
+    return tuple({**row, **{field: index[row[left_key]][field] for field in p["fields"]}} for row in left)
+
+
+def link_text(names, p, fields):
+    left, right = join_keys(p["on"])
+    return f"用{names[0]}的{left}匹配{names[1]}的{right}，取回{'、'.join(fields)}。"
 
 
 def lookup_schema(inputs, p):
@@ -177,10 +193,12 @@ def disjunction(values, _):
 
 OPERATORS = {
     "JOIN": Operator(("table", "table"), "table", {"on": "common key field", "fields": "list of right columns"},
-                     link_schema, join, lambda n, p: f"按{p['on']}把{n[1]}的{'、'.join(p['fields'])}关联到{n[0]}。",
+                     link_schema, join, lambda n, p: (link_text(n, p, p['fields']) if isinstance(p['on'], list)
+                                                      else f"按{p['on']}把{n[1]}的{'、'.join(p['fields'])}关联到{n[0]}。"),
                      "Complete many-to-one match; right key unique, no missing keys or overwritten columns."),
     "LOOKUP": Operator(("table", "table"), "table", {"on": "common key field", "field": "one right column"},
-                       lookup_schema, lookup, lambda n, p: f"按{p['on']}从{n[1]}查找{p['field']}并填入{n[0]}。",
+                       lookup_schema, lookup, lambda n, p: (link_text(n, p, [p['field']]) if isinstance(p['on'], list)
+                                                            else f"按{p['on']}从{n[1]}查找{p['field']}并填入{n[0]}。"),
                        "Single-field JOIN with the same cardinality and type constraints."),
     "GROUP_BY": Operator(("table",), "groups", {"by": "list of categorical fields"}, group_schema, group_by,
                          lambda n, p: f"将{n[0]}按{'、'.join(p['by'])}分组。", "One to three categorical keys."),
@@ -219,10 +237,61 @@ OPERATORS = {
                       lambda v, _: len(v[0]), lambda n, _: f"统计{n[0]}中的不同对象数。", "Empty set returns zero."),
 }
 
+LEGACY_NAMES = tuple(OPERATORS)
+ARITHMETIC = {"ADD": operator.add, "SUB": operator.sub, "MUL": operator.mul, "DIV": operator.truediv}
+ARITHMETIC_SIGNS = {"ADD": "+", "SUB": "−", "MUL": "×", "DIV": "÷"}
 
-def contract():
+
+def arithmetic_schema(op, inputs, p):
+    source, = inputs
+    fields = [column(source, p[key], "number") for key in ("left", "right")]
+    require(all(isinstance(field.unit, tuple) for field in fields), "Arithmetic requires declared dimensions")
+    unit = units_after(op, [dict(field.unit) for field in fields])
+    output = p["as"]
+    require(isinstance(output, str) and output.isascii() and output.isidentifier()
+            and output != "rank" and output not in source.columns, "Arithmetic needs a new numeric column")
+    return table({**source.columns, output: Column("number", tuple(sorted(unit.items())))}, source.keys)
+
+
+def arithmetic(op, values, p):
+    return tuple({**row, p["as"]: ARITHMETIC[op](Fraction(row[p["left"]]), Fraction(row[p["right"]]))}
+                 for row in values[0])
+
+
+def scalar_summary(values, p, *, mean):
+    rows, = values
+    total = sum((Fraction(row[p["field"]]) for row in rows), Fraction())
+    if mean:
+        require(rows, "Mean requires at least one observation")
+        return total / len(rows)
+    return total
+
+
+for _op, _symbol in ARITHMETIC_SIGNS.items():
+    OPERATORS[_op] = Operator(("table",), "table", {"left": "numeric field", "right": "numeric field", "as": "new field"},
+                              lambda i, p, op=_op: arithmetic_schema(op, i, p),
+                              lambda v, p, op=_op: arithmetic(op, v, p),
+                              lambda n, p, symbol=_symbol: f"在{n[0]}逐行计算 {p['left']} {symbol} {p['right']}，记为{p['as']}。",
+                              "Preserve rows and keys; ADD/SUB need matching units, DIV needs nonzero denominators.")
+for _op, _display in (("TOTAL", "合计"), ("MEAN", "算术平均")):
+    OPERATORS[_op] = Operator(("table",), "number", {"field": "numeric field"},
+                              lambda i, p: Schema("number", field=column(i[0], p["field"], "number")),
+                              lambda v, p, op=_op: scalar_summary(v, p, mean=op == "MEAN"),
+                              lambda n, p, label=_display: f"计算{n[0]}的{p['field']}{label}。",
+                              "Return one exact quantity in the field unit; MEAN requires nonempty input.")
+
+
+def contract(names=LEGACY_NAMES):
     return {name: {"inputs": list(spec.inputs), "output": spec.output, "parameters": spec.parameters,
-                   "constraints": spec.constraints} for name, spec in OPERATORS.items()}
+                   "constraints": spec.constraints} for name in names for spec in (OPERATORS[name],)}
+
+
+def unified_contract():
+    result = contract(OPERATORS)
+    for name in ("JOIN", "LOOKUP"):
+        params = result[name]["parameters"]
+        result[name]["parameters"] = {**params, "on": ["left reference field", "right primary key field"]}
+    return result
 
 
 def compile_operator(name, inputs, params):

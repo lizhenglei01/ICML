@@ -370,7 +370,7 @@ def main():
     parser.add_argument("--effort", default="medium")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--decision-pair", action="store_true", help="Compare individual limits and a shared resource pool")
-    mode.add_argument("--program-level", type=int, choices=(3, 4), help="Generate a typed relational Office task")
+    mode.add_argument("--program-level", type=int, choices=(1, 2, 3, 4), help="Generate a typed Office task through the unified graph builder")
     args = parser.parse_args()
     if args.program_level:
         from .program_office import build as build_program

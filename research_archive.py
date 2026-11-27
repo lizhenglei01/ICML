@@ -541,7 +541,8 @@ def refresh_docs():
         label, kind = item['label'], item['family']
         test_path = PUBLIC / label / 'test_summary.json'
         if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents',
-                        'automatic_business_decisions', 'automatic_business_programs'} or not test_path.is_file():
+                        'automatic_business_decisions', 'automatic_business_programs',
+                        'automatic_business_unified'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -566,6 +567,9 @@ def refresh_docs():
         elif kind == 'automatic_business_programs':
             outcome = f"Level 3／4 各生成一题，{test['sqlite_nodes_checked']} 次节点复算一致"
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 两题各自生成，尚无控制变量后的难度差异。')
+        elif kind == 'automatic_business_unified':
+            outcome = f"模型提出 {test['table_count']} 张表，{test['sqlite_nodes_checked']} 次节点复算一致"
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 反向路径只有抽样一致性的证据。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -825,6 +829,45 @@ def archive_automatic_business_programs(run):
     return archive
 
 
+def archive_automatic_business_unified(run):
+    result = read(run / 'summary.json')
+    opened = read(run / 'office_open_check.json')
+    if result.get('builder') != 'unified' or not result['passed'] or opened['opened'] != 6:
+        raise ValueError('Expected one validated unified Office case')
+    if result['controls'] != dict.fromkeys(result['controls'], False) | {'reference': True}:
+        raise ValueError('Native controls must pass only for the reference submission')
+    path = run / 'proposals'
+    if result['attempt'] > 1:
+        path /= f"attempt_{result['attempt']:02}"
+    threads, models = set(), set()
+    for stage in ('observations', 'forward', 'backward', 'policy'):
+        call = read(path / stage / 'call.json')
+        transport = read(path / stage / 'transport/transport_audit.json')
+        start = next(row['params'] for row in transport['wire_requests'] if row['method'] == 'thread/start')
+        if (not start['ephemeral'] or not transport['host_tools_disabled'] or not transport['apps_disabled']
+                or len(transport['thread_start_results']) != 1 or transport['thread_start_results'][0]['instructionSources']
+                or call['thread_reused'] or call['tool_events'] or call['thread_id'] in threads):
+            raise ValueError(f'Unexpected generation context for {stage}')
+        threads.add(call['thread_id'])
+        models.add(call['reported_model'])
+    archive = Archive('automatic_business_unified', run.name)
+    archive.tree(run, Path('unified_case'), 'frozen_generation_and_validation')
+    keys = ('builder', 'level', 'table_count', 'operator_sequence', 'sqlite_nodes_checked', 'required_native_objects',
+            'minimum_depth', 'minimum_files', 'reference_grade', 'controls', 'backward_verification')
+    write(archive.public / 'test_summary.json', {**{key: result[key] for key in keys}, 'office_open_check': opened,
+          'affected_other_entities': len(result['search']['affected_other_entities']),
+          'generation_models': sorted(models), 'distinct_generation_threads': len(threads), 'agent_evaluations': 0})
+    sources = ('unified_program.py', 'unified_office.py', 'program_operators.py', 'program_reference.py',
+               'program_office.py', 'scenario_author.py', 'scenario_bench.py')
+    archive.seal('统一业务对象与依赖图构建', 'automatic_business_unified', {
+        'code_base': git('rev-parse', 'HEAD'), 'input': read(run / 'input.json'),
+        'source_sha256': {str(LOGIC / file): digest(ROOT / LOGIC / file) for file in sources},
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -860,6 +903,8 @@ def main():
     decisions.add_argument('--rescore', type=Path, required=True)
     programs = modes.add_parser('automatic-business-programs')
     programs.add_argument('--run', type=Path, required=True)
+    unified = modes.add_parser('automatic-business-unified')
+    unified.add_argument('--run', type=Path, required=True)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -876,6 +921,9 @@ def main():
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     elif args.command == 'automatic-business-programs':
         archive = archive_automatic_business_programs(args.run.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'automatic-business-unified':
+        archive = archive_automatic_business_unified(args.run.resolve())
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):

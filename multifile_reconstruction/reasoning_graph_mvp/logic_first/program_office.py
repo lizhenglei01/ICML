@@ -18,7 +18,7 @@ from .scenario_bench import draw
 
 
 def check_reference(graph, old, new):
-    sources = graph['directory']['id'], graph['records']['id']
+    sources = tuple(graph['objects']) if 'objects' in graph else (graph['directory']['id'], graph['records']['id'])
     for state in (old, new):
         confirmed = reference(graph, {key: state[key] for key in sources})
         require(state == confirmed, 'SQLite cross-check disagrees with registered graph')
@@ -110,10 +110,10 @@ def read_sources(graph, actual, cell_map, policies, event, event_key, *, revised
     return bundles
 
 
-def build_case(root, graph, seed):
-    old, new, event, search = search_revision(graph, seed)
+def build_case(root, graph, seed, *, selection=None, render_surfaces=surfaces, minimum_files=3):
+    old, new, event, search = search_revision(graph, seed) if selection is None else selection
     check_reference(graph, old, new)
-    slots, before, after, task, cells, policies, event_key = surfaces(graph, old, new, event)
+    slots, before, after, task, cells, policies, event_key = render_surfaces(graph, old, new, event)
     native = build_layout(root, slots, before, after, task, ppt_size='long', title=graph['title'])
     expected = {key: new[key] for key in graph['targets']}
     visibility = None
@@ -123,7 +123,8 @@ def build_case(root, graph, seed):
         sources = {key: value for bundle in bundles.values() for key, value in bundle['observations'].items()}
         require(all(sources[key] == new[key] for key in sources), 'Native readback differs from corrected source data')
         proof = audit_layout(graph, bundles, expected, enumerate_paths=True)
-        require(proof['passed'] and proof['minimum_files'] == 3, 'Registered proof does not use all three native files')
+        require(proof['passed'] and proof['minimum_files'] == minimum_files,
+                'Readback proof does not match the selected evidence layout')
         if visibility is None:
             visibility = proof
         else:
@@ -149,6 +150,15 @@ def build_case(root, graph, seed):
 
 
 def build(topic, goal, level, root, *, seed=8128, attempts=3, reuse=False, effort='low'):
+    legacy_replay = reuse and (root / 'proposals/attempt_01/request.json').is_file()
+    if not legacy_replay:
+        from .unified_office import build as build_unified
+
+        return build_unified(topic, goal, level, root, seed=seed, attempts=attempts, reuse=reuse, effort=effort)
+    return build_legacy(topic, goal, level, root, seed=seed, attempts=attempts, reuse=reuse, effort=effort)
+
+
+def build_legacy(topic, goal, level, root, *, seed=8128, attempts=3, reuse=True, effort='low'):
     if (root / 'case').exists():
         raise ValueError('An accepted case already exists. Choose a new output directory.')
     save_json(root / 'input.json', {'topic': topic, 'goal': goal, 'level': level, 'seed': seed})
@@ -180,7 +190,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--topic', required=True)
     parser.add_argument('--goal', required=True)
-    parser.add_argument('--level', type=int, choices=(3, 4), required=True)
+    parser.add_argument('--level', type=int, choices=(1, 2, 3, 4), required=True)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--seed', type=int, default=8128)
     parser.add_argument('--attempts', type=int, default=3)

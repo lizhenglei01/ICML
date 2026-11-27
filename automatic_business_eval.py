@@ -49,7 +49,7 @@ def api_route(route):
 def freeze(source):
     if (source / 'summary.json').is_file():
         summary = read(source / 'summary.json')
-        if summary.get('passed') is True and summary.get('level') in {3, 4}:
+        if summary.get('passed') is True and summary.get('level') in {1, 2, 3, 4}:
             name = f"level{summary['level']}"
             frozen = runner.freeze_packages({name: source / 'case'}, original_oracle=True)
             frozen[name].update(topic=read(source / 'input.json')['topic'], layout=name,

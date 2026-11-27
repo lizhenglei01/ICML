@@ -1,0 +1,77 @@
+{
+  "affected_other_entities": 1,
+  "agent_evaluations": 0,
+  "backward_verification": {
+    "match": "sampled_agreement_only",
+    "used_for_execution": false,
+    "worlds_checked": 20
+  },
+  "builder": "unified",
+  "controls": {
+    "chart_cache_corrupted": false,
+    "protected_formula_replaced": false,
+    "reference": true,
+    "unchanged_original": false,
+    "unchanged_word": false,
+    "wrong_corrected_value": false
+  },
+  "distinct_generation_threads": 4,
+  "generation_models": [
+    "gpt-6.2-sol"
+  ],
+  "level": 4,
+  "minimum_depth": 18,
+  "minimum_files": 3,
+  "office_open_check": {
+    "formats": {
+      ".docx": 2,
+      ".pptx": 2,
+      ".xlsx": 2
+    },
+    "method": "LibreOffice independent-profile PDF export",
+    "opened": 6
+  },
+  "operator_sequence": [
+    "GROUP_BY",
+    "GROUP_AVG",
+    "JOIN",
+    "MUL",
+    "GROUP_BY",
+    "GROUP_SUM",
+    "GROUP_SUM",
+    "LOOKUP",
+    "DIV",
+    "LOOKUP",
+    "GROUP_BY",
+    "GROUP_AVG",
+    "RANK",
+    "TOP_K",
+    "PROJECT_SET",
+    "FILTER_IN",
+    "FILTER_NUM",
+    "PROJECT_SET",
+    "TOTAL",
+    "COUNT"
+  ],
+  "reference_grade": {
+    "protected": {
+      "passed": 350,
+      "total": 350
+    },
+    "required": {
+      "passed": 9,
+      "total": 9
+    },
+    "semantic": {
+      "passed": 119,
+      "total": 119
+    },
+    "structure": {
+      "passed": 0,
+      "total": 0
+    }
+  },
+  "required_native_objects": 9,
+  "sqlite_nodes_checked": 40,
+  "table_count": 3
+}

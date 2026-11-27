@@ -49,6 +49,7 @@
 - [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) 两组使用合成政策，难度以已登记规则为界。
 - [Office 评分修复与共享预算对照](../experiments/automatic_business_decisions/analysis.md) 已核验跨对象传播，尚无模型难度对照结果。
 - [对象关联、分组与排名构建](../experiments/automatic_business_programs/analysis.md) 两题各自生成，尚无控制变量后的难度差异。
+- [统一业务对象与依赖图构建](../experiments/automatic_business_unified/analysis.md) 反向路径只有抽样一致性的证据。
 - [酒店业务升级范围对照](../experiments/gpt62_upgrade_20261123T161601107239Z/analysis.md) 有原始未通过记录，诊断和复核另存。
 - [酒店政策路由对照](../experiments/hotel_policy_routing/analysis.md) 有原始未通过记录，诊断和复核另存。
 - [SWE-Milestone Navidrome 九轮对照](../experiments/swe_milestone_navidrome/analysis.md) 保留覆盖不完整和测试接口异常的诊断。

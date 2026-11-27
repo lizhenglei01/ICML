@@ -56,18 +56,42 @@ def execute_step(op, params, inputs):
             selected = db.execute(f'SELECT {keys}, rational_total({quote(value)}), count(*) FROM a GROUP BY {keys} ORDER BY {keys}')
             return tuple({**dict(zip(columns, entry[:-2], strict=True)),
                           result: Fraction(entry[-2]) / (entry[-1] if op == 'GROUP_AVG' else 1)} for entry in selected)
+        if op in {'TOTAL', 'MEAN'}:
+            if not a:
+                if op == 'TOTAL':
+                    return Fraction(0)
+                raise ValueError('Mean requires nonempty input')
+            load(db, 'a', a)
+            value, count = db.execute(f'SELECT rational_total({quote(params["field"])}), count(*) FROM a').fetchone()
+            return Fraction(value) / (count if op == 'MEAN' else 1)
         if not a:
             return {} if op == 'GROUP_BY' else frozenset() if op == 'PROJECT_SET' else ()
         load(db, 'a', a)
         if op in {'JOIN', 'LOOKUP'}:
             b = inputs[1]
             load(db, 'b', b)
-            key = quote(params['on'])
+            left_key, right_key = [quote(params['on'])] * 2 if isinstance(params['on'], str) else map(quote, params['on'])
             fields = params['fields'] if op == 'JOIN' else [params['field']]
-            pairs = db.execute(f'SELECT a."@index", b."@index" FROM a JOIN b ON a.{key}=b.{key} ORDER BY a."@index"').fetchall()
+            sql = f'SELECT a."@index", b."@index" FROM a JOIN b ON a.{left_key}=b.{right_key} ORDER BY a."@index"'
+            pairs = db.execute(sql).fetchall()
             if len(pairs) != len(a) or len({i for i, _ in pairs}) != len(a):
                 raise ValueError('SQL reference found a missing or ambiguous join')
             return tuple({**a[i], **{field: b[j][field] for field in fields}} for i, j in pairs)
+        if op in {'ADD', 'SUB', 'MUL', 'DIV'}:
+            def calculate(left, right):
+                x, y = Fraction(left), Fraction(right)
+                if op == 'ADD':
+                    return str(x + y)
+                if op == 'SUB':
+                    return str(x - y)
+                if op == 'MUL':
+                    return str(x * y)
+                return str(x / y)
+
+            db.create_function('rational_operation', 2, calculate)
+            left, right = quote(params['left']), quote(params['right'])
+            sql = f'SELECT "@index", rational_operation({left}, {right}) FROM a ORDER BY "@index"'
+            return tuple({**a[i], params['as']: Fraction(value)} for i, value in db.execute(sql))
         if op == 'GROUP_BY':
             fields = ', '.join(map(quote, params['by']))
             out = {}

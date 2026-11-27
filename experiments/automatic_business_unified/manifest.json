@@ -1,0 +1,39 @@
+{
+  "family": "automatic_business_unified",
+  "label": "automatic_business_unified",
+  "private_archive": {
+    "anchor_files": {
+      "unified_case/case/private/oracle.json": "e39811bb7465c0d84c4f8a8f20859a9ed4d60a15cb829c8f75fdefeb23d91995",
+      "unified_case/case/public/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7"
+    },
+    "files": 58,
+    "inventory": "inventory.json",
+    "inventory_sha256": "5cd3e76e3b9c1d5e4021500908661fa80978bfdcb26fdedbad66bb79a8574064",
+    "location": "artifacts_research_archive/automatic_business_unified_20261127/",
+    "roles": {
+      "frozen_generation_and_validation": 58
+    }
+  },
+  "provenance": {
+    "code_base": "06a28e13e1c2a2f5d92a799d3cf5d137a07f4b67",
+    "input": {
+      "builder": "unified",
+      "goal": "复核季度资格",
+      "level": 4,
+      "seed": 8128,
+      "topic": "供应商采购管理"
+    },
+    "source_sha256": {
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_office.py": "6c610e9fe499d8bab2d6e9b69e8dfdd4eec3d06f7b36dca0381319cc32743be8",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_operators.py": "3eeca18c811f0b3e8e8cd7d0c18ce1daa8d77cff022ebf9d9562c9d9a17af2d6",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_reference.py": "113af665f9bd5ff5849ff20b45c828c87ce2e1030bcd0534fedbdb12e2cf3972",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_author.py": "e5732093741606efcda24a02d939a00ba280ec79c76fb934b1e788c750db8b12",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_bench.py": "d8ecbce9e0aa7de7168afd1acccc046a3d812b50c17ec463ff5cbae506a08f36",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/unified_office.py": "5dbb42bcd0c99147ff2af428714e4b7905e3aaa7c5ab0da13b73fc2088479562",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/unified_program.py": "f0cfaa7b872b45f4ef2ae39d8c22b1d46967f8e182841b4ee64f0404fadfbaa9"
+    }
+  },
+  "run_id": "automatic_business_unified_20261127",
+  "schema_version": 1,
+  "title": "统一业务对象与依赖图构建"
+}
