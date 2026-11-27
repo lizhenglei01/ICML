@@ -542,7 +542,7 @@ def refresh_docs():
         test_path = PUBLIC / label / 'test_summary.json'
         if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents',
                         'automatic_business_decisions', 'automatic_business_programs',
-                        'automatic_business_unified'} or not test_path.is_file():
+                        'automatic_business_unified', 'automatic_business_unified_agents'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -570,6 +570,12 @@ def refresh_docs():
         elif kind == 'automatic_business_unified':
             outcome = f"模型提出 {test['table_count']} 张表，{test['sqlite_nodes_checked']} 次节点复算一致"
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 反向路径只有抽样一致性的证据。')
+        elif kind == 'automatic_business_unified_agents':
+            models = test['models'].values()
+            completed = sum(row['status'] == 'COMPLETED' for row in models)
+            passed = sum(row['native_pass'] is True for row in models)
+            outcome = f'完成 {completed}/{len(models)} 次运行，原始评分通过 {passed} 次'
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 单一案例，Word 已公开计算规则。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -868,6 +874,79 @@ def archive_automatic_business_unified(run):
     return archive
 
 
+def archive_unified_agents(runs, review=None):
+    """Retain each provider's original plan, submission and score for one frozen case."""
+    from automatic_business_diagnose import diagnose_trial
+    from automatic_business_eval import MODELS, source_unchanged
+    from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import grade
+
+    plans = [read(run / 'plan.json') for run in runs]
+    baseline = plans[0]
+    provenance_keys = ('packages', 'base_commit', 'source_sha256', 'effort_requested')
+    if any(plan['preflight_only'] or any(plan[key] != baseline[key] for key in provenance_keys)
+           for plan in plans):
+        raise ValueError('Expected actual trials with the same frozen task, effort and code')
+    frozen = baseline['packages'].get('level4')
+    if not frozen or len(baseline['packages']) != 1 or not source_unchanged(frozen):
+        raise ValueError('Level 4 task changed or was not the only trial')
+    grader_path = Path(sys.modules[grade.__module__].__file__).resolve()
+    if digest(grader_path) != baseline['source_sha256'][str(grader_path.relative_to(ROOT))]:
+        raise ValueError('The current grader does not match the frozen plan')
+    archive = Archive('automatic_business_unified_agent_eval', baseline['run_id'])
+    results = {}
+    threads = set()
+    prompt_digest = None
+    for run, plan in zip(runs, plans, strict=True):
+        summary = read(run / 'results.json')
+        if set(summary) != set(plan['models']):
+            raise ValueError('A provider is missing from its run results')
+        for route, name in plan['models'].items():
+            path = run / route / 'level4' / 'run.json'
+            record = read(path)
+            if route in results or name != MODELS[route] or record != summary[route]['level4']:
+                raise ValueError(f'Inconsistent or duplicate provider result: {route}')
+            prompt = path.parent / 'prompt.txt'
+            if prompt.is_file():
+                current = digest(prompt)
+                if prompt_digest is not None and current != prompt_digest:
+                    raise ValueError('Model prompts differ across trials')
+                prompt_digest = current
+            diagnosis = diagnose_trial(path, plan, run, grade)
+            matches = diagnosis.get('replay_matches_saved_original_grade')
+            trace = record.get('trace', {})
+            if record['status'] == 'COMPLETED':
+                thread_ids = trace['thread_ids']
+                if matches is not True or len(thread_ids) != 1 or not thread_ids[0] or thread_ids[0] in threads:
+                    raise ValueError(f'Expected a reproducible score from a distinct session: {route}')
+                threads.add(thread_ids[0])
+            archive.derived(Path('diagnoses') / f'{route}.json', diagnosis, 'independent_score_replay')
+            results[route] = {key: record.get(key) for key in
+                              ('model', 'status', 'native_pass', 'wall_seconds', 'score_groups', 'modified_files')}
+            results[route]['replay_matches_raw_score'] = matches
+            results[route]['failure_classes'] = diagnosis.get('failure_analysis', {}).get('failure_class_counts', {})
+            results[route]['tool_calls'] = len(trace.get('tool_events', []))
+        archive.tree(run, Path('runs') / plan['run_id'], 'agent_execution')
+    if set(results) != set(MODELS):
+        raise ValueError('Expected one trial for each of the three models')
+    archive.tree(Path(frozen['package']), Path('frozen_tasks/level4'), 'frozen_task')
+    if review is not None:
+        archive.tree(review, Path('review'), 'diagnostic_intervention')
+    write(archive.public / 'test_summary.json', {'models': results, 'planned_trials': len(results),
+          'distinct_completed_threads': len(threads),
+          'minimum_registered_depth': frozen['minimum_depth'], 'minimum_files': frozen['minimum_files']})
+    archive.seal('18 层采购案例三模型实测', 'automatic_business_unified_agents', {
+        'evaluation_commit': baseline['base_commit'], 'effort_requested': baseline['effort_requested'],
+        'prompt_sha256': prompt_digest,
+        'run_plan_sha256': {plan['run_id']: digest(run / 'plan.json')
+                            for run, plan in zip(runs, plans, strict=True)},
+        'context': 'Fresh sessions with the same public materials and no grader feedback.',
+        'scope': 'One submission per model on one static revision. Policy steps are public.',
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -905,6 +984,9 @@ def main():
     programs.add_argument('--run', type=Path, required=True)
     unified = modes.add_parser('automatic-business-unified')
     unified.add_argument('--run', type=Path, required=True)
+    unified_agents = modes.add_parser('automatic-business-unified-agents')
+    unified_agents.add_argument('--run', type=Path, action='append', required=True)
+    unified_agents.add_argument('--review', type=Path)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -924,6 +1006,9 @@ def main():
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     elif args.command == 'automatic-business-unified':
         archive = archive_automatic_business_unified(args.run.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'automatic-business-unified-agents':
+        archive = archive_unified_agents([run.resolve() for run in args.run], args.review)
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):

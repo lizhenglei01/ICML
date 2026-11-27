@@ -17,6 +17,7 @@
 | [Office 评分修复与共享预算对照](../experiments/automatic_business_decisions/analysis.md) | 24 份原提交重评，2 套配对参考资产通过 |
 | [对象关联、分组与排名构建](../experiments/automatic_business_programs/analysis.md) | Level 3／4 各生成一题，36 次节点复算一致 |
 | [统一业务对象与依赖图构建](../experiments/automatic_business_unified/analysis.md) | 模型提出 3 张表，40 次节点复算一致 |
+| [18 层采购案例三模型实测](../experiments/automatic_business_unified_agent_eval/analysis.md) | 完成 3/3 次运行，原始评分通过 2 次 |
 | [酒店业务升级范围对照](../experiments/gpt62_upgrade_20261123T161601107239Z/analysis.md) | 原始评分 3/4 次运行通过 |
 | [酒店政策路由对照](../experiments/hotel_policy_routing/analysis.md) | 原始评分 3/4 次运行通过 |
 | [酒店公式工作流](../experiments/hotel_workflow_001/analysis.md) | 原始评分 4/4 次运行通过 |

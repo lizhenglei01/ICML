@@ -11,6 +11,7 @@ Run ID 对应一次模型运行或事后复核。公开清单提供已记录的�
 | Office 评分修复与共享预算对照 | `automatic_business_allocation_20261126_verified` | [公开清单](../experiments/automatic_business_decisions/manifest.json) |
 | 对象关联、分组与排名构建 | `automatic_business_relational_20261127` | [公开清单](../experiments/automatic_business_programs/manifest.json) |
 | 统一业务对象与依赖图构建 | `automatic_business_unified_20261127` | [公开清单](../experiments/automatic_business_unified/manifest.json) |
+| 18 层采购案例三模型实测 | `automatic_business_unified_agents_20261127T120817246112Z` | [公开清单](../experiments/automatic_business_unified_agent_eval/manifest.json) |
 | 酒店业务升级范围对照 | `gpt62_upgrade_20261123T161601107239Z` | [公开清单](../experiments/gpt62_upgrade_20261123T161601107239Z/manifest.json) |
 | 酒店政策路由对照 | `gpt62_scope_20261123T124429168003Z` | [公开清单](../experiments/hotel_policy_routing/manifest.json) |
 | 酒店公式工作流 | `gpt62_workflow_20261123T134800813601Z` | [公开清单](../experiments/hotel_workflow_001/manifest.json) |

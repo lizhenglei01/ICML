@@ -1,0 +1,42 @@
+{
+  "family": "automatic_business_unified_agents",
+  "label": "automatic_business_unified_agent_eval",
+  "private_archive": {
+    "anchor_files": {
+      "frozen_tasks/level4/private/oracle.json": "e39811bb7465c0d84c4f8a8f20859a9ed4d60a15cb829c8f75fdefeb23d91995",
+      "frozen_tasks/level4/public/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z/deepseek/level4/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z/deepseek/results.json": "4dd6e723a5b759fee41d7dc507a4f8e67c26f885de6b393f7ac889ce5142d73b",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z/gpt62/level4/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z/gpt62/results.json": "c0797c356ca2f2e98f4bda77431529ceebf426db0473c21fd348e8248db84994",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z/results.json": "5bc51aa5cb7c0634248af22dc50bba8454227c539cf7d23671e41b1d14f74a39",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z_qwen/qwen4/level4/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z_qwen/qwen4/results.json": "3b67298a7d3dc62ad3fa17e11097012ceff5f47c8f7dd5742a8e741a53676ff1",
+      "runs/automatic_business_unified_agents_20261127T120817246112Z_qwen/results.json": "8ba87e59465af36ba09587e2314de8e14de5e919602747a8f3d95d1d88632c50"
+    },
+    "files": 65,
+    "inventory": "inventory.json",
+    "inventory_sha256": "6131275578465caaee3e89180ce635ad8fb634fda06c073c9658fbbc6159fdd2",
+    "location": "artifacts_research_archive/automatic_business_unified_agents_20261127T120817246112Z/",
+    "roles": {
+      "agent_execution": 40,
+      "diagnostic_intervention": 2,
+      "frozen_task": 20,
+      "independent_score_replay": 3
+    }
+  },
+  "provenance": {
+    "context": "Fresh sessions with the same public materials and no grader feedback.",
+    "effort_requested": "medium",
+    "evaluation_commit": "95fef9f87faff5ea3a4c9afb8a4e08c159f6f066",
+    "prompt_sha256": "f6554d453654a6110bc0bfc735d4857a8592633afa9b7d36a64e334403ca93a3",
+    "run_plan_sha256": {
+      "automatic_business_unified_agents_20261127T120817246112Z": "5faafe90a44777abeb6c91bd26a6fe337f281d64ee574bd9349531604d0aed67",
+      "automatic_business_unified_agents_20261127T120817246112Z_qwen": "ddcaadcb2e083b8626108c8594eff85fe415aacc43b05f66bc34400fa491fab3"
+    },
+    "scope": "One submission per model on one static revision. Policy steps are public."
+  },
+  "run_id": "automatic_business_unified_agents_20261127T120817246112Z",
+  "schema_version": 1,
+  "title": "18 层采购案例三模型实测"
+}
