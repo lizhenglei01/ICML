@@ -61,6 +61,10 @@ def _compare(left, right, comparison):
 
 def _compute(rule, values, universe):
     op = rule["op"]
+    if "program_parameters" in rule:
+        from .program_operators import OPERATORS
+
+        return OPERATORS[op].execute(values, rule["program_parameters"])
     if op == "COUNT":
         return len(values[0])
     if op == "AVG":
@@ -132,6 +136,8 @@ def _candidates(rule, known, universe):
         except ZeroDivisionError:
             pass
     for name in inputs:
+        if "program_parameters" in rule:
+            break  # Typed set domains can be category sets, not the entity universe.
         if name not in known:
             continue
         value = known[name]["value"]

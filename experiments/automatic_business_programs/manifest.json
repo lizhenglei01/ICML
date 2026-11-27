@@ -1,0 +1,42 @@
+{
+  "family": "automatic_business_programs",
+  "label": "automatic_business_programs",
+  "private_archive": {
+    "anchor_files": {
+      "programs/development/level4_first_build/private/oracle.json": "2a3fbfce70a54190c01211478a5ca4e4f80bb11aa46d3482185a25343a9c92e7",
+      "programs/development/level4_first_build/public/instruction.md": "2e39d65b7f679b3e78bf34418f09d18857b45084e9d8f4aa98b30a0ab894d8ca",
+      "programs/level3/case/private/oracle.json": "9860321c0e58346880be3644eca629c2f022a78a980c2b3931ac17310d310792",
+      "programs/level3/case/public/instruction.md": "383621eecdfd543927a398b3ea9870e1dfc9ffcf6ac3bf9f6794135861fd70a9",
+      "programs/level4/case/private/oracle.json": "2a3fbfce70a54190c01211478a5ca4e4f80bb11aa46d3482185a25343a9c92e7",
+      "programs/level4/case/public/instruction.md": "2e39d65b7f679b3e78bf34418f09d18857b45084e9d8f4aa98b30a0ab894d8ca"
+    },
+    "files": 82,
+    "inventory": "inventory.json",
+    "inventory_sha256": "3a5fe74e3fe676c373be1dae797c2feede10cfdf3441972b770b6b1c2af4ad26",
+    "location": "artifacts_research_archive/automatic_business_relational_20261127/",
+    "roles": {
+      "frozen_generation_and_validation": 82
+    }
+  },
+  "provenance": {
+    "code_base": "96f9c4460fbe260a75bdc32a8d5ba3017fee5cdd",
+    "source_revisions": {
+      "HiTab": "d179602662b490249baf068a76fbe4137029126e",
+      "KQAPro_Baselines": "14d87cd22eb79f702fd4ad5c09240bef126d9dce",
+      "Logic2Text": "b17c931844513f0ff08c8a800fc7968899d69912"
+    },
+    "source_sha256": {
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_office.py": "d70dd1e04ed5a001c62f3ea4a4bc00fb2cedecaef9ea22285ebf96409eede8b8",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/hotel_visibility.py": "84fbf625217588dd23b8bc8a46ab5714890179ee7977cf6a996620827cd71cb8",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_graph.py": "99f74a53253cfaf674db13882913768581fd6bb6815852aa92f2677659dea3dd",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_office.py": "34279fad0692ccd46b00649bf6ca4fd2999599d6961f50b5ecb29abedb8312f3",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_operators.py": "984a7c57f6f005b8289a754092a0c2df62c77f7993cde4152602dd9ca013af67",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/program_reference.py": "d68cf504840a5a1ae6e382e1e6b9aa134b185c41a80e33c575b5dfa340a179f4",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_author.py": "12556ab2422d037af32151cc42681612b9d63dfbd30692db9363bd1d6ac6fb18",
+      "multifile_reconstruction/reasoning_graph_mvp/logic_first/scenario_bench.py": "0880a640eb7f37cde79c88bb33f1be685bae4ba3828c97fcc7d9d0387c31da18"
+    }
+  },
+  "run_id": "automatic_business_relational_20261127",
+  "schema_version": 1,
+  "title": "对象关联、分组与排名构建"
+}

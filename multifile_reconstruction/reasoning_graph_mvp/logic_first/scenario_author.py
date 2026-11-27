@@ -90,3 +90,50 @@ def propose(stage, topic, goal, context, directory, *, reuse=False, effort="medi
     result, _ = call_business(prompt, directory, effort=effort)
     save_json(directory / "proposal.json", result)
     return result
+
+
+def program_request(topic, goal, level, feedback=None):
+    from .program_operators import contract
+
+    instructions = {
+        "topic": topic, "goal": goal, "level": level, "operators": contract(),
+        "schema": {
+            "title": "short Chinese report heading", "period": "2025-Q4",
+            "directory": {"id": "source id", "label": "short Chinese label", "entity_key": "field id",
+                          "group_key": "field id", "entity_label": "short Chinese field label",
+                          "group_label": "short Chinese field label", "entities": "six short fictional names",
+                          "groups": "three short fictional category labels"},
+            "records": {"id": "source id", "label": "short Chinese label", "row_key": "unique row id field",
+                        "measures": [{"id": "field id", "label": "short, clear Chinese measure name", "unit": "readable unit",
+                                      "min": 20, "max": 100, "step": 1}]},
+            "nodes": [{"id": "node id", "label": "short Chinese business result name", "op": "registered operator",
+                       "inputs": "ordered array of source or earlier node ids", "params": "exact parameter object"}],
+            "roster": "node id of final entity membership set", "report": "COUNT node id for the same roster",
+        },
+        "requirements": [
+            "Propose a synthetic business policy and a connected graph of its operations. Choose the field names, metrics, plausible sampling ranges, actual eligibility criteria and thresholds. Return no observed rows, event, or answer.",
+            "Tables have generated keys: directory has entity_key as its unique key and group_key as its categorical field. Record rows have row_key as their unique key, the same entity_key as a foreign key, and one to three named numeric measures. Three records per entity, two entities per group.",
+            "Use at least JOIN or LOOKUP, GROUP_BY and GROUP_SUM or GROUP_AVG together on a path feeding the final entity roster. Consider how one record correction can change another entity's qualification through its group. All declared nodes must contribute to the roster or its report. Do not use numeric fields as group keys.",
+            "PROJECT_SET extracts an entity or group set from a table. FILTER_IN consumes a table then a same-domain set. It can propagate group membership back to entities. COUNT consumes the final entity set. AND/OR accept two or more input sets of the same domain and may be nested if useful.",
+            "Level 3 uses a group eligibility condition without ranking. Level 4 uses RANK then TOP_K, or ARGMAX, to select groups by a business aggregate. Set K below the number of groups. Extra appropriate business conditions are optional. Keep a plausible policy rather than creating redundant nodes.",
+            "Use distinct short labels, and lowercase ASCII ids for every source, node, and field. Use arrays for nodes, inputs, measures, entities, and groups. Choose thresholds inside the possible sampled aggregate range. Use only registered operations and parameters. A field from the directory is unavailable to record rows until linked.",
+        ],
+    }
+    if feedback:
+        instructions["validation_feedback"] = feedback
+    return {"messages": [
+        {"role": "system", "content": "Return one JSON object describing an executable synthetic business-review policy. No tools, external access, data rows or answer."},
+        {"role": "user", "content": json.dumps(instructions, ensure_ascii=False)},
+    ]}
+
+
+def propose_program(topic, goal, level, directory, *, reuse=False, effort="low", feedback=None):
+    directory = Path(directory)
+    prompt = program_request(topic, goal, level, feedback)
+    if reuse:
+        if json.loads((directory / "request.json").read_text(encoding="utf-8")) != prompt:
+            raise ValueError("Recorded program proposal request differs")
+        return json.loads((directory / "proposal.json").read_text(encoding="utf-8"))
+    result, _ = call_business(prompt, directory, effort=effort)
+    save_json(directory / "proposal.json", result)
+    return result

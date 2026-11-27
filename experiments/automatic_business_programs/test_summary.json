@@ -1,0 +1,253 @@
+{
+  "agent_evaluations": 0,
+  "distinct_generation_threads": 2,
+  "generation_models": [
+    "gpt-6.2-sol"
+  ],
+  "levels": {
+    "3": {
+      "affected_other_entities": 1,
+      "controls": {
+        "chart_cache_corrupted": false,
+        "protected_formula_replaced": false,
+        "reference": true,
+        "unchanged_original": false,
+        "unchanged_word": false,
+        "wrong_corrected_value": false
+      },
+      "minimum_depth": 8,
+      "minimum_files": 3,
+      "operator_sequence": [
+        "LOOKUP",
+        "GROUP_BY",
+        "GROUP_AVG",
+        "FILTER_NUM",
+        "PROJECT_SET",
+        "FILTER_IN",
+        "PROJECT_SET",
+        "COUNT"
+      ],
+      "reference_grade": {
+        "protected": {
+          "passed": 266,
+          "total": 266
+        },
+        "required": {
+          "passed": 9,
+          "total": 9
+        },
+        "semantic": {
+          "passed": 77,
+          "total": 77
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "required_native_objects": 9,
+      "sqlite_nodes_checked": 16
+    },
+    "4": {
+      "affected_other_entities": 3,
+      "controls": {
+        "chart_cache_corrupted": false,
+        "protected_formula_replaced": false,
+        "reference": true,
+        "unchanged_original": false,
+        "unchanged_word": false,
+        "wrong_corrected_value": false
+      },
+      "minimum_depth": 10,
+      "minimum_files": 3,
+      "operator_sequence": [
+        "LOOKUP",
+        "GROUP_BY",
+        "GROUP_AVG",
+        "RANK",
+        "TOP_K",
+        "FILTER_NUM",
+        "PROJECT_SET",
+        "FILTER_IN",
+        "PROJECT_SET",
+        "COUNT"
+      ],
+      "reference_grade": {
+        "protected": {
+          "passed": 269,
+          "total": 269
+        },
+        "required": {
+          "passed": 10,
+          "total": 10
+        },
+        "semantic": {
+          "passed": 79,
+          "total": 79
+        },
+        "structure": {
+          "passed": 0,
+          "total": 0
+        }
+      },
+      "required_native_objects": 10,
+      "sqlite_nodes_checked": 20
+    }
+  },
+  "office_open_check": {
+    "formats": {
+      ".docx": 4,
+      ".pptx": 4,
+      ".xlsx": 4
+    },
+    "method": "LibreOffice headless PDF export",
+    "opened": 12
+  },
+  "registered_program_operators": {
+    "AND": {
+      "constraints": "At least two sets of the same domain.",
+      "inputs": [
+        "set"
+      ],
+      "output": "set",
+      "parameters": {}
+    },
+    "ARGMAX": {
+      "constraints": "Empty input returns an empty table.",
+      "inputs": [
+        "table"
+      ],
+      "output": "table",
+      "parameters": {
+        "score": "numeric field"
+      }
+    },
+    "COUNT": {
+      "constraints": "Empty set returns zero.",
+      "inputs": [
+        "set"
+      ],
+      "output": "number",
+      "parameters": {}
+    },
+    "FILTER_IN": {
+      "constraints": "Membership keys share a domain.",
+      "inputs": [
+        "table",
+        "set"
+      ],
+      "output": "table",
+      "parameters": {
+        "field": "identifier or category field"
+      }
+    },
+    "FILTER_NUM": {
+      "constraints": "Threshold shares the field unit.",
+      "inputs": [
+        "table"
+      ],
+      "output": "table",
+      "parameters": {
+        "comparison": "GE, LE, GT, LT or EQ",
+        "field": "numeric field",
+        "threshold": "integer or exact numeric string"
+      }
+    },
+    "GROUP_AVG": {
+      "constraints": "Keep unit; exact arithmetic.",
+      "inputs": [
+        "groups"
+      ],
+      "output": "table",
+      "parameters": {
+        "as": "new column",
+        "value": "numeric field"
+      }
+    },
+    "GROUP_BY": {
+      "constraints": "One to three categorical keys.",
+      "inputs": [
+        "table"
+      ],
+      "output": "groups",
+      "parameters": {
+        "by": "list of categorical fields"
+      }
+    },
+    "GROUP_SUM": {
+      "constraints": "Keep keys and input unit.",
+      "inputs": [
+        "groups"
+      ],
+      "output": "table",
+      "parameters": {
+        "as": "new column",
+        "value": "numeric field"
+      }
+    },
+    "JOIN": {
+      "constraints": "Complete many-to-one match; right key unique, no missing keys or overwritten columns.",
+      "inputs": [
+        "table",
+        "table"
+      ],
+      "output": "table",
+      "parameters": {
+        "fields": "list of right columns",
+        "on": "common key field"
+      }
+    },
+    "LOOKUP": {
+      "constraints": "Single-field JOIN with the same cardinality and type constraints.",
+      "inputs": [
+        "table",
+        "table"
+      ],
+      "output": "table",
+      "parameters": {
+        "field": "one right column",
+        "on": "common key field"
+      }
+    },
+    "OR": {
+      "constraints": "At least two sets of the same domain, inclusive OR.",
+      "inputs": [
+        "set"
+      ],
+      "output": "set",
+      "parameters": {}
+    },
+    "PROJECT_SET": {
+      "constraints": "Key domain is preserved.",
+      "inputs": [
+        "table"
+      ],
+      "output": "set",
+      "parameters": {
+        "field": "identifier or category field"
+      }
+    },
+    "RANK": {
+      "constraints": "Stable unique row keys break equal scores; ranks are sequential.",
+      "inputs": [
+        "table"
+      ],
+      "output": "ranked",
+      "parameters": {
+        "order": "ASC or DESC",
+        "score": "numeric field"
+      }
+    },
+    "TOP_K": {
+      "constraints": "Input is the ordered result of RANK.",
+      "inputs": [
+        "ranked"
+      ],
+      "output": "table",
+      "parameters": {
+        "k": "positive integer"
+      }
+    }
+  },
+  "sqlite_nodes_checked": 36
+}

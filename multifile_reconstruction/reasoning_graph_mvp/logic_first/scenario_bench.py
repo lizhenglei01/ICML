@@ -368,8 +368,19 @@ def main():
     parser.add_argument("--attempts", type=int, default=3)
     parser.add_argument("--reuse", action="store_true", help="Replay the recorded author prompts and proposals")
     parser.add_argument("--effort", default="medium")
-    parser.add_argument("--decision-pair", action="store_true", help="Compare individual limits and a shared resource pool")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--decision-pair", action="store_true", help="Compare individual limits and a shared resource pool")
+    mode.add_argument("--program-level", type=int, choices=(3, 4), help="Generate a typed relational Office task")
     args = parser.parse_args()
+    if args.program_level:
+        from .program_office import build as build_program
+
+        result = build_program(args.topic, args.goal, args.program_level, args.out, seed=args.seed,
+                               attempts=args.attempts, reuse=args.reuse, effort=args.effort)
+        if not result['passed']:
+            raise SystemExit(1)
+        print(f"Level {args.program_level} passed, depth={result['minimum_depth']}, files={result['minimum_files']}")
+        return
     report = build(args.topic, args.goal, args.out, seed=args.seed, attempts=args.attempts, reuse=args.reuse,
                    effort=args.effort, decision_pair=args.decision_pair)
     if not report["passed"]:

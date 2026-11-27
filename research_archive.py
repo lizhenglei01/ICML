@@ -541,7 +541,7 @@ def refresh_docs():
         label, kind = item['label'], item['family']
         test_path = PUBLIC / label / 'test_summary.json'
         if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents',
-                        'automatic_business_decisions'} or not test_path.is_file():
+                        'automatic_business_decisions', 'automatic_business_programs'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -563,6 +563,9 @@ def refresh_docs():
         elif kind == 'automatic_business_decisions':
             outcome = f"{test['rescored_submissions']} 份原提交重评，{len(test['variants'])} 套配对参考资产通过"
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 已核验跨对象传播，尚无模型难度对照结果。')
+        elif kind == 'automatic_business_programs':
+            outcome = f"Level 3／4 各生成一题，{test['sqlite_nodes_checked']} 次节点复算一致"
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 两题各自生成，尚无控制变量后的难度差异。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -778,6 +781,50 @@ def archive_automatic_business_decisions(run, rescore):
     return archive
 
 
+def archive_automatic_business_programs(run):
+    """Publish the Level 3/4 validation counts and seal the full generated cases."""
+    from multifile_reconstruction.reasoning_graph_mvp.logic_first.program_operators import contract
+
+    archive = Archive('automatic_business_programs', run.name)
+    models, levels, calls = set(), {}, []
+    for level in (3, 4):
+        case = run / f'level{level}'
+        summary = read(case / 'summary.json')
+        if not summary['passed'] or not summary['controls']['reference'] or len(summary['controls']) != 6:
+            raise ValueError(f'Unverified Level {level}')
+        proposal = case / 'proposals' / f"attempt_{summary['attempt']:02}"
+        audit = read(proposal / 'transport/transport_audit.json')
+        call = read(proposal / 'call.json')
+        start = next(row['params'] for row in audit['wire_requests'] if row['method'] == 'thread/start')
+        if (not start['ephemeral'] or not audit['host_tools_disabled'] or not audit['apps_disabled']
+                or len(audit['thread_start_results']) != 1 or audit['thread_start_results'][0]['instructionSources']
+                or call['thread_reused'] or call['tool_events'] or call['thread_id'] in calls):
+            raise ValueError(f'Unexpected generation context for Level {level}')
+        models.add(call['reported_model'])
+        calls.append(call['thread_id'])
+        levels[str(level)] = {key: summary[key] for key in ('operator_sequence', 'sqlite_nodes_checked', 'minimum_depth',
+                              'minimum_files', 'required_native_objects', 'reference_grade', 'controls')}
+        levels[str(level)]['affected_other_entities'] = len(summary['search']['affected_other_entities'])
+    opened = read(run / 'office_open_check.json')
+    if opened['opened'] != 12:
+        raise ValueError('Expected all twelve Office files to open')
+    archive.tree(run, Path('programs'), 'frozen_generation_and_validation')
+    write(archive.public / 'test_summary.json', {'levels': levels, 'registered_program_operators': contract(),
+          'sqlite_nodes_checked': sum(row['sqlite_nodes_checked'] for row in levels.values()), 'office_open_check': opened,
+          'generation_models': sorted(models), 'distinct_generation_threads': len(calls), 'agent_evaluations': 0})
+    sources = ('program_operators.py', 'program_graph.py', 'program_office.py', 'program_reference.py',
+               'scenario_bench.py', 'scenario_author.py', 'hotel_visibility.py', 'hotel_office.py')
+    archive.seal('对象关联、分组与排名构建', 'automatic_business_programs', {
+        'code_base': git('rev-parse', 'HEAD'), 'source_sha256': {str(LOGIC / f): digest(ROOT / LOGIC / f) for f in sources},
+        'source_revisions': {name: subprocess.check_output(['git', '-C', str(ROOT / '三方依赖代码' / name),
+                                                          'rev-parse', 'HEAD'], text=True).strip()
+                             for name in ('KQAPro_Baselines', 'HiTab', 'Logic2Text')},
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -811,6 +858,8 @@ def main():
     decisions = modes.add_parser('automatic-business-decisions')
     decisions.add_argument('--run', type=Path, required=True)
     decisions.add_argument('--rescore', type=Path, required=True)
+    programs = modes.add_parser('automatic-business-programs')
+    programs.add_argument('--run', type=Path, required=True)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -824,6 +873,9 @@ def main():
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     elif args.command == 'automatic-business-decisions':
         archive = archive_automatic_business_decisions(args.run.resolve(), args.rescore.resolve())
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'automatic-business-programs':
+        archive = archive_automatic_business_programs(args.run.resolve())
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):
