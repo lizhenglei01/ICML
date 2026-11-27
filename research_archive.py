@@ -542,7 +542,8 @@ def refresh_docs():
         test_path = PUBLIC / label / 'test_summary.json'
         if kind not in {*BUILDERS, 'navidrome', 'automatic_business', 'automatic_business_agents',
                         'automatic_business_decisions', 'automatic_business_programs',
-                        'automatic_business_unified', 'automatic_business_unified_agents'} or not test_path.is_file():
+                        'automatic_business_unified', 'automatic_business_unified_agents',
+                        'policy_presentation_pair'} or not test_path.is_file():
             # Other experiment families keep their curated index entries.
             continue
         managed_labels.add(label)
@@ -576,6 +577,11 @@ def refresh_docs():
             passed = sum(row['native_pass'] is True for row in models)
             outcome = f'完成 {completed}/{len(models)} 次运行，原始评分通过 {passed} 次'
             open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 单一案例，Word 已公开计算规则。')
+        elif kind == 'policy_presentation_pair':
+            trials = [row for variants in test['models'].values() for row in variants.values()]
+            passed = sum(row['native_pass'] is True for row in trials)
+            outcome = f'两种政策表达、三种模型，原始评分通过 {passed}/{len(trials)} 次'
+            open_checks.append(f'- [{item["title"]}](../experiments/{label}/analysis.md) 每个模型每版各一次，保留原判及业务结果核查。')
         else:
             scored = [row for row in test.values() if row['score_available']]
             passing = sum(row['original_pass'] for row in scored)
@@ -947,6 +953,83 @@ def archive_unified_agents(runs, review=None):
     return archive
 
 
+def archive_policy_pair(run, review=None):
+    """Archive the same-task comparison, with business outputs read separately from policy protection."""
+    from automatic_business_diagnose import diagnose_trial
+    from automatic_business_eval import MODELS, source_unchanged
+    from policy_presentation_eval import VARIANTS, verify_pair
+    from multifile_reconstruction.reasoning_graph_mvp.logic_first.hotel_office import equal_value, grade, read_observations
+
+    plan = read(run / 'plan.json')
+    frozen = plan['packages']
+    if (plan['preflight_only'] or plan['models'] != MODELS or set(frozen) != set(VARIANTS)
+            or not all(source_unchanged(case) for case in frozen.values())):
+        raise ValueError('Expected all three routes on the same verified presentation pair')
+    grader_path = Path(sys.modules[grade.__module__].__file__).resolve()
+    if digest(grader_path) != plan['source_sha256'][str(grader_path.relative_to(ROOT))]:
+        raise ValueError('The current grader does not match the frozen plan')
+    packages = {name: Path(frozen[name]['package']) for name in VARIANTS}
+    common = verify_pair(*packages.values())
+    archive = Archive('automatic_business_policy_presentation', plan['run_id'])
+    runs = read(run / 'results.json')
+    if set(runs) != set(MODELS):
+        raise ValueError('Missing an original model result')
+    threads, prompt_hashes, models = set(), set(), {}
+    for route, variants in runs.items():
+        if set(variants) != set(VARIANTS):
+            raise ValueError(f'Missing original trials for {route}')
+        models[route] = {}
+        for name, record in variants.items():
+            path = run / route / name / 'run.json'
+            if record != read(path) or record['model'] != MODELS[route]:
+                raise ValueError(f'Inconsistent trial {route}/{name}')
+            report = diagnose_trial(path, plan, run, grade)
+            outputs = []
+            replay = report.get('replay_matches_saved_original_grade')
+            if record['status'] == 'COMPLETED':
+                ids = record['trace']['thread_ids']
+                if replay is not True or len(ids) != 1 or not ids[0] or ids[0] in threads:
+                    raise ValueError(f'Expected a replayable score and fresh session for {route}/{name}')
+                threads.add(ids[0])
+                prompt_hashes.add(digest(path.parent / 'prompt.txt'))
+                oracle = read(packages[name] / 'private' / frozen[name]['oracle_file'])
+                expected = {c['evidence_id']: c['after'] for c in oracle['evidence_checks']}
+                for b in (b for b in oracle['bindings'] if b['role'] == 'output'):
+                    key = b['evidence_id']
+                    try:
+                        actual = read_observations(path.parent / 'submission', [b])[0]['value']
+                        outputs.append({'evidence_id': key, 'pass': equal_value(actual, expected[key]),
+                                        'expected': expected[key], 'observed': actual})
+                    except (ValueError, OSError, KeyError, IndexError) as exc:
+                        outputs.append({'evidence_id': key, 'pass': False, 'error': type(exc).__name__})
+            report['business_outputs'] = outputs
+            archive.derived(Path('diagnoses') / route / f'{name}.json', report, 'score_replay_and_output_readback')
+            models[route][name] = {key: record.get(key) for key in
+                                   ('model', 'status', 'native_pass', 'wall_seconds', 'score_groups')}
+            models[route][name].update(score_replayed=replay, business_outputs={
+                'passed': sum(c['pass'] for c in outputs), 'total': len(outputs)} if outputs else None,
+                tool_calls=len(record.get('trace', {}).get('tool_events', [])))
+    if len(prompt_hashes) > 1:
+        raise ValueError('Paired trial prompts differ')
+
+    archive.tree(run, 'runs', 'agent_execution')
+    for name, case in packages.items():
+        archive.tree(case, Path('frozen_tasks') / name, 'frozen_task')
+    if review is not None:
+        archive.tree(review, 'review', 'diagnostic_intervention')
+    write(archive.public / 'test_summary.json', {'models': models, 'planned_trials': plan['planned_trials'],
+          'distinct_completed_threads': len(threads), 'registered_depth': frozen['steps']['minimum_depth'],
+          'minimum_files': frozen['steps']['minimum_files'], 'case_specific_policy_paraphrase': True})
+    archive.seal('采购政策步骤与业务定义对照', 'policy_presentation_pair', {
+        'evaluation_commit': plan['base_commit'], 'run_plan_sha256': digest(run / 'plan.json'),
+        'same_input_hashes': common, 'effort_requested': plan['effort_requested'],
+        'matched_prompt': bool(prompt_hashes), 'scope': 'One fresh trial per model and policy presentation.',
+    })
+    verify_inventory(archive.private, read(archive.public / 'manifest.json')['private_archive']['inventory_sha256'])
+    refresh_docs()
+    return archive
+
+
 def backfill():
     for kind, folder, run_id, label, commit in [
         ('routing', 'hotel_dependency_scope', 'gpt62_scope_20261123T124429168003Z', 'hotel_policy_routing', '8268e64'),
@@ -987,6 +1070,9 @@ def main():
     unified_agents = modes.add_parser('automatic-business-unified-agents')
     unified_agents.add_argument('--run', type=Path, action='append', required=True)
     unified_agents.add_argument('--review', type=Path)
+    pair = modes.add_parser('policy-presentation-pair')
+    pair.add_argument('--run', type=Path, required=True)
+    pair.add_argument('--review', type=Path)
     args = parser.parse_args()
     if args.command == 'backfill':
         backfill()
@@ -1009,6 +1095,9 @@ def main():
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     elif args.command == 'automatic-business-unified-agents':
         archive = archive_unified_agents([run.resolve() for run in args.run], args.review)
+        print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
+    elif args.command == 'policy-presentation-pair':
+        archive = archive_policy_pair(args.run.resolve(), args.review)
         print('ARCHIVED AND VERIFIED', archive.label, len(archive.files))
     else:
         if not LABEL.fullmatch(args.label):

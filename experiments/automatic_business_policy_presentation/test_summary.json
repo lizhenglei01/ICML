@@ -1,0 +1,195 @@
+{
+  "case_specific_policy_paraphrase": true,
+  "distinct_completed_threads": 6,
+  "minimum_files": 3,
+  "models": {
+    "deepseek": {
+      "definitions": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "deepseek-v4-pro",
+        "native_pass": false,
+        "score_groups": {
+          "protected": {
+            "passed": 248,
+            "total": 322
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 0,
+            "total": 0
+          },
+          "structure": {
+            "passed": 0,
+            "total": 1
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 47,
+        "wall_seconds": 343.131
+      },
+      "steps": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "deepseek-v4-pro",
+        "native_pass": false,
+        "score_groups": {
+          "protected": {
+            "passed": 278,
+            "total": 352
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 0,
+            "total": 0
+          },
+          "structure": {
+            "passed": 0,
+            "total": 1
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 37,
+        "wall_seconds": 334.231
+      }
+    },
+    "gpt62": {
+      "definitions": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "gpt-6.2-sol",
+        "native_pass": true,
+        "score_groups": {
+          "protected": {
+            "passed": 320,
+            "total": 320
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 104,
+            "total": 104
+          },
+          "structure": {
+            "passed": 0,
+            "total": 0
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 6,
+        "wall_seconds": 84.667
+      },
+      "steps": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "gpt-6.2-sol",
+        "native_pass": true,
+        "score_groups": {
+          "protected": {
+            "passed": 350,
+            "total": 350
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 119,
+            "total": 119
+          },
+          "structure": {
+            "passed": 0,
+            "total": 0
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 5,
+        "wall_seconds": 84.765
+      }
+    },
+    "qwen4": {
+      "definitions": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "qwen4-max",
+        "native_pass": true,
+        "score_groups": {
+          "protected": {
+            "passed": 320,
+            "total": 320
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 104,
+            "total": 104
+          },
+          "structure": {
+            "passed": 0,
+            "total": 0
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 10,
+        "wall_seconds": 73.767
+      },
+      "steps": {
+        "business_outputs": {
+          "passed": 28,
+          "total": 28
+        },
+        "model": "qwen4-max",
+        "native_pass": true,
+        "score_groups": {
+          "protected": {
+            "passed": 350,
+            "total": 350
+          },
+          "required": {
+            "passed": 9,
+            "total": 9
+          },
+          "semantic": {
+            "passed": 119,
+            "total": 119
+          },
+          "structure": {
+            "passed": 0,
+            "total": 0
+          }
+        },
+        "score_replayed": true,
+        "status": "COMPLETED",
+        "tool_calls": 13,
+        "wall_seconds": 135.287
+      }
+    }
+  },
+  "planned_trials": 6,
+  "registered_depth": 18
+}

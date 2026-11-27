@@ -1,0 +1,52 @@
+{
+  "family": "policy_presentation_pair",
+  "label": "automatic_business_policy_presentation",
+  "private_archive": {
+    "anchor_files": {
+      "frozen_tasks/definitions/private/oracle.json": "0a58147418b3e8ce77ec70392c9db9f0e8f1beb8916e653141863a280a3ed9a8",
+      "frozen_tasks/definitions/public/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "frozen_tasks/steps/private/oracle.json": "e39811bb7465c0d84c4f8a8f20859a9ed4d60a15cb829c8f75fdefeb23d91995",
+      "frozen_tasks/steps/public/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/deepseek/definitions/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/deepseek/results.json": "6b44d1e3f3e88378ebc87727399f150bf5b361a374154df23059fdeafdb3e53d",
+      "runs/deepseek/steps/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/gpt62/definitions/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/gpt62/results.json": "f3725ba1c2ca14f4047adaef4af88052b031d1b5db4a8abe9f6966eaa5d23da2",
+      "runs/gpt62/steps/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/qwen4/definitions/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/qwen4/results.json": "885537a133043d870df8902db48640f13562e51747d22330ece9129dc0717e55",
+      "runs/qwen4/steps/submission/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "runs/results.json": "400d8ff2dabc9a7c16d6d3842eb51ad0c8d6b7ba92ae058149680fb03776065d"
+    },
+    "files": 120,
+    "inventory": "inventory.json",
+    "inventory_sha256": "5350b0bb57a20f1f07eb8d04bf714719ed7d6e5b61fa61428af4b625ac6a6466",
+    "location": "artifacts_research_archive/automatic_business_policy_pair_agents_20261127T122650925493Z/",
+    "roles": {
+      "agent_execution": 71,
+      "diagnostic_intervention": 3,
+      "frozen_task": 40,
+      "score_replay_and_output_readback": 6
+    }
+  },
+  "provenance": {
+    "effort_requested": "medium",
+    "evaluation_commit": "c7484d544f4d07f771659ade2364038c446b20ef",
+    "matched_prompt": true,
+    "run_plan_sha256": "f6f39dc641150dabe2337f1932b5b3e45ae89c7a9befb478e7e574b77adb05f1",
+    "same_input_hashes": {
+      "private/graph.json": "d0f1b8a4ea5166c59b1865c83736f39d1092e9a243843ae21a3f23c3de2aba09",
+      "private/reference/briefing.pptx": "5333085a9a13f0d630050ecd9c2f1dd9f82e3234ff6709adbdb42c89f06fabe8",
+      "private/reference/review.xlsx": "329b63ea385525729013df723c5aaccb1e81855a335b46959c6dc37c2ae2043b",
+      "private/truth.json": "331bdd25dcbbc0e31f9aaa5c04a0a49fbca65a0a034f60af9a520c1b5e3a4209",
+      "private/visibility.json": "f0a1041084fd42f98de30dcd93bdac4349fffb9021a6d5cc95bbde52cd1e7fdf",
+      "public/briefing.pptx": "0112a9cff5ca7ea48878184edb495edb5e79562d59346d8d5bc20a84cafebf08",
+      "public/instruction.md": "50646e1babdd754e0976789b97e02318a5597d56f49f38f516fe77e447c48ff7",
+      "public/review.xlsx": "68d45d0cd760ae06d68dd45beda64f4ae946567cfe3d0fbdc7ce725c6fd4b003"
+    },
+    "scope": "One fresh trial per model and policy presentation."
+  },
+  "run_id": "automatic_business_policy_pair_agents_20261127T122650925493Z",
+  "schema_version": 1,
+  "title": "采购政策步骤与业务定义对照"
+}

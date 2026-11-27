@@ -17,11 +17,7 @@ from research_archive import digest, read, write
 
 VARIANTS = ('steps', 'definitions')
 WORD = 'policy.docx'
-EXPECTED_OPERATORS = (
-    'GROUP_BY', 'GROUP_AVG', 'JOIN', 'MUL', 'GROUP_BY', 'GROUP_SUM', 'GROUP_SUM',
-    'LOOKUP', 'DIV', 'LOOKUP', 'GROUP_BY', 'GROUP_AVG', 'RANK', 'TOP_K',
-    'PROJECT_SET', 'FILTER_IN', 'FILTER_NUM', 'PROJECT_SET', 'TOTAL', 'COUNT',
-)
+FROZEN_GRAPH = 'd0f1b8a4ea5166c59b1865c83736f39d1092e9a243843ae21a3f23c3de2aba09'
 
 # For this fixed case, each definition is reviewed against the original steps.
 DEFINITIONS = (
@@ -53,7 +49,7 @@ def revise_word(package, oracle):
     reference = private / 'reference'
     step_bindings = [b for b in oracle['bindings'] if b['node_id'].startswith('policy.step.')]
     indices = [b['location']['paragraph'] for b in step_bindings]
-    if len(indices) != len(EXPECTED_OPERATORS) or indices != list(range(indices[0], indices[-1] + 1)):
+    if len(indices) != 20 or indices != list(range(indices[0], indices[-1] + 1)):
         raise ValueError('Unexpected frozen policy paragraph locations')
     for directory in (public, reference):
         replace_policy(directory / WORD, indices)
@@ -114,9 +110,8 @@ def verify_pair(steps, definitions):
 def build(source, out):
     report = read(source / 'summary.json')
     original = source / 'case'
-    graph = read(original / 'private/graph.json')
     if (report.get('builder') != 'unified' or not report['passed'] or report['level'] != 4
-            or tuple(node['op'] for node in graph['productions']) != EXPECTED_OPERATORS
+            or digest(original / 'private/graph.json') != FROZEN_GRAPH
             or sorted(i for _, coverage, _ in DEFINITIONS for i in coverage) != list(range(1, 21))):
         raise ValueError('Expected the frozen unified procurement case and its reviewed policy coverage')
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -15,6 +15,7 @@
 | [自动构建任务质量核查与三模型试验](../experiments/automatic_business_agent_pilot/analysis.md) | deepseek 完成 8/8，原生原判通过 6；gpt62 完成 8/8，原生原判通过 4；qwen4 完成 8/8，原生原判通过 8 |
 | [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) | 2 个业务案例，8 组原生文件与 Oracle 通过验证 |
 | [Office 评分修复与共享预算对照](../experiments/automatic_business_decisions/analysis.md) | 24 份原提交重评，2 套配对参考资产通过 |
+| [采购政策步骤与业务定义对照](../experiments/automatic_business_policy_presentation/analysis.md) | 两种政策表达、三种模型，原始评分通过 4/6 次 |
 | [对象关联、分组与排名构建](../experiments/automatic_business_programs/analysis.md) | Level 3／4 各生成一题，36 次节点复算一致 |
 | [统一业务对象与依赖图构建](../experiments/automatic_business_unified/analysis.md) | 模型提出 3 张表，40 次节点复算一致 |
 | [18 层采购案例三模型实测](../experiments/automatic_business_unified_agent_eval/analysis.md) | 完成 3/3 次运行，原始评分通过 2 次 |

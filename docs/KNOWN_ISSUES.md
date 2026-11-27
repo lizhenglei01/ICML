@@ -48,6 +48,7 @@
 - [自动构建任务质量核查与三模型试验](../experiments/automatic_business_agent_pilot/analysis.md) 原评分与表示差异诊断分开；每布局仅一次运行。
 - [酒店与采购端到端自动构建](../experiments/automatic_business_construction/analysis.md) 两组使用合成政策，难度以已登记规则为界。
 - [Office 评分修复与共享预算对照](../experiments/automatic_business_decisions/analysis.md) 已核验跨对象传播，尚无模型难度对照结果。
+- [采购政策步骤与业务定义对照](../experiments/automatic_business_policy_presentation/analysis.md) 每个模型每版各一次，保留原判及业务结果核查。
 - [对象关联、分组与排名构建](../experiments/automatic_business_programs/analysis.md) 两题各自生成，尚无控制变量后的难度差异。
 - [统一业务对象与依赖图构建](../experiments/automatic_business_unified/analysis.md) 反向路径只有抽样一致性的证据。
 - [18 层采购案例三模型实测](../experiments/automatic_business_unified_agent_eval/analysis.md) 单一案例，Word 已公开计算规则。

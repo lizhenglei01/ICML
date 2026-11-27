@@ -9,6 +9,7 @@ Run ID 对应一次模型运行或事后复核。公开清单提供已记录的�
 | 自动构建任务质量核查与三模型试验 | `automatic_business_agents_20261126T143622Z` | [公开清单](../experiments/automatic_business_agent_pilot/manifest.json) |
 | 酒店与采购端到端自动构建 | `automatic_business_20261126T140730686Z` | [公开清单](../experiments/automatic_business_construction/manifest.json) |
 | Office 评分修复与共享预算对照 | `automatic_business_allocation_20261126_verified` | [公开清单](../experiments/automatic_business_decisions/manifest.json) |
+| 采购政策步骤与业务定义对照 | `automatic_business_policy_pair_agents_20261127T122650925493Z` | [公开清单](../experiments/automatic_business_policy_presentation/manifest.json) |
 | 对象关联、分组与排名构建 | `automatic_business_relational_20261127` | [公开清单](../experiments/automatic_business_programs/manifest.json) |
 | 统一业务对象与依赖图构建 | `automatic_business_unified_20261127` | [公开清单](../experiments/automatic_business_unified/manifest.json) |
 | 18 层采购案例三模型实测 | `automatic_business_unified_agents_20261127T120817246112Z` | [公开清单](../experiments/automatic_business_unified_agent_eval/manifest.json) |
