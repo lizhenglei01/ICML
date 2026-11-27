@@ -49,6 +49,19 @@ def api_route(route):
 def freeze(source):
     if (source / 'summary.json').is_file():
         summary = read(source / 'summary.json')
+        if summary.get('builder') == 'policy_presentation_pair':
+            from policy_presentation_eval import VARIANTS, verify_pair
+
+            packages = {name: source / 'case' / name for name in VARIANTS}
+            if (summary['passed'] is not True or set(summary['variants']) != set(packages)
+                    or verify_pair(*packages.values()) != summary['shared_sha256']):
+                raise ValueError('Expected the verified Word-only presentation pair')
+            frozen = runner.freeze_packages(packages, original_oracle=True)
+            for name, record in frozen.items():
+                record.update(topic=read(source / 'input.json')['topic'], layout=name,
+                              minimum_depth=summary['variants'][name]['minimum_depth'],
+                              minimum_files=summary['variants'][name]['minimum_files'])
+            return frozen
         if summary.get('passed') is True and summary.get('level') in {1, 2, 3, 4}:
             name = f"level{summary['level']}"
             frozen = runner.freeze_packages({name: source / 'case'}, original_oracle=True)
@@ -211,6 +224,8 @@ def main():
              ROOT / 'multifile_reconstruction/workspace_bench_lite38/responses_transport.py',
              *(Path(runner.__file__).parent / name for name in
                ('hotel_agent.py', 'hotel_office.py', 'hotel_visibility.py', 'scenario_bench.py', 'scenario_graph.py'))]
+    if set(frozen) <= {'steps', 'definitions'}:
+        files.append(ROOT / 'policy_presentation_eval.py')
     write(output / 'plan.json', {'run_id': output.name, 'base_commit': git('rev-parse', 'HEAD'),
           'models': {r:MODELS[r] for r in routes}, 'effort_requested': args.effort,
           'planned_trials': len(routes)*len(frozen), 'preflight_only': args.preflight_only,
